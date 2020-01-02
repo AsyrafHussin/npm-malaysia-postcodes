@@ -72,10 +72,6 @@ Example results
 ]
 ```
 
-```js
-const postcodes = allPostcodes;
-```
-
 ### getStates
 
 Return all states data
