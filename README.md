@@ -35,7 +35,7 @@ import {
 
 ### allPostcodes
 
-Return all postcodes with city and state data
+Return all postcodes data with city and state
 
 Example usage
 
