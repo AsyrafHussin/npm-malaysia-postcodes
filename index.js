@@ -56,7 +56,7 @@ const getPostcodes = (state, city) => {
   return postcodes;
 };
 
-// exports allvariable and function
+// exports all variable and function
 module.exports.allPostcodes = allPostcodes;
 module.exports.getStates = getStates;
 module.exports.getCities = getCities;
