@@ -7,6 +7,8 @@ const getStates = () => {
 
   allPostcodes.map(state => {
     states.push(state.name);
+
+    return null;
   });
 
   return states;
@@ -22,6 +24,8 @@ const getCities = state => {
 
       city.map(cityFilter => {
         cities.push(cityFilter.name);
+
+        return null;
       });
     }
     return null;
@@ -44,6 +48,8 @@ const getPostcodes = (state, city) => {
             .postcode
             .map(postcode => {
               postcodes.push(postcode);
+
+              return null;
             });
         }
 
