@@ -10,6 +10,7 @@ List of Malaysia Postcodes with City and State (JSON)
   - [getStates](#getStates)
   - [getCities](#getCities)
   - [getPostcodes](#getPostcodes)
+  - [findPostcode](#findPostcode)
 - [License](#license)
 
 ## Installation
@@ -171,7 +172,38 @@ Example results
   "17060",
   "17070"
 ];
+
+### findPostcode
+
+Return state and city data based on postcode
+
+Example usage
+
+```js
+const location = findPostcode("17070");
 ```
+
+Example found result
+
+```js
+{
+  "found": true,
+  "state": "Kelantan",
+  "city": "Pasir Mas"
+}
+```
+
+Example not found reult
+
+```js
+{
+  "found": false
+}
+```
+
+## Contributing
+
+If you spot any errors, typos or missing information, please submit a pull request.
 
 ## License
 
