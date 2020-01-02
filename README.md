@@ -28,7 +28,8 @@ import {
   allPostcodes,
   getStates,
   getCities,
-  getPostcodes
+  getPostcodes,
+  findPostcode
 } from "malaysia-postcodes";
 ```
 
