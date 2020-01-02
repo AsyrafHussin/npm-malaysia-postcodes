@@ -56,6 +56,7 @@ const getPostcodes = (state, city) => {
   return postcodes;
 };
 
+// find state and city based on postcode
 const findPostcode = postcode => {
   let result = {
     found: false
