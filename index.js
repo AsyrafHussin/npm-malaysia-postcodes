@@ -1,4 +1,5 @@
-const allPostcodes = require("./data.json");
+const data = require("./data.json");
+const allPostcodes = data.state;
 
 // get all available states
 const getStates = () => {
@@ -23,6 +24,7 @@ const getCities = state => {
         cities.push(cityFilter.name);
       });
     }
+    return null;
   });
 
   return cities;
@@ -37,13 +39,18 @@ const getPostcodes = (state, city) => {
       const cities = stateFilter.city;
 
       cities.filter(cityFilter => {
-        if (city.filter.toLowerCase() === city.toLowerCase()) {
-          cityFilter.map(postcode => {
-            postcodes.push(postcode);
-          });
+        if (cityFilter.name.toLowerCase() === city.toLowerCase()) {
+          cityFilter
+            .postcode
+            .map(postcode => {
+              postcodes.push(postcode);
+            });
         }
+
+        return null;
       });
     }
+    return null;
   });
 
   return postcodes;
