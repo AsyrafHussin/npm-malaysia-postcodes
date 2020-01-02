@@ -44,13 +44,7 @@ const getPostcodes = (state, city) => {
 
       cities.filter(cityFilter => {
         if (cityFilter.name.toLowerCase() === city.toLowerCase()) {
-          cityFilter
-            .postcode
-            .map(postcode => {
-              postcodes.push(postcode);
-
-              return null;
-            });
+          postcodes = cityFilter.postcode;
         }
 
         return null;
