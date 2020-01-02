@@ -56,8 +56,29 @@ const getPostcodes = (state, city) => {
   return postcodes;
 };
 
+const findPostcode = postcode => {
+  let result = {
+    found: false
+  };
+
+  allPostcodes.filter(state => {
+    state.city.map(city => {
+      if (city.postcode.includes(postcode)) {
+        result.found = true;
+        result.state = state.name;
+        result.city = city.name;
+      }
+      return null;
+    });
+    return null;
+  });
+
+  return result;
+};
+
 // exports all variable and function
 module.exports.allPostcodes = allPostcodes;
 module.exports.getStates = getStates;
 module.exports.getCities = getCities;
 module.exports.getPostcodes = getPostcodes;
+module.exports.findPostcode = findPostcode;
