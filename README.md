@@ -37,7 +37,40 @@ import {
 
 Return all postcodes with city and state data
 
-Example
+Example usage
+
+```js
+const postcodes = allPostcodes;
+```
+
+Example results
+
+```js
+[
+    {
+      "name": "Kelantan",
+      "city": [
+        {
+          "name": "Pasir Mas",
+          "postcode": [
+            "17000",
+            "17007",
+            "17009",
+            "17010",
+            "17020",
+            "17030",
+            "17040",
+            "17050",
+            "17060",
+            "17070"
+          ]
+        },
+        ...
+      ]
+    },
+    ...
+]
+```
 
 ```js
 const postcodes = allPostcodes;
@@ -47,20 +80,72 @@ const postcodes = allPostcodes;
 
 Return all states data
 
-Example
+Example usage
 
 ```js
 const states = getStates();
+```
+
+Example results
+
+```js
+[
+  "Wp Kuala Lumpur",
+  "Johor",
+  "Kedah",
+  "Kelantan",
+  "Melaka",
+  "Negeri Sembilan",
+  "Pahang",
+  "Penang",
+  "Perak",
+  "Perlis",
+  "Sabah",
+  "Sarawak",
+  "Selangor",
+  "Terengganu",
+  "Wp Labuan",
+  "Wp Putrajaya"
+];
 ```
 
 ### getCities
 
 Return all cities data based on selected state
 
-Example
+Example usage
 
 ```js
 const cities = getCities("Kelantan");
+```
+
+Example results
+
+```js
+[
+  "Ayer Lanas",
+  "Bachok",
+  "Cherang Ruku",
+  "Dabong",
+  "Gua Musang",
+  "Jeli",
+  "Kem Desa Pahlawan",
+  "Ketereh",
+  "Kota Bharu",
+  "Kuala Balah",
+  "Kuala Krai",
+  "Machang",
+  "Melor",
+  "Pasir Mas",
+  "Pasir Puteh",
+  "Pulai Chondong",
+  "Rantau Panjang",
+  "Selising",
+  "Tanah Merah",
+  "Temangan",
+  "Tumpat",
+  "Wakaf Bharu"
+];
 ```
 
 ###
@@ -69,10 +154,27 @@ const cities = getCities("Kelantan");
 
 Return all postcodes data based on selected state and city
 
-Example
+Example usage
 
 ```js
 const postcodes = getPostcodes("Kelantan", "Pasir Mas");
+```
+
+Example results
+
+```js
+[
+  "17000",
+  "17007",
+  "17009",
+  "17010",
+  "17020",
+  "17030",
+  "17040",
+  "17050",
+  "17060",
+  "17070"
+];
 ```
 
 ## License
