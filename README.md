@@ -185,7 +185,7 @@ Example usage
 const location = findPostcode("17070");
 ```
 
-Example found result
+Example result if postcode found
 
 ```js
 {
@@ -195,7 +195,7 @@ Example found result
 }
 ```
 
-Example not found reult
+Example result if postcode not found
 
 ```js
 {
