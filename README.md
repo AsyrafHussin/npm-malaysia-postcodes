@@ -172,6 +172,7 @@ Example results
   "17060",
   "17070"
 ];
+```
 
 ### findPostcode
 
