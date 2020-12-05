@@ -2,6 +2,10 @@
 
 List of Malaysia Postcodes with City and State (JSON)
 
+[![Version](https://img.shields.io/npm/v/malaysia-postcodes.svg)](https://npmjs.org/package/malaysia-postcodes)
+[![Downloads/week](https://img.shields.io/npm/dw/malaysia-postcodes.svg)](https://npmjs.org/package/malaysia-postcodes)
+[![License](https://img.shields.io/npm/l/malaysia-postcodes.svg)](https://github.com/AsyrafHussin/malaysia-postcodes/blob/master/package.json)
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -29,7 +33,7 @@ import {
   getStates,
   getCities,
   getPostcodes,
-  findPostcode
+  findPostcode,
 } from "malaysia-postcodes";
 ```
 
@@ -103,7 +107,7 @@ Example results
   "Selangor",
   "Terengganu",
   "Wp Labuan",
-  "Wp Putrajaya"
+  "Wp Putrajaya",
 ];
 ```
 
@@ -142,7 +146,7 @@ Example results
   "Tanah Merah",
   "Temangan",
   "Tumpat",
-  "Wakaf Bharu"
+  "Wakaf Bharu",
 ];
 ```
 
@@ -171,7 +175,7 @@ Example results
   "17040",
   "17050",
   "17060",
-  "17070"
+  "17070",
 ];
 ```
 
