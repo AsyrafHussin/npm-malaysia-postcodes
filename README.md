@@ -213,4 +213,4 @@ If you spot any errors, typos or missing information, please submit a pull reque
 
 ## License
 
-MIT. See [LICENSE](LICENSE) for more details.
+ISC. See [LICENSE](LICENSE) for more details.
