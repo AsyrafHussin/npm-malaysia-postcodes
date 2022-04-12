@@ -19,7 +19,7 @@ List of Malaysia Postcodes with City and State (JSON)
 Install the package from NPM.
 
 ```bash
-npm i malaysia-postcodes
+npm i postcodes-malaysia
 ```
 
 Include it in your script.
