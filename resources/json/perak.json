@@ -1,0 +1,914 @@
+[
+	{
+		"postcode" : ["30000"],
+		"name" : "Bangunan Kerajaan Negeri"
+	},
+	{
+		"postcode" : ["30010"],
+		"name" : "Anjung Tawas Damai"
+	},
+	{
+		"postcode" : ["30020"],
+		"name" : "Jalan Alang Ishak"
+	},
+	{
+		"postcode" : ["30100"],
+		"name" : "Buntong Jaya"
+	},
+	{
+		"postcode" : ["30200"],
+		"name" : "Bengkel Workshop MBI Falim"
+	},
+	{
+		"postcode" : ["30250"],
+		"name" : "Hala Batu Bungkal"
+	},
+	{
+		"postcode" : ["30300"],
+		"name" : "Anderson Drive"
+	},
+	{
+		"postcode" : ["30350"],
+		"name" : "Brash Drive"
+	},
+	{
+		"postcode" : ["30450"],
+		"name" : "Galeri Suria"
+	},
+	{
+		"postcode" : ["30500"],
+		"name" : "DYMM Sultan Perak"
+	},
+	{
+		"postcode" : ["30502"],
+		"name" : "YAB Menteri Besar Perak"
+	},
+	{
+		"postcode" : ["30503"],
+		"name" : "Pusat Khidmat Kontraktor"
+	},
+	{
+		"postcode" : ["30504"],
+		"name" : "Biro Bantuan Guaman"
+	},
+	{
+		"postcode" : ["30505"],
+		"name" : "Biro Pengaduan Awam"
+	},
+	{
+		"postcode" : ["30506"],
+		"name" : "Mahkamah Tinggi"
+	},
+	{
+		"postcode" : ["30508"],
+		"name" : "Amanah Raya Berhad"
+	},
+	{
+		"postcode" : ["30510"],
+		"name" : "Jabatan Perkhidmatan Awam"
+	},
+	{
+		"postcode" : ["30512"],
+		"name" : "Penasihat Undang-Undang Negeri"
+	},
+	{
+		"postcode" : ["30516"],
+		"name" : "Jabatan Pemegang Harta"
+	},
+	{
+		"postcode" : ["30517"],
+		"name" : "Jabatan Perpaduan Negara"
+	},
+	{
+		"postcode" : ["30518"],
+		"name" : "Ketua Audit Negeri"
+	},
+	{
+		"postcode" : ["30519"],
+		"name" : "Majlis Agama Islam Perak"
+	},
+	{
+		"postcode" : ["30520"],
+		"name" : "Suruhanjaya Perkhidmatan Awam"
+	},
+	{
+		"postcode" : ["30524"],
+		"name" : "Setiausaha Keselamatan Negeri"
+	},
+	{
+		"postcode" : ["30532"],
+		"name" : "Jabatan Sumber Manusia"
+	},
+	{
+		"postcode" : ["30534"],
+		"name" : "Jabatan Kilang & Jentera"
+	},
+	{
+		"postcode" : ["30536"],
+		"name" : "Jabatan Perhubungan Perusahaan"
+	},
+	{
+		"postcode" : ["30540"],
+		"name" : "Jabatan Tenaga Rakyat"
+	},
+	{
+		"postcode" : ["30542"],
+		"name" : "Pendaftar Kesatuan Sekerja"
+	},
+	{
+		"postcode" : ["30546"],
+		"name" : "Pejabat Rela Negeri"
+	},
+	{
+		"postcode" : ["30548"],
+		"name" : "Jabatan Hal Ehwal Orang Asli"
+	},
+	{
+		"postcode" : ["30550"],
+		"name" : "Jabatan Imigresen"
+	},
+	{
+		"postcode" : ["30551"],
+		"name" : "Jabatan Pendaftaran Negara"
+	},
+	{
+		"postcode" : ["30552"],
+		"name" : "Jabatan Pendaftar Pertubuhan"
+	},
+	{
+		"postcode" : ["30554"],
+		"name" : "Percetakan Nasional Bhd"
+	},
+	{
+		"postcode" : ["30556"],
+		"name" : "Jabatan Pertahanan Awam"
+	},
+	{
+		"postcode" : ["30560"],
+		"name" : "Ketua Polis Negeri"
+	},
+	{
+		"postcode" : ["30564"],
+		"name" : "Jabatan Kebajikan Masyarakat"
+	},
+	{
+		"postcode" : ["30570"],
+		"name" : "Jabatan Belia & Sukan"
+	},
+	{
+		"postcode" : ["30576"],
+		"name" : "Jabatan Tanah & Galian"
+	},
+	{
+		"postcode" : ["30580"],
+		"name" : "Lembaga Air Perak"
+	},
+	{
+		"postcode" : ["30582"],
+		"name" : "Jabatan Kerja Raya"
+	},
+	{
+		"postcode" : ["30586"],
+		"name" : "Hospital Ipoh"
+	},
+	{
+		"postcode" : ["30590"],
+		"name" : "Jabatan Kesihatan"
+	},
+	{
+		"postcode" : ["30592"],
+		"name" : "Jabatan Penilaian Harta"
+	},
+	{
+		"postcode" : ["30594"],
+		"name" : "Akauntan Negeri"
+	},
+	{
+		"postcode" : ["30596"],
+		"name" : "Jabatan Kastam & Eksais Di Raja"
+	},
+	{
+		"postcode" : ["30600"],
+		"name" : "Lembaga Hasil Dalam Negeri"
+	},
+	{
+		"postcode" : ["30604"],
+		"name" : "Jabatan Pendidikan"
+	},
+	{
+		"postcode" : ["30606"],
+		"name" : "Jabatan Kemajuan Masyarakat (Kemas)"
+	},
+	{
+		"postcode" : ["30609"],
+		"name" : "Pejabat Mara Negeri"
+	},
+	{
+		"postcode" : ["30610"],
+		"name" : "Bahagian Pelesenan - Kementerian Penerangan"
+	},
+	{
+		"postcode" : ["30612"],
+		"name" : "Jabatan Penerangan"
+	},
+	{
+		"postcode" : ["30614"],
+		"name" : "Jabatan Penyiaran"
+	},
+	{
+		"postcode" : ["30620"],
+		"name" : "Jabatan Pengangkutan Jalan"
+	},
+	{
+		"postcode" : ["30621"],
+		"name" : "Keretapi Tanah Melayu Bhd"
+	},
+	{
+		"postcode" : ["30622"],
+		"name" : "Jabatan Pendaftar Perniagaan"
+	},
+	{
+		"postcode" : ["30626"],
+		"name" : "Jabatan Pengairan & Saliran"
+	},
+	{
+		"postcode" : ["30628"],
+		"name" : "Jabatan Perikanan"
+	},
+	{
+		"postcode" : ["30630"],
+		"name" : "Institut Penyelidikan Haiwan"
+	},
+	{
+		"postcode" : ["30632"],
+		"name" : "Jabatan Pertanian"
+	},
+	{
+		"postcode" : ["30634"],
+		"name" : "Kementerian Pertahanan - 2 Briged Infanteri"
+	},
+	{
+		"postcode" : ["30644"],
+		"name" : "Majlis Bandaraya Ipoh"
+	},
+	{
+		"postcode" : ["30646"],
+		"name" : "Jabatan Perancang Bandar & Desa"
+	},
+	{
+		"postcode" : ["30648"],
+		"name" : "Jabatan Bomba & Penyelamat"
+	},
+	{
+		"postcode" : ["30656"],
+		"name" : "Jabatan Galian"
+	},
+	{
+		"postcode" : ["30658"],
+		"name" : "Makmal Penyiasat Kajibumi"
+	},
+	{
+		"postcode" : ["30660"],
+		"name" : "Jabatan Perhutanan"
+	},
+	{
+		"postcode" : ["30661"],
+		"name" : "Padi & Beras Nasional (Bernas)"
+	},
+	{
+		"postcode" : ["30662"],
+		"name" : "Jabatan Kimia"
+	},
+	{
+		"postcode" : ["30664"],
+		"name" : "Jabatan Perhilitan"
+	},
+	{
+		"postcode" : ["30668"],
+		"name" : "Jabatan Bekalan Elektrik"
+	},
+	{
+		"postcode" : ["30670"],
+		"name" : "Pos Malaysia Berhad"
+	},
+	{
+		"postcode" : ["30673"],
+		"name" : "Tenaga Nasional Berhad"
+	},
+	{
+		"postcode" : ["30674"],
+		"name" : "Pegawai Kemajuan Negeri"
+	},
+	{
+		"postcode" : ["30676"],
+		"name" : "Jabatan Agama Islam Perak"
+	},
+	{
+		"postcode" : ["30682"],
+		"name" : "Penyimpan Mohor Besar Raja-Raja"
+	},
+	{
+		"postcode" : ["30690"],
+		"name" : "Suruhanjaya Pilihan Raya Negeri"
+	},
+	{
+		"postcode" : ["30700"],
+		"name" : "Peti Surat 1 - 73"
+	},
+	{
+		"postcode" : ["30710"],
+		"name" : "Peti Surat 76 - 92"
+	},
+	{
+		"postcode" : ["30720"],
+		"name" : "Peti Surat 151 - 216"
+	},
+	{
+		"postcode" : ["30730"],
+		"name" : "Peti Surat 218 - 225"
+	},
+	{
+		"postcode" : ["30740"],
+		"name" : "Peti Surat 255 - 300"
+	},
+	{
+		"postcode" : ["30750"],
+		"name" : "Peti Surat 376 - 420"
+	},
+	{
+		"postcode" : ["30760"],
+		"name" : "Peti Surat 526 - 600"
+	},
+	{
+		"postcode" : ["30770"],
+		"name" : "Peti Surat 601 - 675"
+	},
+	{
+		"postcode" : ["30780"],
+		"name" : "Peti Surat 676 - 750"
+	},
+	{
+		"postcode" : ["30790"],
+		"name" : "Peti Surat 751 - 825"
+	},
+	{
+		"postcode" : ["30800"],
+		"name" : "Peti Surat 826 - 900"
+	},
+	{
+		"postcode" : ["30810"],
+		"name" : "Peti Surat 901 - 975"
+	},
+	{
+		"postcode" : ["30820"],
+		"name" : "Peti Surat 976 - 1050"
+	},
+	{
+		"postcode" : ["30830"],
+		"name" : "Peti Surat 1051 - 1125"
+	},
+	{
+		"postcode" : ["30840"],
+		"name" : "Peti Surat 1126 & Ke Atas"
+	},
+	{
+		"postcode" : ["30900"],
+		"name" : "Peti Surat 74"
+	},
+	{
+		"postcode" : ["30902"],
+		"name" : "Peti Surat 93"
+	},
+	{
+		"postcode" : ["30904"],
+		"name" : "Peti Surat 217"
+	},
+	{
+		"postcode" : ["30906"],
+		"name" : "Peti Surat 250"
+	},
+	{
+		"postcode" : ["30908"],
+		"name" : "Peti Surat 254"
+	},
+	{
+		"postcode" : ["30910"],
+		"name" : "Peti Surat 421"
+	},
+	{
+		"postcode" : ["30912"],
+		"name" : "Peti Surat 450"
+	},
+	{
+		"postcode" : ["30988"],
+		"name" : "Badan Pencegah Rasuah"
+	},
+	{
+		"postcode" : ["30990"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["31000"],
+		"name" : "Batu Gajah"
+	},
+	{
+		"postcode" : ["31007"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["31009"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["31050"],
+		"name" : "Kampung Jawang"
+	},
+	{
+		"postcode" : ["31100"],
+		"name" : "Back Lane Salak"
+	},
+	{
+		"postcode" : ["31150"],
+		"name" : "Arena Perpaduan Sentosa"
+	},
+	{
+		"postcode" : ["31200"],
+		"name" : "Bandar Baru Sri Klebang"
+	},
+	{
+		"postcode" : ["31250"],
+		"name" : "Changkat Kinding"
+	},
+	{
+		"postcode" : ["31300"],
+		"name" : "Bandar Pulai Jaya"
+	},
+	{
+		"postcode" : ["31350"],
+		"name" : "Ampang Baru"
+	},
+	{
+		"postcode" : ["31400"],
+		"name" : "Anika Selera Centre"
+	},
+	{
+		"postcode" : ["31407"],
+		"name" : "Taman Peti Surat 1 & Ke Atas"
+	},
+	{
+		"postcode" : ["31409"],
+		"name" : "Taman Beg Berkunci"
+	},
+	{
+		"postcode" : ["31450"],
+		"name" : "Bukit Kledang Indah"
+	},
+	{
+		"postcode" : ["31500"],
+		"name" : "Bandar Pengkalan Indah"
+	},
+	{
+		"postcode" : ["31550"],
+		"name" : "Bandar Sri Pengkalan"
+	},
+	{
+		"postcode" : ["31560"],
+		"name" : "Kampung Piandang"
+	},
+	{
+		"postcode" : ["31600"],
+		"name" : "Desa Lawan Kuda"
+	},
+	{
+		"postcode" : ["31610"],
+		"name" : "Changkat Legong"
+	},
+	{
+		"postcode" : ["31650"],
+		"name" : "Dataran Pengkalan Barat"
+	},
+	{
+		"postcode" : ["31700"],
+		"name" : "Changkat Bendera"
+	},
+	{
+		"postcode" : ["31750"],
+		"name" : "Bali Emas"
+	},
+	{
+		"postcode" : ["31800"],
+		"name" : "Changkat Tin"
+	},
+	{
+		"postcode" : ["31850"],
+		"name" : "Jalan Baru (Kuala Dipang)"
+	},
+	{
+		"postcode" : ["31900"],
+		"name" : "Aston Settelement"
+	},
+	{
+		"postcode" : ["31907"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["31909"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["31910"],
+		"name" : "Ayer Hitam Labu"
+	},
+	{
+		"postcode" : ["31920"],
+		"name" : "Kampung Tersusun Air Kuning"
+	},
+	{
+		"postcode" : ["31950"],
+		"name" : "Kampung Baru Ayer Kuning"
+	},
+	{
+		"postcode" : ["32000"],
+		"name" : "Acheh Baru"
+	},
+	{
+		"postcode" : ["32040"],
+		"name" : "Bangunan Mahkamah Majistret"
+	},
+	{
+		"postcode" : ["32100"],
+		"name" : "Pengkalan Tentera Laut Diraja Malaysia (TLDM)"
+	},
+	{
+		"postcode" : ["32200"],
+		"name" : "Batu 1 Jalan Lumut"
+	},
+	{
+		"postcode" : ["32300"],
+		"name" : "Jalan Belakang Pangkor"
+	},
+	{
+		"postcode" : ["32400"],
+		"name" : "Api Kong"
+	},
+	{
+		"postcode" : ["32500"],
+		"name" : "Belakang Taman Teck Seng"
+	},
+	{
+		"postcode" : ["32600"],
+		"name" : "Ayer Mati"
+	},
+	{
+		"postcode" : ["32610"],
+		"name" : "Bandar Baru Seri Iskandar"
+	},
+	{
+		"postcode" : ["32700"],
+		"name" : "Batu Hampar"
+	},
+	{
+		"postcode" : ["32800"],
+		"name" : "Alor Kechor"
+	},
+	{
+		"postcode" : ["32900"],
+		"name" : "Bota Kiri"
+	},
+	{
+		"postcode" : ["33000"],
+		"name" : "Bendang Panjang"
+	},
+	{
+		"postcode" : ["33007"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["33009"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["33010"],
+		"name" : "Hujong Tanjong"
+	},
+	{
+		"postcode" : ["33020"],
+		"name" : "Bendung Ujib"
+	},
+	{
+		"postcode" : ["33030"],
+		"name" : "Kampung Belukar Kunyit"
+	},
+	{
+		"postcode" : ["33040"],
+		"name" : "Bendang Kering"
+	},
+	{
+		"postcode" : ["33100"],
+		"name" : "Bukit Berapit"
+	},
+	{
+		"postcode" : ["33200"],
+		"name" : "Intan"
+	},
+	{
+		"postcode" : ["33300"],
+		"name" : "Ayer Ganda"
+	},
+	{
+		"postcode" : ["33310"],
+		"name" : "Ayer Musang"
+	},
+	{
+		"postcode" : ["33320"],
+		"name" : "Bandariang"
+	},
+	{
+		"postcode" : ["33400"],
+		"name" : "Batu Dinding"
+	},
+	{
+		"postcode" : ["33410"],
+		"name" : "Ayer Bogak"
+	},
+	{
+		"postcode" : ["33420"],
+		"name" : "Ayer Kala"
+	},
+	{
+		"postcode" : ["33500"],
+		"name" : "Aras Estate"
+	},
+	{
+		"postcode" : ["33600"],
+		"name" : "Beluru"
+	},
+	{
+		"postcode" : ["33700"],
+		"name" : "Bawah Gunung"
+	},
+	{
+		"postcode" : ["33800"],
+		"name" : "Ara Panjang"
+	},
+	{
+		"postcode" : ["34000"],
+		"name" : "Asam Kumbang"
+	},
+	{
+		"postcode" : ["34007"],
+		"name" : "Peti Surat 1 - 80"
+	},
+	{
+		"postcode" : ["34008"],
+		"name" : "Peti Surat 81 & Ke Atas"
+	},
+	{
+		"postcode" : ["34009"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["34010"],
+		"name" : "Kampung Api Sungai"
+	},
+	{
+		"postcode" : ["34020"],
+		"name" : "Batu 11 Balik Bukit"
+	},
+	{
+		"postcode" : ["34030"],
+		"name" : "Banggol Chempaka"
+	},
+	{
+		"postcode" : ["34100"],
+		"name" : "Jalan Abdul Karim"
+	},
+	{
+		"postcode" : ["34120"],
+		"name" : "Taman Seri Jaya"
+	},
+	{
+		"postcode" : ["34130"],
+		"name" : "Felda Ijok"
+	},
+	{
+		"postcode" : ["34140"],
+		"name" : "Banggol Jas"
+	},
+	{
+		"postcode" : ["34200"],
+		"name" : "Jalan Bawah Sungai Bakau"
+	},
+	{
+		"postcode" : ["34250"],
+		"name" : "Bagan Cina"
+	},
+	{
+		"postcode" : ["34300"],
+		"name" : "Alor Penyengat"
+	},
+	{
+		"postcode" : ["34310"],
+		"name" : "Bukit Merah"
+	},
+	{
+		"postcode" : ["34350"],
+		"name" : "Bagan Seberang"
+	},
+	{
+		"postcode" : ["34400"],
+		"name" : "Alor Setanggok"
+	},
+	{
+		"postcode" : ["34500"],
+		"name" : "Anak Kurau"
+	},
+	{
+		"postcode" : ["34510"],
+		"name" : "Ayer Simpol"
+	},
+	{
+		"postcode" : ["34520"],
+		"name" : "Ayer Hitam"
+	},
+	{
+		"postcode" : ["34600"],
+		"name" : "Bukit Jana"
+	},
+	{
+		"postcode" : ["34650"],
+		"name" : "Kampung Baru (Jalan Arang)"
+	},
+	{
+		"postcode" : ["34700"],
+		"name" : "Ayer Putih"
+	},
+	{
+		"postcode" : ["34750"],
+		"name" : "Bagan Midah"
+	},
+	{
+		"postcode" : ["34800"],
+		"name" : "Ayer Terjun"
+	},
+	{
+		"postcode" : ["34850"],
+		"name" : "Ayer Kuning"
+	},
+	{
+		"postcode" : ["34900"],
+		"name" : "Bagan Panchor"
+	},
+	{
+		"postcode" : ["35000"],
+		"name" : "Batang Estate"
+	},
+	{
+		"postcode" : ["35007"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["35009"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["35300"],
+		"name" : "Chenderiang"
+	},
+	{
+		"postcode" : ["35350"],
+		"name" : "Jalan Kampar - Temoh"
+	},
+	{
+		"postcode" : ["35400"],
+		"name" : "Banir New Village"
+	},
+	{
+		"postcode" : ["35500"],
+		"name" : "Bedrock Estate"
+	},
+	{
+		"postcode" : ["35600"],
+		"name" : "Belakang Pasar"
+	},
+	{
+		"postcode" : ["35700"],
+		"name" : "Felda Trolak Timur"
+	},
+	{
+		"postcode" : ["35800"],
+		"name" : "Bandar Baru"
+	},
+	{
+		"postcode" : ["35820"],
+		"name" : "Felda Sungai Behrang"
+	},
+	{
+		"postcode" : ["35900"],
+		"name" : "Changkat Asa"
+	},
+	{
+		"postcode" : ["35907"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["35909"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["35910"],
+		"name" : "Kampung Sekolah"
+	},
+	{
+		"postcode" : ["35950"],
+		"name" : "Balai Polis Behrang Stesen"
+	},
+	{
+		"postcode" : ["36000"],
+		"name" : "Antek Avenue"
+	},
+	{
+		"postcode" : ["36007"],
+		"name" : "Peti Surat 1 - 80"
+	},
+	{
+		"postcode" : ["36008"],
+		"name" : "Bandan Pencegah Rasuah Jalan Speedy"
+	},
+	{
+		"postcode" : ["36009"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["36010"],
+		"name" : "Kampung Batu 9"
+	},
+	{
+		"postcode" : ["36020"],
+		"name" : "Kampung Baru (19 KM)"
+	},
+	{
+		"postcode" : ["36030"],
+		"name" : "Ayer Hitam"
+	},
+	{
+		"postcode" : ["36100"],
+		"name" : "Bagan Datoh"
+	},
+	{
+		"postcode" : ["36110"],
+		"name" : "Kampung Simpang Ampat Rungkup"
+	},
+	{
+		"postcode" : ["36200"],
+		"name" : "Bagan Pasir Laut"
+	},
+	{
+		"postcode" : ["36207"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["36209"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["36300"],
+		"name" : "Kampung Bagan Parit 4"
+	},
+	{
+		"postcode" : ["36307"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["36309"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["36400"],
+		"name" : "Bagan Lalang"
+	},
+	{
+		"postcode" : ["36500"],
+		"name" : "Bahagian Selangor"
+	},
+	{
+		"postcode" : ["36600"],
+		"name" : "Chenderong Balai"
+	},
+	{
+		"postcode" : ["36700"],
+		"name" : "Degong Ratanui Camp"
+	},
+	{
+		"postcode" : ["36750"],
+		"name" : "Chikus"
+	},
+	{
+		"postcode" : ["36800"],
+		"name" : "Bandar Tua"
+	},
+	{
+		"postcode" : ["36810"],
+		"name" : "Bandar Ayer"
+	}
+]

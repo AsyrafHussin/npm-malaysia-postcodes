@@ -1,0 +1,886 @@
+[
+	{
+		"postcode" : ["93000"],
+		"name" : "Jalan Badruddin"
+	},
+	{
+		"postcode" : ["93010"],
+		"name" : "Bengoh"
+	},
+	{
+		"postcode" : ["93050"],
+		"name" : "Bintawa Batu"
+	},
+	{
+		"postcode" : ["93100"],
+		"name" : "Green Hill"
+	},
+	{
+		"postcode" : ["93150"],
+		"name" : "Green Road"
+	},
+	{
+		"postcode" : ["93200"],
+		"name" : "Batu Lintang"
+	},
+	{
+		"postcode" : ["93250"],
+		"name" : "Batu Kawa Commercial Centre"
+	},
+	{
+		"postcode" : ["93300"],
+		"name" : "Jalan Berjaya"
+	},
+	{
+		"postcode" : ["93350"],
+		"name" : "Happy Valley"
+	},
+	{
+		"postcode" : ["93400"],
+		"name" : "Jalan Abang Ateh"
+	},
+	{
+		"postcode" : ["93450"],
+		"name" : "Bintawa Village"
+	},
+	{
+		"postcode" : ["93500"],
+		"name" : "TYT Yang Di Pertua Negeri Sarawak"
+	},
+	{
+		"postcode" : ["93502"],
+		"name" : "YAB Ketua Menteri Sarawak"
+	},
+	{
+		"postcode" : ["93503"],
+		"name" : "Setiausaha Kerajaan Negeri"
+	},
+	{
+		"postcode" : ["93504"],
+		"name" : "Biro Bantuan Guaman"
+	},
+	{
+		"postcode" : ["93505"],
+		"name" : "Biro Pengaduan Awam"
+	},
+	{
+		"postcode" : ["93506"],
+		"name" : "Jabatan Kehakiman/Mahkamah Tinggi"
+	},
+	{
+		"postcode" : ["93507"],
+		"name" : "Pusat Latihan Perkhidmatan Awam (Intan)"
+	},
+	{
+		"postcode" : ["93508"],
+		"name" : "Amanah Raya Berhad"
+	},
+	{
+		"postcode" : ["93514"],
+		"name" : "Jabatan Perangkaan"
+	},
+	{
+		"postcode" : ["93516"],
+		"name" : "Jabatan Pemegang Harta"
+	},
+	{
+		"postcode" : ["93517"],
+		"name" : "Jabatan Perpaduan Negara"
+	},
+	{
+		"postcode" : ["93518"],
+		"name" : "Jabatan Audit Negeri"
+	},
+	{
+		"postcode" : ["93519"],
+		"name" : "Majlis Agama Islam Sarawak"
+	},
+	{
+		"postcode" : ["93520"],
+		"name" : "Suruhanjaya Perkhidmatan Awam Persekutuan"
+	},
+	{
+		"postcode" : ["93527"],
+		"name" : "Unit Pemodenan & Tenaga Manusia"
+	},
+	{
+		"postcode" : ["93529"],
+		"name" : "Unit Penyelidikan Sosio Ekonomi"
+	},
+	{
+		"postcode" : ["93532"],
+		"name" : "Jabatan Sumber Manusia"
+	},
+	{
+		"postcode" : ["93540"],
+		"name" : "Jabatan Tenaga Rakyat"
+	},
+	{
+		"postcode" : ["93550"],
+		"name" : "Jabatan Imigresen"
+	},
+	{
+		"postcode" : ["93551"],
+		"name" : "Jabatan Pendaftaran Negara"
+	},
+	{
+		"postcode" : ["93552"],
+		"name" : "Jabatan Pendaftar Pertubuhan"
+	},
+	{
+		"postcode" : ["93554"],
+		"name" : "Percetakan Nasional Berhad"
+	},
+	{
+		"postcode" : ["93556"],
+		"name" : "Jabatan Pertahanan Awam"
+	},
+	{
+		"postcode" : ["93558"],
+		"name" : "Jabatan Penjara"
+	},
+	{
+		"postcode" : ["93560"],
+		"name" : "Ketua Polis Negeri"
+	},
+	{
+		"postcode" : ["93564"],
+		"name" : "Jabatan Kebajikan Masyarakat"
+	},
+	{
+		"postcode" : ["93566"],
+		"name" : "Muzium Negeri Sarawak"
+	},
+	{
+		"postcode" : ["93570"],
+		"name" : "Jabatan Belia Dan Sukan"
+	},
+	{
+		"postcode" : ["93572"],
+		"name" : "Perpustakaan Awam Negeri"
+	},
+	{
+		"postcode" : ["93576"],
+		"name" : "Jabatan Tanah & Galian"
+	},
+	{
+		"postcode" : ["93578"],
+		"name" : "Jabatan Ukur & Pemetaan"
+	},
+	{
+		"postcode" : ["93582"],
+		"name" : "Jabatan Kerja Raya"
+	},
+	{
+		"postcode" : ["93586"],
+		"name" : "Hospital Kuching"
+	},
+	{
+		"postcode" : ["93590"],
+		"name" : "Jabatan Kesihatan"
+	},
+	{
+		"postcode" : ["93592"],
+		"name" : "Pegawai Kewangan Negeri"
+	},
+	{
+		"postcode" : ["93594"],
+		"name" : "Akauntan Negeri"
+	},
+	{
+		"postcode" : ["93596"],
+		"name" : "Jabatan Kastam & Eksais Di Raja"
+	},
+	{
+		"postcode" : ["93600"],
+		"name" : "Lembaga Hasil Dalam Negeri"
+	},
+	{
+		"postcode" : ["93604"],
+		"name" : "Jabatan Pendidikan"
+	},
+	{
+		"postcode" : ["93606"],
+		"name" : "Jabatan Kemajuan Masyarakat (Kemas)"
+	},
+	{
+		"postcode" : ["93608"],
+		"name" : "Jabatan Pembangunan Koperasi"
+	},
+	{
+		"postcode" : ["93609"],
+		"name" : "Pejabat Mara Negeri"
+	},
+	{
+		"postcode" : ["93610"],
+		"name" : "Bahagian Pelesenan - Kementerian Penerangan"
+	},
+	{
+		"postcode" : ["93612"],
+		"name" : "Jabatan Penerangan"
+	},
+	{
+		"postcode" : ["93614"],
+		"name" : "Jabatan Penyiaran"
+	},
+	{
+		"postcode" : ["93618"],
+		"name" : "Jabatan Penerbangan Awam"
+	},
+	{
+		"postcode" : ["93619"],
+		"name" : "Jabatan Laut"
+	},
+	{
+		"postcode" : ["93620"],
+		"name" : "Jabatan Pengangkutan Jalan"
+	},
+	{
+		"postcode" : ["93626"],
+		"name" : "Jabatan Pengairan & Saliran"
+	},
+	{
+		"postcode" : ["93628"],
+		"name" : "Jabatan Perikanan"
+	},
+	{
+		"postcode" : ["93632"],
+		"name" : "Jabatan Pertanian"
+	},
+	{
+		"postcode" : ["93634"],
+		"name" : "Kementerian Pertahanan Sarawak"
+	},
+	{
+		"postcode" : ["93648"],
+		"name" : "Jabatan Bomba & Penyelamat"
+	},
+	{
+		"postcode" : ["93658"],
+		"name" : "Jabatan Kajibumi"
+	},
+	{
+		"postcode" : ["93660"],
+		"name" : "Jabatan Perhutanan"
+	},
+	{
+		"postcode" : ["93661"],
+		"name" : "Padi & Beras Nasional (Bernas)"
+	},
+	{
+		"postcode" : ["93662"],
+		"name" : "Jabatan Kajicuaca"
+	},
+	{
+		"postcode" : ["93670"],
+		"name" : "Pos Malaysia Berhad"
+	},
+	{
+		"postcode" : ["93672"],
+		"name" : "Telekom Malaysia Berhad"
+	},
+	{
+		"postcode" : ["93677"],
+		"name" : "Penrissen Kem"
+	},
+	{
+		"postcode" : ["93690"],
+		"name" : "Suruhanjaya Pilihanraya Negeri"
+	},
+	{
+		"postcode" : ["93694"],
+		"name" : "Jabatan Kebudayaan Dan Kesenian"
+	},
+	{
+		"postcode" : ["93700"],
+		"name" : "Peti Surat 1 - 11"
+	},
+	{
+		"postcode" : ["93702"],
+		"name" : "Peti Surat 151 - 250"
+	},
+	{
+		"postcode" : ["93704"],
+		"name" : "Peti Surat 251 - 350"
+	},
+	{
+		"postcode" : ["93706"],
+		"name" : "Peti Surat 351 - 399"
+	},
+	{
+		"postcode" : ["93708"],
+		"name" : "Peti Surat 401 - 450"
+	},
+	{
+		"postcode" : ["93710"],
+		"name" : "Peti Surat 451 - 481"
+	},
+	{
+		"postcode" : ["93712"],
+		"name" : "Peti Surat 551 - 638"
+	},
+	{
+		"postcode" : ["93714"],
+		"name" : "Peti Surat 651 - 750"
+	},
+	{
+		"postcode" : ["93716"],
+		"name" : "Peti Surat 751 - 850"
+	},
+	{
+		"postcode" : ["93718"],
+		"name" : "Peti Surat 851 - 950"
+	},
+	{
+		"postcode" : ["93720"],
+		"name" : "Peti Surat 951 - 1050"
+	},
+	{
+		"postcode" : ["93722"],
+		"name" : "Peti Surat 1051 - 1147"
+	},
+	{
+		"postcode" : ["93724"],
+		"name" : "Peti Surat 1151 - 1250"
+	},
+	{
+		"postcode" : ["93726"],
+		"name" : "Peti Surat 1251 - 1257"
+	},
+	{
+		"postcode" : ["93728"],
+		"name" : "Peti Surat 1351 - 1432"
+	},
+	{
+		"postcode" : ["93730"],
+		"name" : "Peti Surat 1451 - 1550"
+	},
+	{
+		"postcode" : ["93732"],
+		"name" : "Peti Surat 1551 - 1650"
+	},
+	{
+		"postcode" : ["93734"],
+		"name" : "Peti Surat 1651 - 1652"
+	},
+	{
+		"postcode" : ["93736"],
+		"name" : "Peti Surat 1751 - 1850"
+	},
+	{
+		"postcode" : ["93738"],
+		"name" : "Peti Surat 1851 - 1950"
+	},
+	{
+		"postcode" : ["93740"],
+		"name" : "Peti Surat 1951 - 2050"
+	},
+	{
+		"postcode" : ["93742"],
+		"name" : "Peti Surat 2051 - 2150"
+	},
+	{
+		"postcode" : ["93744"],
+		"name" : "Peti Surat 2151 - 2250"
+	},
+	{
+		"postcode" : ["93746"],
+		"name" : "Peti Surat 2251 - 2350"
+	},
+	{
+		"postcode" : ["93748"],
+		"name" : "Peti Surat 2351 - 2500"
+	},
+	{
+		"postcode" : ["93750"],
+		"name" : "Peti Surat 2501 - 2600"
+	},
+	{
+		"postcode" : ["93752"],
+		"name" : "Peti Surat 2601 - 2700"
+	},
+	{
+		"postcode" : ["93754"],
+		"name" : "Peti Surat 2701 - 2840"
+	},
+	{
+		"postcode" : ["93756"],
+		"name" : "Peti Surat 2841 - 2930"
+	},
+	{
+		"postcode" : ["93758"],
+		"name" : "Peti Surat 2931 - 3040"
+	},
+	{
+		"postcode" : ["93760"],
+		"name" : "Peti Surat 3041 - 3140"
+	},
+	{
+		"postcode" : ["93762"],
+		"name" : "Peti Surat 3141 - 3240"
+	},
+	{
+		"postcode" : ["93764"],
+		"name" : "Peti Surat 3241 & Ke Atas"
+	},
+	{
+		"postcode" : ["93900"],
+		"name" : "Peti Surat 12"
+	},
+	{
+		"postcode" : ["93902"],
+		"name" : "Peti Surat 400"
+	},
+	{
+		"postcode" : ["93904"],
+		"name" : "Peti Surat 482"
+	},
+	{
+		"postcode" : ["93906"],
+		"name" : "Peti Surat 545"
+	},
+	{
+		"postcode" : ["93908"],
+		"name" : "Peti Surat 639"
+	},
+	{
+		"postcode" : ["93910"],
+		"name" : "Peti Surat 1148"
+	},
+	{
+		"postcode" : ["93912"],
+		"name" : "Peti Surat 1258"
+	},
+	{
+		"postcode" : ["93914"],
+		"name" : "Peti Surat 1433"
+	},
+	{
+		"postcode" : ["93916"],
+		"name" : "Peti Surat 1653"
+	},
+	{
+		"postcode" : ["93990"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["94000"],
+		"name" : "Bau Lama"
+	},
+	{
+		"postcode" : ["94007"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["94009"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["94200"],
+		"name" : "Batu 15 Jalan Kuching Serian"
+	},
+	{
+		"postcode" : ["94300"],
+		"name" : "Jalan Muara Tuang (Hingga 3 KM)"
+	},
+	{
+		"postcode" : ["94500"],
+		"name" : "Jalan Blacksmith"
+	},
+	{
+		"postcode" : ["94507"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["94509"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["94600"],
+		"name" : "Asajaya Bakong"
+	},
+	{
+		"postcode" : ["94650"],
+		"name" : "Kabong"
+	},
+	{
+		"postcode" : ["94700"],
+		"name" : "Jalan Serian - Sri Aman (Batu 68)"
+	},
+	{
+		"postcode" : ["94707"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["94709"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["94750"],
+		"name" : "Bunan Gega"
+	},
+	{
+		"postcode" : ["94760"],
+		"name" : "Tebedu"
+	},
+	{
+		"postcode" : ["94800"],
+		"name" : "Gunung Ngeli"
+	},
+	{
+		"postcode" : ["94807"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["94809"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["94850"],
+		"name" : "Jalan Sawmill"
+	},
+	{
+		"postcode" : ["94900"],
+		"name" : "Banting"
+	},
+	{
+		"postcode" : ["94950"],
+		"name" : "Kampung Beladin"
+	},
+	{
+		"postcode" : ["95000"],
+		"name" : "Bakong"
+	},
+	{
+		"postcode" : ["95007"],
+		"name" : "Peti Surat 1 - 200"
+	},
+	{
+		"postcode" : ["95008"],
+		"name" : "Peti Surat 201 & Ke Atas"
+	},
+	{
+		"postcode" : ["95009"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["95300"],
+		"name" : "Brayang"
+	},
+	{
+		"postcode" : ["95400"],
+		"name" : "Engkudu"
+	},
+	{
+		"postcode" : ["95407"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["95409"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["95500"],
+		"name" : "Debak"
+	},
+	{
+		"postcode" : ["95600"],
+		"name" : "Kampung Bungin"
+	},
+	{
+		"postcode" : ["95700"],
+		"name" : "Betong"
+	},
+	{
+		"postcode" : ["95707"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["95709"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["95800"],
+		"name" : "Engkilili"
+	},
+	{
+		"postcode" : ["95900"],
+		"name" : "Batang Ai"
+	},
+	{
+		"postcode" : ["96000"],
+		"name" : "Aup"
+	},
+	{
+		"postcode" : ["96007"],
+		"name" : "Peti Surat 1 - 750"
+	},
+	{
+		"postcode" : ["96008"],
+		"name" : "Peti Surat 751 & Ke Atas"
+	},
+	{
+		"postcode" : ["96009"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["96100"],
+		"name" : "Jakar"
+	},
+	{
+		"postcode" : ["96107"],
+		"name" : "Peti Surat 1 - 300"
+	},
+	{
+		"postcode" : ["96108"],
+		"name" : "Peti Surat 301 & Ke Atas"
+	},
+	{
+		"postcode" : ["96109"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["96150"],
+		"name" : "Belawai"
+	},
+	{
+		"postcode" : ["96200"],
+		"name" : "Batang Lasak"
+	},
+	{
+		"postcode" : ["96250"],
+		"name" : "Kampung Dagang"
+	},
+	{
+		"postcode" : ["96300"],
+		"name" : "Dalat"
+	},
+	{
+		"postcode" : ["96307"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["96309"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["96350"],
+		"name" : "Balingian"
+	},
+	{
+		"postcode" : ["96400"],
+		"name" : "Kampung Badengan"
+	},
+	{
+		"postcode" : ["96410"],
+		"name" : "Oya"
+	},
+	{
+		"postcode" : ["96500"],
+		"name" : "Bakong"
+	},
+	{
+		"postcode" : ["96507"],
+		"name" : "Peti Surat 1 - 140"
+	},
+	{
+		"postcode" : ["96508"],
+		"name" : "Peti Surat 141 & Ke Atas"
+	},
+	{
+		"postcode" : ["96509"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["96600"],
+		"name" : "Julau"
+	},
+	{
+		"postcode" : ["96700"],
+		"name" : "Kampung Hilir"
+	},
+	{
+		"postcode" : ["96707"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["96709"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["96800"],
+		"name" : "Baleh"
+	},
+	{
+		"postcode" : ["96807"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["96809"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["96850"],
+		"name" : "Kampung Cina"
+	},
+	{
+		"postcode" : ["96900"],
+		"name" : "Batu Keling"
+	},
+	{
+		"postcode" : ["96950"],
+		"name" : "Jabatan Kerja Raya (Waterboard)"
+	},
+	{
+		"postcode" : ["97000"],
+		"name" : "Abang Galau"
+	},
+	{
+		"postcode" : ["97007"],
+		"name" : "Peti Surat 1 - 300"
+	},
+	{
+		"postcode" : ["97008"],
+		"name" : "Peti Surat 301 - 1500"
+	},
+	{
+		"postcode" : ["97009"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["97010"],
+		"name" : "Peti Surat 1501 - 2000"
+	},
+	{
+		"postcode" : ["97011"],
+		"name" : "Peti Surat 2001 - 2500"
+	},
+	{
+		"postcode" : ["97012"],
+		"name" : "Peti Surat 2501 - 3000"
+	},
+	{
+		"postcode" : ["97013"],
+		"name" : "Peti Surat 3001 - 3500"
+	},
+	{
+		"postcode" : ["97014"],
+		"name" : "Peti Surat 3501 - 4000"
+	},
+	{
+		"postcode" : ["97015"],
+		"name" : "Peti Surat 4001 & Ke Atas"
+	},
+	{
+		"postcode" : ["97100"],
+		"name" : "Kampung Hilir"
+	},
+	{
+		"postcode" : ["97200"],
+		"name" : "Kakus"
+	},
+	{
+		"postcode" : ["97300"],
+		"name" : "Tanjung Kidurong"
+	},
+	{
+		"postcode" : ["98000"],
+		"name" : "Beluru"
+	},
+	{
+		"postcode" : ["98007"],
+		"name" : "Peti Surat 1 - 750"
+	},
+	{
+		"postcode" : ["98008"],
+		"name" : "Peti Surat 751 & Ke Atas"
+	},
+	{
+		"postcode" : ["98009"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["98050"],
+		"name" : "Baram"
+	},
+	{
+		"postcode" : ["98057"],
+		"name" : "Peti Surat 1 - 100"
+	},
+	{
+		"postcode" : ["98058"],
+		"name" : "Peti Surat 101 & Ke Atas"
+	},
+	{
+		"postcode" : ["98059"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["98100"],
+		"name" : "Lutong"
+	},
+	{
+		"postcode" : ["98107"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["98109"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["98150"],
+		"name" : "Bekenu"
+	},
+	{
+		"postcode" : ["98157"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["98159"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["98200"],
+		"name" : "Batu Niah"
+	},
+	{
+		"postcode" : ["98300"],
+		"name" : "Jalan 7 Mile Round"
+	},
+	{
+		"postcode" : ["98700"],
+		"name" : "Jalan Bangkita"
+	},
+	{
+		"postcode" : ["98707"],
+		"name" : "Peti Surat 1 - 200"
+	},
+	{
+		"postcode" : ["98708"],
+		"name" : "Peti Surat 201 & Ke Atas"
+	},
+	{
+		"postcode" : ["98709"],
+		"name" : "Beg Berkunci"
+	},
+	{
+		"postcode" : ["98750"],
+		"name" : "Nanga Medamit"
+	},
+	{
+		"postcode" : ["98800"],
+		"name" : "Kampung Aru"
+	},
+	{
+		"postcode" : ["98850"],
+		"name" : "Awat-Awat"
+	},
+	{
+		"postcode" : ["98857"],
+		"name" : "Peti Surat"
+	},
+	{
+		"postcode" : ["98859"],
+		"name" : "Beg Berkunci"
+	}
+]

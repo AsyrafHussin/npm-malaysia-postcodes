@@ -1,7 +1,9 @@
 const data = require("./data.json");
 const allPostcodes = data.state;
 
-// get all available states
+/**
+ * Get all available states 
+ */
 const getStates = () => {
   let states = [];
 
@@ -14,8 +16,11 @@ const getStates = () => {
   return states;
 };
 
-// get all avaialable city based on state
-const getCities = state => {
+/**
+ * Get all available cities based on state
+ * @param {string} state
+ */
+const getCities = (state) => {
   let cities = [];
 
   allPostcodes.filter(stateFilter => {
@@ -34,7 +39,11 @@ const getCities = state => {
   return cities;
 };
 
-// get all availabel postcodes based on city and state
+/** 
+ * Get all available postcodes based on city and state 
+ * @param {string} state
+ * @param {string} city
+ */
 const getPostcodes = (state, city) => {
   let postcodes = [];
 
@@ -56,8 +65,11 @@ const getPostcodes = (state, city) => {
   return postcodes;
 };
 
-// find state and city based on postcode
-const findPostcode = postcode => {
+/**  
+ * Find state and city based on postcode 
+ * @param {string} postcode
+ */
+const findPostcode = (postcode) => {
   let result = {
     found: false
   };
@@ -77,7 +89,7 @@ const findPostcode = postcode => {
   return result;
 };
 
-// exports all variable and function
+/**  Exports all variables and functions **/
 module.exports.allPostcodes = allPostcodes;
 module.exports.getStates = getStates;
 module.exports.getCities = getCities;

@@ -2,10 +2,6 @@
 
 List of Malaysia Postcodes with City and State (JSON)
 
-[![Version](https://img.shields.io/npm/v/malaysia-postcodes.svg)](https://npmjs.org/package/malaysia-postcodes)
-[![Downloads/week](https://img.shields.io/npm/dw/malaysia-postcodes.svg)](https://npmjs.org/package/malaysia-postcodes)
-[![License](https://img.shields.io/npm/l/malaysia-postcodes.svg)](https://github.com/AsyrafHussin/malaysia-postcodes/blob/master/package.json)
-
 ## Table of Contents
 
 - [Installation](#installation)
@@ -29,7 +25,7 @@ Include it in your script.
 
 ```js
 import {
-  allPostcodes,
+  states,
   getStates,
   getCities,
   getPostcodes,
@@ -39,14 +35,14 @@ import {
 
 ## Usage
 
-### allPostcodes
+### states
 
-Return all postcodes data with city and state
+Return all states data with city and state and postcodes
 
 Example usage
 
 ```js
-const postcodes = allPostcodes;
+const postcodes = states;
 ```
 
 Example results
