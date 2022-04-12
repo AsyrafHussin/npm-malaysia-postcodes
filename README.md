@@ -12,6 +12,7 @@ List of Malaysia Postcodes with City and State (JSON)
   - [getPostcodes](#getPostcodes)
   - [findPostcode](#findPostcode)
 - [License](#license)
+- [Resources](#resources)
 
 ## Installation
 
