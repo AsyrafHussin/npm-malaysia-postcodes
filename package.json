@@ -1,6 +1,6 @@
 {
   "name": "postcodes-malaysia",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "List of Malaysia Postcodes with City and State (JSON)",
   "main": "index.js",
   "scripts": {
@@ -14,10 +14,9 @@
     "malaysia",
     "postcodes",
     "malaysia postcodes",
-    "asyraf hussin",
     "postcodes malaysia"
   ],
-  "author": "Asyraf Hussin",
+  "author": "Medhat Usama",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Md7tz/npm-postcodes-malaysia/issues"
