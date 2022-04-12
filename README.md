@@ -43,7 +43,7 @@ Return all states data with city and state and postcodes
 Example usage
 
 ```js
-const postcodes =   allPostcodes;
+const postcodes = allPostcodes;
 ```
 
 Example results
