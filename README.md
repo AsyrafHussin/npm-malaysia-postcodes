@@ -26,7 +26,7 @@ Include it in your script.
 
 ```js
 import {
-  states,
+  allPostcodes,
   getStates,
   getCities,
   getPostcodes,
@@ -43,7 +43,7 @@ Return all states data with city and state and postcodes
 Example usage
 
 ```js
-const postcodes = states;
+const postcodes =   allPostcodes;
 ```
 
 Example results
