@@ -1,4 +1,4 @@
-# Malaysia Postcodes
+# Malaysia Postcodes # is-odd [![NPM version](https://img.shields.io/npm/v/is-odd.svg?style=flat)](https://www.npmjs.com/package/is-odd) [![NPM monthly downloads](https://img.shields.io/npm/dm/is-odd.svg?style=flat)](https://www.npmjs.com/package/malaysia-postcodes) [![NPM total downloads](https://img.shields.io/npm/dt/is-odd.svg?style=flat)](https://www.npmjs.com/package/malaysia-postcodes)
 
 List of Malaysia Postcodes with City and State (JSON)
 
