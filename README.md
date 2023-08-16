@@ -12,11 +12,11 @@ List of Malaysia Postcodes with City and State (JSON)
 
 - [Installation](#installation)
 - [Usage](#usage)
-  - [allPostcodes](#allPostcodes)
-  - [getStates](#getStates)
-  - [getCities](#getCities)
-  - [getPostcodes](#getPostcodes)
-  - [findPostcode](#findPostcode)
+  - [allPostcodes](#allpostcodes)
+  - [getStates](#getstates)
+  - [getCities](#getcities)
+  - [getPostcodes](#getpostcodes)
+  - [findPostcode](#findpostcode)
 - [License](#license)
 
 ## Installation
@@ -38,6 +38,12 @@ import {
   findPostcode,
 } from "malaysia-postcodes";
 ```
+
+## TypeScript Support
+
+Starting from version 1.1.0, malaysia-postcodes provides TypeScript type declarations out-of-the-box. This enhancement ensures a more developer-friendly experience for TypeScript users, offering better intellisense and type checking without requiring any additional installation steps.
+
+For JavaScript users, this change won't affect your current implementation, and you can continue using the package as before.
 
 ## Usage
 
