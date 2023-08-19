@@ -11,15 +11,26 @@ List of Malaysia Postcodes with City and State (JSON)
 ## Table of Contents
 
 - [Installation](#installation)
+  - [NPM](#npm)
+  - [CDN via jsDelivr](#cdn-via-jsdelivr)
+- [Imports](#imports)
+  - [ES6 Imports](#es6-imports)
+  - [Script Tag](#script-tag)
+    - [Destructuring](#destructuring)
+    - [Direct Access](#direct-access)
 - [Usage](#usage)
   - [allPostcodes](#allpostcodes)
   - [getStates](#getstates)
   - [getCities](#getcities)
   - [getPostcodes](#getpostcodes)
   - [findPostcode](#findpostcode)
+- [TypeScript Support](#typescript-support)
+- [Contributing](#contributing)
 - [License](#license)
 
 ## Installation
+
+### NPM
 
 Install the package from NPM.
 
@@ -27,7 +38,21 @@ Install the package from NPM.
 npm i malaysia-postcodes
 ```
 
-Include it in your script.
+### CDN via jsDelivr
+
+```html
+<!-- Regular version -->
+<script src="https://cdn.jsdelivr.net/npm/malaysia-postcodes@1.2.0/dist/malaysia-postcodes.js"></script>
+
+<!-- Minified version -->
+<script src="https://cdn.jsdelivr.net/npm/malaysia-postcodes@1.2.0/dist/malaysia-postcodes.min.js"></script>
+```
+
+## Imports
+
+### ES6 Imports
+
+If you're using a module bundler like Webpack:
 
 ```js
 import {
@@ -39,11 +64,35 @@ import {
 } from "malaysia-postcodes";
 ```
 
-## TypeScript Support
+### Script Tag
 
-Starting from version 1.1.0, malaysia-postcodes provides TypeScript type declarations out-of-the-box. This enhancement ensures a more developer-friendly experience for TypeScript users, offering better intellisense and type checking without requiring any additional installation steps.
+Once you've included the library via the script tag, you can access its functions in two ways:
 
-For JavaScript users, this change won't affect your current implementation, and you can continue using the package as before.
+#### Destructuring
+
+You can destructure the desired functions from `window.malaysiaPostcodes`:
+
+```js
+const { 
+  allPostcodes, 
+  getStates, 
+  getCities, 
+  getPostcodes, 
+  findPostcode 
+} = window.malaysiaPostcodes;
+```
+
+#### Direct Access
+
+Alternatively, you can call the functions directly using the `malaysiaPostcodes` object:
+
+```js
+const postcodesData = malaysiaPostcodes.allPostcodes;
+const states = malaysiaPostcodes.getStates();
+const cities = malaysiaPostcodes.getCities("Kelantan");
+const postcodes = malaysiaPostcodes.getPostcodes("Kelantan", "Pasir Mas");
+const location = malaysiaPostcodes.findPostcode("17070");
+```
 
 ## Usage
 
@@ -158,8 +207,6 @@ Example results
 ];
 ```
 
-###
-
 ### getPostcodes
 
 Return all postcodes data based on selected state and city
@@ -214,6 +261,12 @@ Example result if postcode not found
   "found": false
 }
 ```
+
+## TypeScript Support
+
+Starting from version 1.1.0, malaysia-postcodes provides TypeScript type declarations out-of-the-box. This enhancement ensures a more developer-friendly experience for TypeScript users, offering better intellisense and type checking without requiring any additional installation steps.
+
+For JavaScript users, this change won't affect your current implementation, and you can continue using the package as before.
 
 ## Contributing
 
