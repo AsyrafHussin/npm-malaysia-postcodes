@@ -25,6 +25,10 @@ List of Malaysia Postcodes with City and State (JSON)
   - [getPostcodes](#getpostcodes)
   - [findPostcode](#findpostcode)
 - [TypeScript Support](#typescript-support)
+- [Testing](#testing)
+  - [Running the Tests](#running-the-tests)
+  - [Watch Mode](#watch-mode)
+  - [Test Coverage](#test-coverage)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -267,6 +271,44 @@ Example result if postcode not found
 Starting from version 1.1.0, malaysia-postcodes provides TypeScript type declarations out-of-the-box. This enhancement ensures a more developer-friendly experience for TypeScript users, offering better intellisense and type checking without requiring any additional installation steps.
 
 For JavaScript users, this change won't affect your current implementation, and you can continue using the package as before.
+
+## Testing
+
+The library is equipped with unit tests to ensure its functionality and reliability. We utilize the Jest testing framework for this purpose.
+
+### Running the Tests
+
+To run the tests, follow these steps:
+
+1.Ensure you have all dependencies installed:
+
+```bash
+npm install
+```
+
+2.Run the test command:
+
+```bash
+npm run test
+```
+
+### Watch Mode
+
+For active development, you can run tests in watch mode. This will continuously monitor changes in the project and run tests accordingly, providing immediate feedback.
+
+```bash
+npm run test:watch
+```
+
+### Test Coverage
+
+We strive for a high level of test coverage to ensure the library's integrity. After running tests, you can view a detailed coverage report by navigating to the `coverage` directory in the project root.
+
+```bash
+npm run test:coverage
+```
+
+Note: The `coverage` directory is not included in the repository as it is generated on-the-fly whenever tests are run with coverage.
 
 ## Contributing
 
