@@ -4,7 +4,9 @@
   "description": "List of Malaysia Postcodes with City and State (JSON)",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {},
+  "scripts": {
+    "bundle": "webpack"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/AsyrafHussin/npm-malaysia-postcodes.git"
@@ -21,5 +23,12 @@
     "url": "https://github.com/AsyrafHussin/npm-malaysia-postcodes/issues"
   },
   "homepage": "https://github.com/AsyrafHussin/npm-malaysia-postcodes#readme",
-  "devDependencies": {}
+  "devDependencies": {
+    "@babel/core": "^7.22.10",
+    "@babel/preset-env": "^7.22.10",
+    "babel-loader": "^9.1.3",
+    "terser-webpack-plugin": "^5.3.9",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  }
 }
