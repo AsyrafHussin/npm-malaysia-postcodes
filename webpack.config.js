@@ -8,7 +8,7 @@ module.exports = [
     output: {
       path: path.resolve(__dirname, "dist"),
       filename: "malaysia-postcodes.js",
-      library: "MalaysiaPostcodes",
+      library: "malaysiaPostcodes",
       libraryTarget: "umd",
       umdNamedDefine: true,
     },
@@ -29,7 +29,7 @@ module.exports = [
     output: {
       path: path.resolve(__dirname, "dist"),
       filename: "malaysia-postcodes.min.js",
-      library: "MalaysiaPostcodes",
+      library: "malaysiaPostcodes",
       libraryTarget: "umd",
       umdNamedDefine: true,
     },
