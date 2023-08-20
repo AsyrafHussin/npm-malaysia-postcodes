@@ -1,6 +1,6 @@
 /*!
  * 
- *   malaysia-postcodes v1.4.0 (https://github.com/AsyrafHussin/npm-malaysia-postcodes)
+ *   malaysia-postcodes v1.4.1 (https://github.com/AsyrafHussin/npm-malaysia-postcodes)
  *   Copyright 2020-2023 Asyraf Hussin
  *   Licensed under ISC (https://github.com/AsyrafHussin/npm-malaysia-postcodes/blob/main/LICENSE)
  *
