@@ -46,10 +46,10 @@ npm i malaysia-postcodes
 
 ```html
 <!-- Regular version -->
-<script src="https://cdn.jsdelivr.net/npm/malaysia-postcodes@1.3.0/dist/malaysia-postcodes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/malaysia-postcodes@1.4.0/dist/malaysia-postcodes.js"></script>
 
 <!-- Minified version -->
-<script src="https://cdn.jsdelivr.net/npm/malaysia-postcodes@1.3.0/dist/malaysia-postcodes.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/malaysia-postcodes@1.4.0/dist/malaysia-postcodes.min.js"></script>
 ```
 
 ## Imports
