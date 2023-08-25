@@ -405,7 +405,7 @@ npm install
 2.Run the test command:
 
 ```bash
-npm run test
+npm test
 ```
 
 ### Watch Mode
