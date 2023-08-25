@@ -1,23 +1,57 @@
-// Load data from the JSON file
-const data = require("./data.json");
+import data from "./data.json";
 
-// Extract all postcode data for the states
-const allPostcodes = data.state;
+export interface City {
+  name: string;
+  postcode: string[];
+}
+
+export interface State {
+  name: string;
+  city: City[];
+}
+
+export interface IndividualCityResult {
+  state: string;
+  city: string;
+  postcodes: string[];
+}
+
+export interface CitySearchResult {
+  found: boolean;
+  results?: IndividualCityResult[];
+  state?: string;
+  city?: string;
+  postcodes?: string[];
+}
+
+export interface PostcodeSearchResult {
+  found: boolean;
+  state?: string;
+  city?: string;
+  postcode?: string;
+  results?: {
+    state: string;
+    city: string;
+    postcode: string;
+  }[];
+}
+
+export const allPostcodes: State[] = data.state;
 
 /**
  * Retrieves the list of all states.
  * @returns {Array} Array containing names of all states.
  */
-const getStates = () => {
+export const getStates = (): string[] => {
   return allPostcodes.map((state) => state.name);
 };
 
 /**
  * Gets all cities for a given state.
- * @param {string} selectedState - The name of the state for which cities are to be retrieved.
- * @returns {Array} Array containing names of cities for the selected state. Empty array if the state is not found.
+ * @param selectedState - The name of the state for which cities are to be retrieved.
+ * @returns Array containing names of cities for the selected state. Empty array if the state is not found.
  */
-const getCities = (selectedState) => {
+export const getCities = (selectedState: string): string[] => {
   const stateObj = allPostcodes.find(
     (state) => state.name.toLowerCase() === selectedState.toLowerCase()
   );
@@ -26,14 +60,17 @@ const getCities = (selectedState) => {
 
 /**
  * Finds the states and their postcodes based on a city name or partial city name.
- * @param {string} cityName - The name or partial name of the city to search for.
- * @param {boolean} isExactMatch - Determines if the search should be exact (true) or "like" pattern (false).
- * @returns {Object} An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
+ * @param cityName - The name or partial name of the city to search for.
+ * @param isExactMatch - Determines if the search should be exact (true) or "like" pattern (false).
+ * @returns An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
  */
-const findCities = (cityName, isExactMatch = true) => {
-  let results = [];
+export const findCities = (
+  cityName: string,
+  isExactMatch: boolean = true
+): CitySearchResult => {
+  let results: IndividualCityResult[] = [];
 
-  const cityMatcher = (cityName, targetName) => {
+  const cityMatcher = (cityName: string, targetName: string): boolean => {
     const formattedCityName = cityName.toLowerCase();
     const formattedTargetName = targetName.toLowerCase();
 
@@ -42,8 +79,8 @@ const findCities = (cityName, isExactMatch = true) => {
       : formattedTargetName.includes(formattedCityName);
   };
 
-  allPostcodes.forEach((state) => {
-    state.city.forEach((city) => {
+  allPostcodes.forEach((state: State) => {
+    state.city.forEach((city: City) => {
       if (cityMatcher(cityName, city.name)) {
         results.push({
           state: state.name,
@@ -72,13 +109,13 @@ const findCities = (cityName, isExactMatch = true) => {
  * @param {string} city - The name of the city.
  * @returns {Array} Array containing postcodes for the selected state and city. Empty array if not found.
  */
-const getPostcodes = (state, city) => {
+export const getPostcodes = (state: string, city: string): string[] => {
   const stateObj = allPostcodes.find(
-    (s) => s.name.toLowerCase() === state.toLowerCase()
+    (s: State) => s.name.toLowerCase() === state.toLowerCase()
   );
   if (stateObj) {
     const cityObj = stateObj.city.find(
-      (c) => c.name.toLowerCase() === city.toLowerCase()
+      (c: City) => c.name.toLowerCase() === city.toLowerCase()
     );
     return cityObj ? cityObj.postcode : [];
   }
@@ -91,8 +128,11 @@ const getPostcodes = (state, city) => {
  * @param {boolean} [isExactMatch] - Determines if the search should be exact (true) or "like" pattern (false).
  * @returns {Object} An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
  */
-const findPostcode = (postcode, isExactMatch = true) => {
-  let matches = [];
+export const findPostcode = (
+  postcode: string,
+  isExactMatch: boolean = true
+): PostcodeSearchResult => {
+  let matches: { state: string; city: string; postcode: string }[] = [];
 
   for (const state of allPostcodes) {
     for (const city of state.city) {
@@ -125,14 +165,4 @@ const findPostcode = (postcode, isExactMatch = true) => {
   }
 
   return { found: false };
-};
-
-// Exporting the functions and data for external use
-module.exports = {
-  allPostcodes,
-  getStates,
-  getCities,
-  findCities,
-  getPostcodes,
-  findPostcode,
 };

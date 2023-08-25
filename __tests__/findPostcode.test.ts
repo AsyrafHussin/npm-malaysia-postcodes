@@ -1,4 +1,4 @@
-const { findPostcode } = require("../src/index");
+import { findPostcode } from "../src/index";
 
 describe("findPostcode", () => {
   it("should be defined", () => {
@@ -60,8 +60,8 @@ describe("findPostcode", () => {
     expect(result).toHaveProperty("found", true);
     expect(result).toHaveProperty("results");
     expect(Array.isArray(result.results)).toBe(true);
-    expect(result.results.length).toBeGreaterThan(1);
-    result.results.forEach((match) => {
+    expect(result.results?.length).toBeGreaterThan(1);
+    result.results?.forEach((match) => {
       expect(typeof match.postcode).toBe("string");
     });
   });

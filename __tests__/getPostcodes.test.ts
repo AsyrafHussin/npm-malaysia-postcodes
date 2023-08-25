@@ -1,4 +1,4 @@
-const { getPostcodes } = require("../src/index");
+import { getPostcodes } from "../src/index";
 
 describe("getPostcodes", () => {
   it("should be defined", () => {

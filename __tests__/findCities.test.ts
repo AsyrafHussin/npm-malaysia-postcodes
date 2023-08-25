@@ -1,4 +1,4 @@
-const { findCities } = require("../src/index");
+import { IndividualCityResult, findCities } from "../src/index";
 
 describe("findCities", () => {
   test('Exact search for city "Pasir Mas" should return valid result', () => {
@@ -14,8 +14,7 @@ describe("findCities", () => {
     expect(result.found).toBe(true);
     expect(result.results).toBeInstanceOf(Array);
 
-    // check at least one of the results contains 'Kota' in its name
-    const hasKota = result.results.some((cityObj) =>
+    const hasKota = result.results?.some((cityObj: IndividualCityResult) =>
       cityObj.city.toLowerCase().includes("kota")
     );
     expect(hasKota).toBe(true);

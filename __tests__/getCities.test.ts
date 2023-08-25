@@ -1,4 +1,4 @@
-const { getCities } = require("../src/index");
+import { getCities } from "../src/index";
 
 describe("getCities", () => {
   it("should be defined", () => {

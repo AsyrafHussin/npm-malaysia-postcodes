@@ -1,4 +1,4 @@
-const { getStates } = require("../src/index");
+import { getStates } from "../src/index";
 
 describe("getStates", () => {
   it("should be defined", () => {
