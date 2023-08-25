@@ -87,6 +87,14 @@ describe("allPostcodes", () => {
     });
   });
 
+  it("each city should have at least one postcode", () => {
+    allPostcodes.forEach((state) => {
+      state.city.forEach((city) => {
+        expect(city.postcode.length).toBeGreaterThan(0);
+      });
+    });
+  });
+
   it("state names should only contain valid characters", () => {
     const regex = /^[a-zA-Z\s]*$/;
     allPostcodes.forEach((state) => {
