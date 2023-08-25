@@ -115,13 +115,13 @@ const location = malaysiaPostcodes.findPostcode("17070");
 
 Return all postcodes data with city and state
 
-Example usage
+Example usage:
 
 ```js
 const postcodes = allPostcodes;
 ```
 
-Example results
+Example results:
 
 ```js
 [
@@ -154,13 +154,13 @@ Example results
 
 Return all states data
 
-Example usage
+Example usage:
 
 ```js
 const states = getStates();
 ```
 
-Example results
+Example results:
 
 ```js
 [
@@ -187,13 +187,17 @@ Example results
 
 Return all cities data based on selected state
 
-Example usage
+**Parameters:**
+
+- `selectedState` (string): The name of the state for which cities are to be retrieved.
+
+Example usage:
 
 ```js
 const cities = getCities("Kelantan");
 ```
 
-Example results
+Example results:
 
 ```js
 [
@@ -226,12 +230,12 @@ Example results
 
 Search for cities based on the provided query string.
 
-#### Parameters
+**Parameters:**
 
 - **query (string):** The city name or part of the city name you wish to search for.
 - **exact (boolean, optional):** Determines the type of search. If `true`, the function will search for cities that match the query exactly. If `false`, it will search for cities that contain the query string. Default is `true`.
 
-Example usage
+Example usage:
 
 ```js
 // For exact search
@@ -241,7 +245,7 @@ const cityDetailsExact = findCities("Pasir Mas");
 const cityDetailsBroad = findCities("Kota", false);
 ```
 
-Example results
+Example results:
 
 ```js
 {
@@ -273,7 +277,7 @@ Example result for a non-exact search:
 }
 ```
 
-Example result if city not found
+Example result if city not found:
 
 ```js
 {
@@ -285,13 +289,18 @@ Example result if city not found
 
 Return all postcodes data based on selected state and city
 
-Example usage
+**Parameters:**
+
+- `state` (string): The name of the state.
+- `city` (string): The name of the city within the specified state.
+
+Example usage:
 
 ```js
 const postcodes = getPostcodes("Kelantan", "Pasir Mas");
 ```
 
-Example results
+Example results:
 
 ```js
 [
@@ -312,13 +321,17 @@ Example results
 
 Return state and city data based on postcode
 
-Example usage
+**Parameters:**
+
+- `postcode` (string): The postcode you wish to search for.
+
+Example usage:
 
 ```js
 const location = findPostcode("17070");
 ```
 
-Example result if postcode found
+Example result if postcode found:
 
 ```js
 {
@@ -328,7 +341,7 @@ Example result if postcode found
 }
 ```
 
-Example result if postcode not found
+Example result if postcode not found:
 
 ```js
 {
