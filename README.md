@@ -360,7 +360,7 @@ Example result for a non-exact match:
         "city": "Pasir Gudang", 
         "postcode": "81700"
     },
-    // ... potentially more matches
+   ...
   ]
 }
 ```
