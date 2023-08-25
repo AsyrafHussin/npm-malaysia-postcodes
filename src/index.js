@@ -25,6 +25,47 @@ const getCities = (selectedState) => {
 };
 
 /**
+ * Finds the states and their postcodes based on a city name or partial city name.
+ * @param {string} cityName - The name or partial name of the city to search for.
+ * @param {boolean} isExactMatch - Determines if the search should be exact (true) or "like" pattern (false).
+ * @returns {Object/Array} A single object for exact matches or an array of objects for "like" pattern matches.
+ */
+const findCities = (cityName, isExactMatch = true) => {
+  const matchingStates = allPostcodes.filter((state) =>
+    state.city.some((city) =>
+      isExactMatch
+        ? city.name.toLowerCase() === cityName.toLowerCase()
+        : city.name.toLowerCase().includes(cityName.toLowerCase())
+    )
+  );
+
+  if (!matchingStates.length) return { found: false };
+
+  const results = matchingStates.flatMap((state) => {
+    const matchingCities = state.city.filter((city) =>
+      isExactMatch
+        ? city.name.toLowerCase() === cityName.toLowerCase()
+        : city.name.toLowerCase().includes(cityName.toLowerCase())
+    );
+
+    return matchingCities.map((cityObj) => ({
+      state: state.name,
+      city: cityObj.name,
+      postcodes: cityObj.postcode,
+    }));
+  });
+
+  if (isExactMatch) {
+    return results[0] ? { found: true, ...results[0] } : { found: false };
+  } else {
+    return {
+      found: true,
+      results,
+    };
+  }
+};
+
+/**
  * Retrieves all postcodes for a given state and city.
  * @param {string} state - The name of the state.
  * @param {string} city - The name of the city.
@@ -68,6 +109,7 @@ module.exports = {
   allPostcodes,
   getStates,
   getCities,
+  findCities,
   getPostcodes,
   findPostcode,
 };

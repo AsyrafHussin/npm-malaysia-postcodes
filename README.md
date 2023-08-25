@@ -23,6 +23,7 @@ List of Malaysia Postcodes with City and State (JSON)
   - [allPostcodes](#allpostcodes)
   - [getStates](#getstates)
   - [getCities](#getcities)
+  - [findCities](#findcities)
   - [getPostcodes](#getpostcodes)
   - [findPostcode](#findpostcode)
 - [Examples](#examples)
@@ -71,6 +72,7 @@ import {
   allPostcodes,
   getStates,
   getCities,
+  findCities,
   getPostcodes,
   findPostcode,
 } from "malaysia-postcodes";
@@ -89,6 +91,7 @@ const {
   allPostcodes, 
   getStates, 
   getCities, 
+  findCities,
   getPostcodes, 
   findPostcode 
 } = window.malaysiaPostcodes;
@@ -217,6 +220,65 @@ Example results
   "Tumpat",
   "Wakaf Bharu",
 ];
+```
+
+### findCities
+
+Search for cities based on the provided query string.
+
+#### Parameters
+
+- **query (string):** The city name or part of the city name you wish to search for.
+- **exact (boolean, optional):** Determines the type of search. If `true`, the function will search for cities that match the query exactly. If `false`, it will search for cities that contain the query string. Default is `true`.
+
+Example usage
+
+```js
+// For exact search
+const cityDetailsExact = findCities("Pasir Mas"); 
+
+// For non-exact search
+const cityDetailsBroad = findCities("Kota", false);
+```
+
+Example results
+
+```js
+{
+  "found": true,
+  "state": "Kelantan",
+  "city": "Pasir Mas",
+  "postcodes": ["17000", "17007", "17009", "17010", "17020", "17030", "17040", "17050", "17060", "17070"]
+}
+```
+
+Example result for a non-exact search:
+
+```js
+{
+  "found": true,
+  "results": [
+    {
+      "state": "Kelantan",
+      "city": "Kota Bharu",
+      "postcodes": ["15000", "15050", "15100", ...]
+    },
+    {
+      "state": "Sabah",
+      "city": "Kota Kinabalu",
+      "postcodes": ["88000", "88100", "88110", ...]
+    },
+    ...
+  ]
+}
+```
+
+Example result if city not found
+
+```js
+{
+  "found": false
+}
 ```
 
 ### getPostcodes
