@@ -28,7 +28,7 @@ const getCities = (selectedState) => {
  * Finds the states and their postcodes based on a city name or partial city name.
  * @param {string} cityName - The name or partial name of the city to search for.
  * @param {boolean} isExactMatch - Determines if the search should be exact (true) or "like" pattern (false).
- * @returns {Object/Array} A single object for exact matches or an array of objects for "like" pattern matches.
+ * @returns {Object} An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
  */
 const findCities = (cityName, isExactMatch = true) => {
   let results = [];
@@ -88,22 +88,22 @@ const getPostcodes = (state, city) => {
 /**
  * Finds the state and city based on a given postcode.
  * @param {string} postcode - The postcode to search for.
- * @param {boolean} [exact=true] - Determines the type of search. If true, an exact match for the postcode is searched. If false, it will search for postcodes that contain the given substring.
+ * @param {boolean} [isExactMatch] - Determines if the search should be exact (true) or "like" pattern (false).
  * @returns {Object} An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
  */
-const findPostcode = (postcode, exact = true) => {
+const findPostcode = (postcode, isExactMatch = true) => {
   let matches = [];
 
   for (const state of allPostcodes) {
     for (const city of state.city) {
-      if (exact && city.postcode.includes(postcode)) {
+      if (isExactMatch && city.postcode.includes(postcode)) {
         return {
           found: true,
           state: state.name,
           city: city.name,
           postcode: postcode,
         };
-      } else if (!exact) {
+      } else if (!isExactMatch) {
         for (const pc of city.postcode) {
           if (pc.includes(postcode)) {
             matches.push({
@@ -117,7 +117,7 @@ const findPostcode = (postcode, exact = true) => {
     }
   }
 
-  if (!exact && matches.length > 0) {
+  if (!isExactMatch && matches.length > 0) {
     return {
       found: true,
       results: matches,
