@@ -49,6 +49,40 @@ const getCities = selectedState => {
 };
 
 /**
+ * Finds the states and their postcodes based on a city name or partial city name.
+ * @param {string} cityName - The name or partial name of the city to search for.
+ * @param {boolean} isExactMatch - Determines if the search should be exact (true) or "like" pattern (false).
+ * @returns {Object/Array} A single object for exact matches or an array of objects for "like" pattern matches.
+ */
+const findCities = (cityName, isExactMatch = true) => {
+  const matchingStates = allPostcodes.filter(state => state.city.some(city => isExactMatch ? city.name.toLowerCase() === cityName.toLowerCase() : city.name.toLowerCase().includes(cityName.toLowerCase())));
+  if (!matchingStates.length) return {
+    found: false
+  };
+  const results = matchingStates.flatMap(state => {
+    const matchingCities = state.city.filter(city => isExactMatch ? city.name.toLowerCase() === cityName.toLowerCase() : city.name.toLowerCase().includes(cityName.toLowerCase()));
+    return matchingCities.map(cityObj => ({
+      state: state.name,
+      city: cityObj.name,
+      postcodes: cityObj.postcode
+    }));
+  });
+  if (isExactMatch) {
+    return results[0] ? {
+      found: true,
+      ...results[0]
+    } : {
+      found: false
+    };
+  } else {
+    return {
+      found: true,
+      results
+    };
+  }
+};
+
+/**
  * Retrieves all postcodes for a given state and city.
  * @param {string} state - The name of the state.
  * @param {string} city - The name of the city.
@@ -66,19 +100,38 @@ const getPostcodes = (state, city) => {
 /**
  * Finds the state and city based on a given postcode.
  * @param {string} postcode - The postcode to search for.
- * @returns {Object} An object containing 'found' (boolean), 'state' (string if found), and 'city' (string if found).
+ * @param {boolean} [exact=true] - Determines the type of search. If true, an exact match for the postcode is searched. If false, it will search for postcodes that contain the given substring.
+ * @returns {Object} An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
  */
-const findPostcode = postcode => {
+const findPostcode = (postcode, exact = true) => {
+  let matches = [];
   for (const state of allPostcodes) {
     for (const city of state.city) {
-      if (city.postcode.includes(postcode)) {
+      if (exact && city.postcode.includes(postcode)) {
         return {
           found: true,
           state: state.name,
-          city: city.name
+          city: city.name,
+          postcode: postcode
         };
+      } else if (!exact) {
+        for (const pc of city.postcode) {
+          if (pc.includes(postcode)) {
+            matches.push({
+              state: state.name,
+              city: city.name,
+              postcode: pc
+            });
+          }
+        }
       }
     }
+  }
+  if (!exact && matches.length > 0) {
+    return {
+      found: true,
+      results: matches
+    };
   }
   return {
     found: false
@@ -90,6 +143,7 @@ module.exports = {
   allPostcodes,
   getStates,
   getCities,
+  findCities,
   getPostcodes,
   findPostcode
 };

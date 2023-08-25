@@ -87,20 +87,42 @@ const getPostcodes = (state, city) => {
 /**
  * Finds the state and city based on a given postcode.
  * @param {string} postcode - The postcode to search for.
- * @returns {Object} An object containing 'found' (boolean), 'state' (string if found), and 'city' (string if found).
+ * @param {boolean} [exact=true] - Determines the type of search. If true, an exact match for the postcode is searched. If false, it will search for postcodes that contain the given substring.
+ * @returns {Object} An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
  */
-const findPostcode = (postcode) => {
+const findPostcode = (postcode, exact = true) => {
+  let matches = [];
+
   for (const state of allPostcodes) {
     for (const city of state.city) {
-      if (city.postcode.includes(postcode)) {
+      if (exact && city.postcode.includes(postcode)) {
         return {
           found: true,
           state: state.name,
           city: city.name,
+          postcode: postcode,
         };
+      } else if (!exact) {
+        for (const pc of city.postcode) {
+          if (pc.includes(postcode)) {
+            matches.push({
+              state: state.name,
+              city: city.name,
+              postcode: pc,
+            });
+          }
+        }
       }
     }
   }
+
+  if (!exact && matches.length > 0) {
+    return {
+      found: true,
+      results: matches,
+    };
+  }
+
   return { found: false };
 };
 

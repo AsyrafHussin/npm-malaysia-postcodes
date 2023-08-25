@@ -324,24 +324,48 @@ Return state and city data based on postcode
 **Parameters:**
 
 - `postcode` (string): The postcode you wish to search for.
+- `exact` (boolean, optional): Determines the type of search. If `true` (default), the function will search for an exact match of the provided postcode. If `false`, it will search for postcodes that start with the given substring.
 
 Example usage:
 
 ```js
-const location = findPostcode("17070");
+const locationExact = findPostcode("17070");
+const locationPartial = findPostcode("170", false);
 ```
 
-Example result if postcode found:
+Example result for an exact match when postcode is found:
 
 ```js
 {
   "found": true,
   "state": "Kelantan",
-  "city": "Pasir Mas"
+  "city": "Pasir Mas",
+  "postcode": "17070",
 }
 ```
 
-Example result if postcode not found:
+Example result for a non-exact match:
+
+```js
+{
+  "found": true,
+  "results": [
+    {
+        "state": "Wp Kuala Lumpur", 
+        "city": "Kuala Lumpur", 
+        "postcode": "51700"
+    },
+    {
+        "state": "Johor", 
+        "city": "Pasir Gudang", 
+        "postcode": "81700"
+    },
+    // ... potentially more matches
+  ]
+}
+```
+
+Example result if postcode is not found:
 
 ```js
 {
