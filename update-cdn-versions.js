@@ -10,5 +10,4 @@ function updateCDNLinks(filename) {
 }
 
 updateCDNLinks("README.md");
-updateCDNLinks("examples/es6/index.html");
 updateCDNLinks("examples/script-tag/index.html");
