@@ -24,6 +24,7 @@ List of Malaysia Postcodes with City and State (JSON)
   - [getCities](#getcities)
   - [getPostcodes](#getpostcodes)
   - [findPostcode](#findpostcode)
+- [Examples](#examples)
 - [TypeScript Support](#typescript-support)
 - [Testing](#testing)
   - [Running the Tests](#running-the-tests)
@@ -265,6 +266,13 @@ Example result if postcode not found
   "found": false
 }
 ```
+
+## Examples
+
+Here are some practical examples demonstrating how to use the library:
+
+- [Example with ES6 imports](./examples/es6)
+- [Example with Script Tag](./examples/script-tag)
 
 ## TypeScript Support
 
