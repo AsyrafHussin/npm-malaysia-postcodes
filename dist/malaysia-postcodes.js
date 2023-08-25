@@ -18,13 +18,13 @@
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./index.js":
-/*!******************!*\
-  !*** ./index.js ***!
-  \******************/
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-const data = __webpack_require__(/*! ./data.json */ "./data.json");
+const data = __webpack_require__(/*! ./data.json */ "./src/data.json");
 const allPostcodes = data.state;
 
 // get all available states
@@ -99,10 +99,10 @@ module.exports.findPostcode = findPostcode;
 
 /***/ }),
 
-/***/ "./data.json":
-/*!*******************!*\
-  !*** ./data.json ***!
-  \*******************/
+/***/ "./src/data.json":
+/*!***********************!*\
+  !*** ./src/data.json ***!
+  \***********************/
 /***/ ((module) => {
 
 "use strict";
@@ -141,7 +141,7 @@ module.exports = JSON.parse('{"state":[{"name":"Wp Kuala Lumpur","city":[{"name"
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module used 'module' so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__("./index.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
 /******/ 	
 /******/ 	return __webpack_exports__;
 /******/ })()
