@@ -31,38 +31,39 @@ const getCities = (selectedState) => {
  * @returns {Object/Array} A single object for exact matches or an array of objects for "like" pattern matches.
  */
 const findCities = (cityName, isExactMatch = true) => {
-  const matchingStates = allPostcodes.filter((state) =>
-    state.city.some((city) =>
-      isExactMatch
-        ? city.name.toLowerCase() === cityName.toLowerCase()
-        : city.name.toLowerCase().includes(cityName.toLowerCase())
-    )
-  );
+  let results = [];
 
-  if (!matchingStates.length) return { found: false };
+  const cityMatcher = (cityName, targetName) => {
+    const formattedCityName = cityName.toLowerCase();
+    const formattedTargetName = targetName.toLowerCase();
 
-  const results = matchingStates.flatMap((state) => {
-    const matchingCities = state.city.filter((city) =>
-      isExactMatch
-        ? city.name.toLowerCase() === cityName.toLowerCase()
-        : city.name.toLowerCase().includes(cityName.toLowerCase())
-    );
+    return isExactMatch
+      ? formattedCityName === formattedTargetName
+      : formattedTargetName.includes(formattedCityName);
+  };
 
-    return matchingCities.map((cityObj) => ({
-      state: state.name,
-      city: cityObj.name,
-      postcodes: cityObj.postcode,
-    }));
+  allPostcodes.forEach((state) => {
+    state.city.forEach((city) => {
+      if (cityMatcher(cityName, city.name)) {
+        results.push({
+          state: state.name,
+          city: city.name,
+          postcodes: city.postcode,
+        });
+      }
+    });
   });
+
+  if (!results.length) return { found: false };
 
   if (isExactMatch) {
     return results[0] ? { found: true, ...results[0] } : { found: false };
-  } else {
-    return {
-      found: true,
-      results,
-    };
   }
+
+  return {
+    found: true,
+    results,
+  };
 };
 
 /**
