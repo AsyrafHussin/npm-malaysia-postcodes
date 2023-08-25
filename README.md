@@ -245,7 +245,7 @@ const cityDetailsExact = findCities("Pasir Mas");
 const cityDetailsBroad = findCities("Kota", false);
 ```
 
-Example results:
+Example result for an exact search:
 
 ```js
 {
