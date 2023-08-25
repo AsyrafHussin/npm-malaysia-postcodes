@@ -1,6 +1,6 @@
 /*!
  * 
- *   malaysia-postcodes v1.4.1 (https://github.com/AsyrafHussin/npm-malaysia-postcodes)
+ *   malaysia-postcodes v1.5.1 (https://github.com/AsyrafHussin/npm-malaysia-postcodes)
  *   Copyright 2020-2023 Asyraf Hussin
  *   Licensed under ISC (https://github.com/AsyrafHussin/npm-malaysia-postcodes/blob/main/LICENSE)
  *
@@ -24,78 +24,75 @@ return /******/ (() => { // webpackBootstrap
   \**********************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
+// Load data from the JSON file
 const data = __webpack_require__(/*! ./data.json */ "./src/data.json");
+
+// Extract all postcode data for the states
 const allPostcodes = data.state;
 
-// get all available states
+/**
+ * Retrieves the list of all states.
+ * @returns {Array} Array containing names of all states.
+ */
 const getStates = () => {
-  let states = [];
-  allPostcodes.map(state => {
-    states.push(state.name);
-    return null;
-  });
-  return states;
+  return allPostcodes.map(state => state.name);
 };
 
-// get all avaialable city based on state
-const getCities = state => {
-  let cities = [];
-  allPostcodes.filter(stateFilter => {
-    if (stateFilter.name.toLowerCase() === state.toLowerCase()) {
-      const city = stateFilter.city;
-      city.map(cityFilter => {
-        cities.push(cityFilter.name);
-        return null;
-      });
-    }
-    return null;
-  });
-  return cities;
+/**
+ * Gets all cities for a given state.
+ * @param {string} selectedState - The name of the state for which cities are to be retrieved.
+ * @returns {Array} Array containing names of cities for the selected state. Empty array if the state is not found.
+ */
+const getCities = selectedState => {
+  const stateObj = allPostcodes.find(state => state.name.toLowerCase() === selectedState.toLowerCase());
+  return stateObj ? stateObj.city.map(city => city.name) : [];
 };
 
-// get all availabel postcodes based on city and state
+/**
+ * Retrieves all postcodes for a given state and city.
+ * @param {string} state - The name of the state.
+ * @param {string} city - The name of the city.
+ * @returns {Array} Array containing postcodes for the selected state and city. Empty array if not found.
+ */
 const getPostcodes = (state, city) => {
-  let postcodes = [];
-  allPostcodes.filter(stateFilter => {
-    if (stateFilter.name.toLowerCase() === state.toLowerCase()) {
-      const cities = stateFilter.city;
-      cities.filter(cityFilter => {
-        if (cityFilter.name.toLowerCase() === city.toLowerCase()) {
-          postcodes = cityFilter.postcode;
-        }
-        return null;
-      });
-    }
-    return null;
-  });
-  return postcodes;
+  const stateObj = allPostcodes.find(s => s.name.toLowerCase() === state.toLowerCase());
+  if (stateObj) {
+    const cityObj = stateObj.city.find(c => c.name.toLowerCase() === city.toLowerCase());
+    return cityObj ? cityObj.postcode : [];
+  }
+  return [];
 };
 
-// find state and city based on postcode
+/**
+ * Finds the state and city based on a given postcode.
+ * @param {string} postcode - The postcode to search for.
+ * @returns {Object} An object containing 'found' (boolean), 'state' (string if found), and 'city' (string if found).
+ */
 const findPostcode = postcode => {
-  let result = {
+  for (const state of allPostcodes) {
+    for (const city of state.city) {
+      if (city.postcode.includes(postcode)) {
+        return {
+          found: true,
+          state: state.name,
+          city: city.name
+        };
+      }
+    }
+  }
+  return {
     found: false
   };
-  allPostcodes.filter(state => {
-    state.city.map(city => {
-      if (city.postcode.includes(postcode)) {
-        result.found = true;
-        result.state = state.name;
-        result.city = city.name;
-      }
-      return null;
-    });
-    return null;
-  });
-  return result;
 };
 
-// exports all variable and function
-module.exports.allPostcodes = allPostcodes;
-module.exports.getStates = getStates;
-module.exports.getCities = getCities;
-module.exports.getPostcodes = getPostcodes;
-module.exports.findPostcode = findPostcode;
+// Exporting the functions and data for external use
+module.exports = {
+  allPostcodes,
+  getStates,
+  getCities,
+  getPostcodes,
+  findPostcode
+};
 
 /***/ }),
 
@@ -140,7 +137,7 @@ module.exports = JSON.parse('{"state":[{"name":"Wp Kuala Lumpur","city":[{"name"
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module used 'module' so it can't be inlined
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
 /******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
 /******/ 	
 /******/ 	return __webpack_exports__;
