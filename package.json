@@ -9,7 +9,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "bundle": "webpack",
-    "version": "npm run bundle && node update-cdn-versions.js"
+    "version": "npm run test && npm run bundle && node update-cdn-versions.js"
   },
   "repository": {
     "type": "git",
