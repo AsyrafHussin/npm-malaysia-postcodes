@@ -1,4 +1,4 @@
-const { findPostcode } = require("../index");
+const { findPostcode } = require("../src/index");
 
 describe("findPostcode", () => {
   it("should be defined", () => {
