@@ -42,6 +42,10 @@ Install the package from NPM.
 ```bash
 npm i malaysia-postcodes
 ```
+Yarn :
+```bash
+yarn add malaysia-postcodes
+```
 
 ### CDN via jsDelivr
 
