@@ -279,6 +279,7 @@ Example result if postcode not found
 Here are some practical examples demonstrating how to use the library:
 
 - [Example with ES6 imports](./examples/es6)
+- [Example with React](./examples/react)
 - [Example with Script Tag](./examples/script-tag)
 
 ## TypeScript Support
