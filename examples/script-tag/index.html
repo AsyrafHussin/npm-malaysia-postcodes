@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Malaysia Address Form</title>
+  </head>
+  <body>
+    <form>
+      <div>
+        <label for="state">State:</label>
+        <select id="state">
+          <option value="" disabled selected>Select State</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="city">City:</label>
+        <select id="city">
+          <option value="" disabled selected>Select City</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="postcode">Postcode:</label>
+        <select id="postcode">
+          <option value="" disabled selected>Select Postcode</option>
+        </select>
+      </div>
+
+      <input type="submit" value="Submit" />
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/malaysia-postcodes@1.4.1/dist/malaysia-postcodes.min.js"></script>
+
+    <script>
+      const stateSelect = document.getElementById("state");
+      const citySelect = document.getElementById("city");
+      const postcodeSelect = document.getElementById("postcode");
+
+      // Load states
+      malaysiaPostcodes.getStates().forEach((state) => {
+        const option = new Option(state, state);
+        stateSelect.appendChild(option);
+      });
+
+      // Update cities when a state is selected
+      stateSelect.addEventListener("change", function () {
+        citySelect.innerHTML = "";
+        const placeholderOption = new Option("Select City", "", true, true);
+        placeholderOption.disabled = true;
+        citySelect.appendChild(placeholderOption);
+
+        const cities = malaysiaPostcodes.getCities(this.value);
+
+        cities.forEach((city) => {
+          const option = new Option(city, city);
+          citySelect.appendChild(option);
+        });
+
+        updatePostcodes();
+      });
+
+      // Update postcodes when a city is selected
+      citySelect.addEventListener("change", updatePostcodes);
+
+      function updatePostcodes() {
+        postcodeSelect.innerHTML = "";
+
+        const placeholderOption = new Option("Select Postcode", "", true, true);
+        placeholderOption.disabled = true;
+        postcodeSelect.appendChild(placeholderOption);
+
+        const postcodes = malaysiaPostcodes.getPostcodes(
+          stateSelect.value,
+          citySelect.value
+        );
+
+        postcodes.forEach((postcode) => {
+          const option = new Option(postcode, postcode);
+          postcodeSelect.appendChild(option);
+        });
+      }
+    </script>
+  </body>
+</html>
