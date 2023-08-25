@@ -12,6 +12,7 @@ List of Malaysia Postcodes with City and State (JSON)
 
 - [Installation](#installation)
   - [NPM](#npm)
+  - [Yarn](#yarn)
   - [CDN via jsDelivr](#cdn-via-jsdelivr)
 - [Imports](#imports)
   - [ES6 Imports](#es6-imports)
@@ -42,7 +43,9 @@ Install the package from NPM.
 ```bash
 npm i malaysia-postcodes
 ```
-Yarn :
+
+### Yarn
+
 ```bash
 yarn add malaysia-postcodes
 ```
