@@ -75,4 +75,27 @@ describe("findPostcode", () => {
       found: false,
     });
   });
+
+  it("should return { found: false } when postcode is null", () => {
+    const nullPostcode = null;
+
+    const result = findPostcode(nullPostcode);
+
+    expect(result).toEqual({
+      found: false,
+    });
+  });
+
+  it("should handle non-boolean values for isExactMatch by using the default", () => {
+    const examplePostcode = "17070";
+    const invalidIsExactMatch = "notABoolean";
+
+    const resultWithBoolean = findPostcode(examplePostcode, true);
+    const resultWithNonBoolean = findPostcode(
+      examplePostcode,
+      invalidIsExactMatch as any
+    );
+
+    expect(resultWithBoolean).toEqual(resultWithNonBoolean);
+  });
 });
