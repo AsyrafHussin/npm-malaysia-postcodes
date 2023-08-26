@@ -1,5 +1,5 @@
-import fs from 'fs';
-import { version } from './package.json';
+const fs = require('fs');
+const { version } = require('./package.json');
 
 function updateCDNLinks(filename) {
   const content = fs.readFileSync(filename, 'utf8');
