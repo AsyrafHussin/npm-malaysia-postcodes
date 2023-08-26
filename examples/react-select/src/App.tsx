@@ -1,6 +1,6 @@
-import { useState, useMemo } from "react";
-import SelectInput, { Option } from "./components/SelectInput";
-import { getCities, getPostcodes, getStates } from "malaysia-postcodes";
+import { useState, useMemo } from 'react';
+import SelectInput, { Option } from './components/SelectInput';
+import { getCities, getPostcodes, getStates } from 'malaysia-postcodes';
 
 interface AddressFormState {
   state: string;
@@ -10,17 +10,17 @@ interface AddressFormState {
 
 export default function App() {
   const [address, setAddress] = useState<AddressFormState>({
-    state: "",
-    city: "",
-    postcode: "",
+    state: '',
+    city: '',
+    postcode: ''
   });
 
   const states = getStates();
 
   const generateOptions = (data: string[]): Option[] => {
-    return data.map((item) => ({
+    return data.map(item => ({
       value: item,
-      label: item,
+      label: item
     }));
   };
 
@@ -41,17 +41,17 @@ export default function App() {
 
   const handleSelectChange =
     (type: keyof AddressFormState) => (selectedOption: Option | null) => {
-      const selectedValue = selectedOption ? selectedOption.value : "";
+      const selectedValue = selectedOption ? selectedOption.value : '';
 
       const updatedAddress = { ...address, [type]: selectedValue };
 
-      if (type === "state") {
-        updatedAddress.city = "";
-        updatedAddress.postcode = "";
+      if (type === 'state') {
+        updatedAddress.city = '';
+        updatedAddress.postcode = '';
       }
 
-      if (type === "city") {
-        updatedAddress.postcode = "";
+      if (type === 'city') {
+        updatedAddress.postcode = '';
       }
 
       setAddress(updatedAddress);
@@ -59,9 +59,9 @@ export default function App() {
 
   const resetAddress = () => {
     setAddress({
-      state: "",
-      city: "",
-      postcode: "",
+      state: '',
+      city: '',
+      postcode: ''
     });
   };
 
@@ -80,7 +80,7 @@ export default function App() {
           label="State"
           options={stateOptions}
           value={address.state}
-          onChange={handleSelectChange("state")}
+          onChange={handleSelectChange('state')}
         />
 
         {address.state && (
@@ -88,7 +88,7 @@ export default function App() {
             label="City"
             options={cityOptions}
             value={address.city}
-            onChange={handleSelectChange("city")}
+            onChange={handleSelectChange('city')}
           />
         )}
 
@@ -98,7 +98,7 @@ export default function App() {
               label="Postcode"
               options={postcodeOptions}
               value={address.postcode}
-              onChange={handleSelectChange("postcode")}
+              onChange={handleSelectChange('postcode')}
             />
             <div className="flex items-center justify-center">
               <button

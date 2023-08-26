@@ -35,7 +35,7 @@ exports.allPostcodes = data_json_1.default.state;
  * @returns {Array} Array containing names of all states.
  */
 const getStates = () => {
-    return exports.allPostcodes.map((state) => state.name);
+    return exports.allPostcodes.map(state => state.name);
 };
 exports.getStates = getStates;
 /**
@@ -47,8 +47,8 @@ const getCities = (selectedState) => {
     if (!selectedState) {
         return [];
     }
-    const stateObj = exports.allPostcodes.find((state) => state.name.toLowerCase() === selectedState.toLowerCase());
-    return stateObj ? stateObj.city.map((city) => city.name) : [];
+    const stateObj = exports.allPostcodes.find(state => state.name.toLowerCase() === selectedState.toLowerCase());
+    return stateObj ? stateObj.city.map(city => city.name) : [];
 };
 exports.getCities = getCities;
 /**
@@ -58,13 +58,13 @@ exports.getCities = getCities;
  * @returns An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
  */
 const findCities = (cityName, isExactMatch = true) => {
-    if (typeof isExactMatch !== "boolean") {
+    if (typeof isExactMatch !== 'boolean') {
         isExactMatch = true;
     }
     if (!cityName) {
         return { found: false };
     }
-    let results = [];
+    const results = [];
     const cityMatcher = (cityName, targetName) => {
         const formattedCityName = cityName.toLowerCase();
         const formattedTargetName = targetName.toLowerCase();
@@ -78,7 +78,7 @@ const findCities = (cityName, isExactMatch = true) => {
                 results.push({
                     state: state.name,
                     city: city.name,
-                    postcodes: city.postcode,
+                    postcodes: city.postcode
                 });
             }
         });
@@ -90,7 +90,7 @@ const findCities = (cityName, isExactMatch = true) => {
     }
     return {
         found: true,
-        results,
+        results
     };
 };
 exports.findCities = findCities;
@@ -119,13 +119,13 @@ exports.getPostcodes = getPostcodes;
  * @returns {Object} An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
  */
 const findPostcode = (postcode, isExactMatch = true) => {
-    if (typeof isExactMatch !== "boolean") {
+    if (typeof isExactMatch !== 'boolean') {
         isExactMatch = true;
     }
     if (!postcode) {
         return { found: false };
     }
-    let matches = [];
+    const matches = [];
     for (const state of exports.allPostcodes) {
         for (const city of state.city) {
             if (isExactMatch && city.postcode.includes(postcode)) {
@@ -133,7 +133,7 @@ const findPostcode = (postcode, isExactMatch = true) => {
                     found: true,
                     state: state.name,
                     city: city.name,
-                    postcode: postcode,
+                    postcode: postcode
                 };
             }
             else if (!isExactMatch) {
@@ -142,7 +142,7 @@ const findPostcode = (postcode, isExactMatch = true) => {
                         matches.push({
                             state: state.name,
                             city: city.name,
-                            postcode: pc,
+                            postcode: pc
                         });
                     }
                 }
@@ -152,7 +152,7 @@ const findPostcode = (postcode, isExactMatch = true) => {
     if (!isExactMatch && matches.length > 0) {
         return {
             found: true,
-            results: matches,
+            results: matches
         };
     }
     return { found: false };

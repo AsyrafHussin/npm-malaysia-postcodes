@@ -1,7 +1,7 @@
-import { ChangeEvent, useState } from "react";
-import { getCities, getPostcodes, getStates } from "malaysia-postcodes";
+import { ChangeEvent, useState } from 'react';
+import { getCities, getPostcodes, getStates } from 'malaysia-postcodes';
 
-import Select from "./components/Select";
+import Select from './components/Select';
 
 interface AddressFormState {
   selectedState: string;
@@ -11,17 +11,17 @@ interface AddressFormState {
 
 function App() {
   const [address, setAddress] = useState<AddressFormState>({
-    selectedState: "",
-    selectedCity: "",
-    selectedPostcode: "",
+    selectedState: '',
+    selectedCity: '',
+    selectedPostcode: ''
   });
 
   const updateSelectedState = (event: ChangeEvent<HTMLSelectElement>) => {
     setAddress({
       ...address,
       selectedState: event.target.value,
-      selectedCity: "",
-      selectedPostcode: "",
+      selectedCity: '',
+      selectedPostcode: ''
     });
   };
 
@@ -29,14 +29,14 @@ function App() {
     setAddress({
       ...address,
       selectedCity: event.target.value,
-      selectedPostcode: "",
+      selectedPostcode: ''
     });
   };
 
   const updateSelectedPostcode = (event: ChangeEvent<HTMLSelectElement>) => {
     setAddress({
       ...address,
-      selectedPostcode: event.target.value,
+      selectedPostcode: event.target.value
     });
   };
 

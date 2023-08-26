@@ -1,4 +1,4 @@
-import Select, { SingleValue } from "react-select";
+import Select, { SingleValue } from 'react-select';
 
 export interface Option {
   value: string;

@@ -1,4 +1,4 @@
-import data from "./data.json";
+import data from './data.json';
 
 export interface City {
   name: string;
@@ -43,7 +43,7 @@ export const allPostcodes: State[] = data.state;
  * @returns {Array} Array containing names of all states.
  */
 export const getStates = (): string[] => {
-  return allPostcodes.map((state) => state.name);
+  return allPostcodes.map(state => state.name);
 };
 
 /**
@@ -57,10 +57,10 @@ export const getCities = (selectedState: string | null): string[] => {
   }
 
   const stateObj = allPostcodes.find(
-    (state) => state.name.toLowerCase() === selectedState.toLowerCase()
+    state => state.name.toLowerCase() === selectedState.toLowerCase()
   );
 
-  return stateObj ? stateObj.city.map((city) => city.name) : [];
+  return stateObj ? stateObj.city.map(city => city.name) : [];
 };
 
 /**
@@ -73,7 +73,7 @@ export const findCities = (
   cityName: string | null,
   isExactMatch: boolean = true
 ): CitySearchResult => {
-  if (typeof isExactMatch !== "boolean") {
+  if (typeof isExactMatch !== 'boolean') {
     isExactMatch = true;
   }
 
@@ -81,7 +81,7 @@ export const findCities = (
     return { found: false };
   }
 
-  let results: IndividualCityResult[] = [];
+  const results: IndividualCityResult[] = [];
 
   const cityMatcher = (cityName: string, targetName: string): boolean => {
     const formattedCityName = cityName.toLowerCase();
@@ -98,7 +98,7 @@ export const findCities = (
         results.push({
           state: state.name,
           city: city.name,
-          postcodes: city.postcode,
+          postcodes: city.postcode
         });
       }
     });
@@ -112,7 +112,7 @@ export const findCities = (
 
   return {
     found: true,
-    results,
+    results
   };
 };
 
@@ -152,7 +152,7 @@ export const findPostcode = (
   postcode: string | null,
   isExactMatch: boolean = true
 ): PostcodeSearchResult => {
-  if (typeof isExactMatch !== "boolean") {
+  if (typeof isExactMatch !== 'boolean') {
     isExactMatch = true;
   }
 
@@ -160,7 +160,7 @@ export const findPostcode = (
     return { found: false };
   }
 
-  let matches: { state: string; city: string; postcode: string }[] = [];
+  const matches: { state: string; city: string; postcode: string }[] = [];
 
   for (const state of allPostcodes) {
     for (const city of state.city) {
@@ -169,7 +169,7 @@ export const findPostcode = (
           found: true,
           state: state.name,
           city: city.name,
-          postcode: postcode,
+          postcode: postcode
         };
       } else if (!isExactMatch) {
         for (const pc of city.postcode) {
@@ -177,7 +177,7 @@ export const findPostcode = (
             matches.push({
               state: state.name,
               city: city.name,
-              postcode: pc,
+              postcode: pc
             });
           }
         }
@@ -188,7 +188,7 @@ export const findPostcode = (
   if (!isExactMatch && matches.length > 0) {
     return {
       found: true,
-      results: matches,
+      results: matches
     };
   }
 

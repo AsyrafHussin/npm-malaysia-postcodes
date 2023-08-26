@@ -1,13 +1,13 @@
-import webpack, { Configuration } from "webpack";
+import webpack, { Configuration } from 'webpack';
 
-import TerserPlugin from "terser-webpack-plugin";
-import packageJson from "./package.json";
-import path from "path";
+import TerserPlugin from 'terser-webpack-plugin';
+import packageJson from './package.json';
+import path from 'path';
 
 const terserPlugin = new TerserPlugin({ extractComments: false });
 const commonOptimization = {
   minimize: true,
-  minimizer: [terserPlugin],
+  minimizer: [terserPlugin]
 };
 
 const banner = `
@@ -19,65 +19,65 @@ const banner = `
 `;
 
 const commonConfig: Configuration = {
-  entry: "./src/index.ts",
+  entry: './src/index.ts',
   module: {
     rules: [
       {
         test: /\.ts$/,
         exclude: /node_modules|__tests__/,
-        use: "ts-loader",
-      },
-    ],
+        use: 'ts-loader'
+      }
+    ]
   },
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: ['.ts', '.js']
   },
   plugins: [
     new webpack.BannerPlugin({
       banner: banner,
       raw: false,
-      entryOnly: true,
-    }),
-  ],
+      entryOnly: true
+    })
+  ]
 };
 
 const umdConfig: Configuration = {
   ...commonConfig,
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "malaysia-postcodes.min.js",
-    library: "malaysiaPostcodes",
-    libraryTarget: "umd",
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'malaysia-postcodes.min.js',
+    library: 'malaysiaPostcodes',
+    libraryTarget: 'umd',
     umdNamedDefine: true,
-    globalObject: "this",
+    globalObject: 'this'
   },
-  mode: "production",
-  optimization: commonOptimization,
+  mode: 'production',
+  optimization: commonOptimization
 };
 
 const umdDevConfig: Configuration = {
   ...commonConfig,
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "malaysia-postcodes.js",
-    library: "malaysiaPostcodes",
-    libraryTarget: "umd",
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'malaysia-postcodes.js',
+    library: 'malaysiaPostcodes',
+    libraryTarget: 'umd',
     umdNamedDefine: true,
-    globalObject: "this",
+    globalObject: 'this'
   },
-  mode: "development",
-  optimization: { ...commonOptimization, minimize: false },
+  mode: 'development',
+  optimization: { ...commonOptimization, minimize: false }
 };
 
 const commonJsConfig: Configuration = {
   ...commonConfig,
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "index.js",
-    libraryTarget: "commonjs2",
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'index.js',
+    libraryTarget: 'commonjs2'
   },
-  mode: "production",
-  optimization: commonOptimization,
+  mode: 'production',
+  optimization: commonOptimization
 };
 
 const config: Configuration[] = [umdConfig, umdDevConfig, commonJsConfig];

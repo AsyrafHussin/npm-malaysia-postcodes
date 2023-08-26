@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent } from 'react';
 
 interface SelectProps {
   id: string;
@@ -13,7 +13,7 @@ const Select = ({ id, value, onChange, options, label }: SelectProps) => (
     <label htmlFor={id}>{label}:</label>
     <select id={id} value={value} onChange={onChange}>
       <option value="">Select {label}</option>
-      {options.map((option) => (
+      {options.map(option => (
         <option key={option} value={option}>
           {option}
         </option>
