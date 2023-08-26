@@ -9,11 +9,14 @@
     "build": "webpack --mode production",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:ci": "jest --ci",
     "test:coverage": "jest --coverage",
     "lint": "eslint --cache --ext .ts src/**.ts __tests__/**.ts",
     "format": "prettier --write --cache \"**/*.[tj]s?(x)\"",
     "format-check": "prettier --check --cache \"**/*.[tj]s?(x)\"",
-    "version": "npm run build && npm run test && node update-cdn-versions.js"
+    "check-types": "tsc --pretty --noEmit",
+    "version": "npm run build && npm run test && node update-cdn-versions.js",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -50,6 +53,7 @@
     "typescript": "^5.2.2",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^4.15.1",
+    "husky": "^8.0.0"
   }
 }

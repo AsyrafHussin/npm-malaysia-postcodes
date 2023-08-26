@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Check unit test 
+npm run test:ci ||
+(
+    echo '❌ Failed Unit Tests. Please fix!'
+    false;
+)
+
+echo '✅ Passes unit tests'
