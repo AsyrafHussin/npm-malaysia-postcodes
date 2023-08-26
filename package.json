@@ -15,7 +15,7 @@
     "format": "prettier --write --cache \"**/*.[tj]s?(x)\"",
     "format-check": "prettier --check --cache \"**/*.[tj]s?(x)\"",
     "check-types": "tsc --pretty --noEmit",
-    "version": "npm run build && npm run test && node update-cdn-versions.js",
+    "version": "npm run build && npm run test && node scripts/update-cdn-versions.js",
     "prepare": "husky install"
   },
   "repository": {
