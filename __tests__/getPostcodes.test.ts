@@ -35,4 +35,24 @@ describe("getPostcodes", () => {
 
     expect(response).toEqual([]);
   });
+
+  it("should return an empty array when the state is null", () => {
+    const result = getPostcodes(null, "Some City");
+    expect(result).toEqual([]);
+  });
+
+  it("should return an empty array when the state is an empty string", () => {
+    const result = getPostcodes("", "Some City");
+    expect(result).toEqual([]);
+  });
+
+  it("should return an empty array when the city is null", () => {
+    const result = getPostcodes("Some State", null);
+    expect(result).toEqual([]);
+  });
+
+  it("should return an empty array when the city is an empty string", () => {
+    const result = getPostcodes("Some State", "");
+    expect(result).toEqual([]);
+  });
 });
