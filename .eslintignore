@@ -1,3 +1,3 @@
 dist
 src/data.json
-update-cdn-versions.js
+scripts/update-cdn-versions.js
