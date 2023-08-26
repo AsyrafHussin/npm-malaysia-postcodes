@@ -29,4 +29,30 @@ describe("findCities", () => {
     const result = findCities("NonExistingTerm", false);
     expect(result.found).toBe(false);
   });
+
+  test("Search with null should return not found", () => {
+    const result = findCities(null);
+    expect(result.found).toBe(false);
+  });
+
+  test("Search with null and non-exact match should return not found", () => {
+    const result = findCities(null, false);
+    expect(result.found).toBe(false);
+  });
+
+  test("Search with non-boolean isExactMatch should default to true", () => {
+    const result = findCities("Pasir Mas", "notABoolean" as any);
+    expect(result.found).toBe(true);
+    expect(result.state).toBeDefined();
+    expect(result.city).toBe("Pasir Mas");
+    expect(result.postcodes).toBeInstanceOf(Array);
+  });
+
+  test("Search with null as isExactMatch should default to true", () => {
+    const result = findCities("Pasir Mas", null as any);
+    expect(result.found).toBe(true);
+    expect(result.state).toBeDefined();
+    expect(result.city).toBe("Pasir Mas");
+    expect(result.postcodes).toBeInstanceOf(Array);
+  });
 });
