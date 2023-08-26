@@ -44,6 +44,9 @@ exports.getStates = getStates;
  * @returns Array containing names of cities for the selected state. Empty array if the state is not found.
  */
 const getCities = (selectedState) => {
+    if (!selectedState) {
+        return [];
+    }
     const stateObj = exports.allPostcodes.find((state) => state.name.toLowerCase() === selectedState.toLowerCase());
     return stateObj ? stateObj.city.map((city) => city.name) : [];
 };
@@ -55,6 +58,12 @@ exports.getCities = getCities;
  * @returns An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
  */
 const findCities = (cityName, isExactMatch = true) => {
+    if (typeof isExactMatch !== "boolean") {
+        isExactMatch = true;
+    }
+    if (!cityName) {
+        return { found: false };
+    }
     let results = [];
     const cityMatcher = (cityName, targetName) => {
         const formattedCityName = cityName.toLowerCase();
@@ -92,6 +101,9 @@ exports.findCities = findCities;
  * @returns {Array} Array containing postcodes for the selected state and city. Empty array if not found.
  */
 const getPostcodes = (state, city) => {
+    if (!state || !city) {
+        return [];
+    }
     const stateObj = exports.allPostcodes.find((s) => s.name.toLowerCase() === state.toLowerCase());
     if (stateObj) {
         const cityObj = stateObj.city.find((c) => c.name.toLowerCase() === city.toLowerCase());
@@ -107,6 +119,12 @@ exports.getPostcodes = getPostcodes;
  * @returns {Object} An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
  */
 const findPostcode = (postcode, isExactMatch = true) => {
+    if (typeof isExactMatch !== "boolean") {
+        isExactMatch = true;
+    }
+    if (!postcode) {
+        return { found: false };
+    }
     let matches = [];
     for (const state of exports.allPostcodes) {
         for (const city of state.city) {

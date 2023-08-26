@@ -51,10 +51,15 @@ export const getStates = (): string[] => {
  * @param selectedState - The name of the state for which cities are to be retrieved.
  * @returns Array containing names of cities for the selected state. Empty array if the state is not found.
  */
-export const getCities = (selectedState: string): string[] => {
+export const getCities = (selectedState: string | null): string[] => {
+  if (!selectedState) {
+    return [];
+  }
+
   const stateObj = allPostcodes.find(
     (state) => state.name.toLowerCase() === selectedState.toLowerCase()
   );
+
   return stateObj ? stateObj.city.map((city) => city.name) : [];
 };
 
@@ -65,9 +70,17 @@ export const getCities = (selectedState: string): string[] => {
  * @returns An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
  */
 export const findCities = (
-  cityName: string,
+  cityName: string | null,
   isExactMatch: boolean = true
 ): CitySearchResult => {
+  if (typeof isExactMatch !== "boolean") {
+    isExactMatch = true;
+  }
+
+  if (!cityName) {
+    return { found: false };
+  }
+
   let results: IndividualCityResult[] = [];
 
   const cityMatcher = (cityName: string, targetName: string): boolean => {
@@ -109,7 +122,14 @@ export const findCities = (
  * @param {string} city - The name of the city.
  * @returns {Array} Array containing postcodes for the selected state and city. Empty array if not found.
  */
-export const getPostcodes = (state: string, city: string): string[] => {
+export const getPostcodes = (
+  state: string | null,
+  city: string | null
+): string[] => {
+  if (!state || !city) {
+    return [];
+  }
+
   const stateObj = allPostcodes.find(
     (s: State) => s.name.toLowerCase() === state.toLowerCase()
   );
@@ -129,9 +149,17 @@ export const getPostcodes = (state: string, city: string): string[] => {
  * @returns {Object} An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
  */
 export const findPostcode = (
-  postcode: string,
+  postcode: string | null,
   isExactMatch: boolean = true
 ): PostcodeSearchResult => {
+  if (typeof isExactMatch !== "boolean") {
+    isExactMatch = true;
+  }
+
+  if (!postcode) {
+    return { found: false };
+  }
+
   let matches: { state: string; city: string; postcode: string }[] = [];
 
   for (const state of allPostcodes) {
