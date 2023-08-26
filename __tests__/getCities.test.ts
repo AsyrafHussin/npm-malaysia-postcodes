@@ -24,4 +24,14 @@ describe("getCities", () => {
     const response = getCities(invalidState);
     expect(response).toEqual([]);
   });
+
+  it("should return an empty array when the state is null", () => {
+    const result = getCities(null as any);
+    expect(result).toEqual([]);
+  });
+
+  it("should return an empty array when the state is an empty string", () => {
+    const result = getCities("");
+    expect(result).toEqual([]);
+  });
 });
