@@ -1,3 +1,4 @@
 dist
 src/data.json
 scripts/update-cdn-versions.js
+examples
