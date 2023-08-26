@@ -185,7 +185,7 @@ export const findPostcode = (
     }
   }
 
-  if (!isExactMatch && matches.length > 0) {
+  if (!isExactMatch && matches.length > 0) {{
     return {
       found: true,
       results: matches

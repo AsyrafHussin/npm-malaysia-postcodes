@@ -16,16 +16,7 @@
     "version": "npm run build && npm run test && node update-cdn-versions.js"
   },
   "simple-git-hooks": {
-    "pre-commit": "npm run lint-staged && npm run check"
-  },
-  "lint-staged": {
-    "*.{js}": [
-      "prettier --write"
-    ],
-    "*.ts": [
-      "eslint",
-      "prettier --parser=typescript --write"
-    ]
+    "pre-commit": "npx lint-staged"
   },
   "repository": {
     "type": "git",
