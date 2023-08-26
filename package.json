@@ -2,7 +2,7 @@
   "name": "malaysia-postcodes",
   "version": "2.0.0",
   "description": "List of Malaysia Postcodes with City and State (JSON)",
-  "main": "dist/malaysia-postcodes.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "webpack-dev-server --mode development",

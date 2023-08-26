@@ -1,7 +1,14 @@
+import webpack, { Configuration } from "webpack";
+
 import TerserPlugin from "terser-webpack-plugin";
 import packageJson from "./package.json";
 import path from "path";
-import webpack from "webpack";
+
+const terserPlugin = new TerserPlugin({ extractComments: false });
+const commonOptimization = {
+  minimize: true,
+  minimizer: [terserPlugin],
+};
 
 const banner = `
   malaysia-postcodes v${
@@ -11,14 +18,8 @@ const banner = `
   Licensed under ISC (https://github.com/AsyrafHussin/npm-malaysia-postcodes/blob/main/LICENSE)
 `;
 
-const commonConfig: webpack.Configuration = {
+const commonConfig: Configuration = {
   entry: "./src/index.ts",
-  output: {
-    path: path.resolve(__dirname, "dist"),
-    library: "malaysiaPostcodes",
-    libraryTarget: "umd",
-    umdNamedDefine: true,
-  },
   module: {
     rules: [
       {
@@ -40,32 +41,45 @@ const commonConfig: webpack.Configuration = {
   ],
 };
 
-const config: webpack.Configuration[] = [
-  {
-    ...commonConfig,
-    mode: "development",
-    devtool: false,
-    output: {
-      ...commonConfig.output,
-      filename: "malaysia-postcodes.js",
-    },
+const umdConfig: Configuration = {
+  ...commonConfig,
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "malaysia-postcodes.min.js",
+    library: "malaysiaPostcodes",
+    libraryTarget: "umd",
+    umdNamedDefine: true,
+    globalObject: "this",
   },
-  {
-    ...commonConfig,
-    mode: "production",
-    output: {
-      ...commonConfig.output,
-      filename: "malaysia-postcodes.min.js",
-    },
-    optimization: {
-      minimize: true,
-      minimizer: [
-        new TerserPlugin({
-          extractComments: false,
-        }),
-      ],
-    },
+  mode: "production",
+  optimization: commonOptimization,
+};
+
+const umdDevConfig: Configuration = {
+  ...commonConfig,
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "malaysia-postcodes.js",
+    library: "malaysiaPostcodes",
+    libraryTarget: "umd",
+    umdNamedDefine: true,
+    globalObject: "this",
   },
-];
+  mode: "development",
+  optimization: { ...commonOptimization, minimize: false },
+};
+
+const commonJsConfig: Configuration = {
+  ...commonConfig,
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "index.js",
+    libraryTarget: "commonjs2",
+  },
+  mode: "production",
+  optimization: commonOptimization,
+};
+
+const config: Configuration[] = [umdConfig, umdDevConfig, commonJsConfig];
 
 export default config;
