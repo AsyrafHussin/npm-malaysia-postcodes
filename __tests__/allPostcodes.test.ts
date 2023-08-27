@@ -121,6 +121,16 @@ describe('allPostcodes', () => {
     });
   });
 
+  it('all postcodes should be exactly 5 characters long', () => {
+    allPostcodes.forEach((state: State) => {
+      state.city.forEach((city: City) => {
+        city.postcode.forEach((postcode: string) => {
+          expect(postcode.length).toBe(5);
+        });
+      });
+    });
+  });
+
   it('should not have duplicated postcodes within a city', () => {
     allPostcodes.forEach((state: State) => {
       state.city.forEach((city: City) => {
