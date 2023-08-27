@@ -1,4 +1,4 @@
-import { findPostcode } from '../src/index';
+import { findPostcode } from '../src';
 
 describe('findPostcode', () => {
   it('should be defined', () => {

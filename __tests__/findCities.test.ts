@@ -1,4 +1,4 @@
-import { IndividualCityResult, findCities } from '../src/index';
+import { IndividualCityResult, findCities } from '../src';
 
 describe('findCities function', () => {
   it("should returns valid result when searching exactly for the city 'Pasir Mas'", () => {

@@ -1,4 +1,4 @@
-import { getCities } from '../src/index';
+import { getCities } from '../src';
 
 describe('getCities', () => {
   it('should be defined', () => {

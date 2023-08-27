@@ -1,4 +1,4 @@
-import { City, State, allPostcodes } from '../src/index';
+import { City, State, allPostcodes } from '../src';
 
 describe('allPostcodes', () => {
   it('should be defined', () => {

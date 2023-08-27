@@ -1,4 +1,4 @@
-import { getPostcodes } from '../src/index';
+import { getPostcodes } from '../src';
 
 describe('getPostcodes', () => {
   it('should be defined', () => {

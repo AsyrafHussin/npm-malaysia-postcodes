@@ -1,4 +1,4 @@
-import { getStates } from '../src/index';
+import { getStates } from '../src';
 
 describe('getStates', () => {
   it('should be defined', () => {
