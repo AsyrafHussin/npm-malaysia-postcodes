@@ -1,6 +1,6 @@
 /*!
  * 
- *   malaysia-postcodes v2.2.0 (https://github.com/AsyrafHussin/npm-malaysia-postcodes)
+ *   malaysia-postcodes v2.3.0 (https://github.com/AsyrafHussin/npm-malaysia-postcodes)
  *   Copyright 2020-2023 Asyraf Hussin
  *   Licensed under ISC (https://github.com/AsyrafHussin/npm-malaysia-postcodes/blob/main/LICENSE)
  *
@@ -27,7 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.findPostcode = exports.getPostcodes = exports.findCities = exports.getCities = exports.getStates = exports.allPostcodes = void 0;
+exports.getPostcodesByPrefix = exports.findPostcode = exports.getPostcodes = exports.findCities = exports.getCities = exports.getStates = exports.allPostcodes = void 0;
 const data_json_1 = __importDefault(__webpack_require__(468));
 exports.allPostcodes = data_json_1.default.state;
 /**
@@ -158,6 +158,30 @@ const findPostcode = (postcode, isExactMatch = true) => {
     return { found: false };
 };
 exports.findPostcode = findPostcode;
+/**
+ * This function returns an array of postcodes that match the given prefix.
+ * The prefix should be between 1 and 5 characters long.
+ *
+ * @param prefix - The prefix to match against the postcodes
+ * @returns An array of matching postcodes
+ */
+const getPostcodesByPrefix = (prefix) => {
+    if (!prefix || prefix.length < 1 || prefix.length > 5) {
+        return [];
+    }
+    const matchingPostcodes = [];
+    for (const stateData of exports.allPostcodes) {
+        for (const cityData of stateData.city) {
+            for (const postcode of cityData.postcode) {
+                if (postcode.startsWith(prefix)) {
+                    matchingPostcodes.push(postcode);
+                }
+            }
+        }
+    }
+    return matchingPostcodes;
+};
+exports.getPostcodesByPrefix = getPostcodesByPrefix;
 
 
 /***/ }),

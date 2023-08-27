@@ -62,3 +62,11 @@ export declare const getPostcodes: (state: string | null, city: string | null) =
  * @returns {Object} An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
  */
 export declare const findPostcode: (postcode: string | null, isExactMatch?: boolean) => PostcodeSearchResult;
+/**
+ * This function returns an array of postcodes that match the given prefix.
+ * The prefix should be between 1 and 5 characters long.
+ *
+ * @param prefix - The prefix to match against the postcodes
+ * @returns An array of matching postcodes
+ */
+export declare const getPostcodesByPrefix: (prefix: string | null) => string[];
