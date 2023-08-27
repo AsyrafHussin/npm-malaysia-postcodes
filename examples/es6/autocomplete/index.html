@@ -2,16 +2,20 @@
 <html>
   <head>
     <title>Postcode Autocomplete Example</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="./main.css" />
   </head>
   <body>
     <h1>Search for a Postcode</h1>
     <input
       type="text"
       id="postcodeInput"
-      list="postcodes"
       placeholder="Enter postcode"
+      autocomplete="off"
     />
-    <datalist id="postcodes"> </datalist>
+    <div id="customDropdown" class="custom-dropdown"></div>
 
     <script type="module" src="./main.js"></script>
   </body>
