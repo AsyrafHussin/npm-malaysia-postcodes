@@ -12,6 +12,6 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
-    "malaysia-postcodes": "^2.2.0"
+    "malaysia-postcodes": "^2.3.0"
   }
 }
