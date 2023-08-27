@@ -25,6 +25,7 @@ List of Malaysia Postcodes with City and State (JSON)
   - [getCities](#getcities)
   - [findCities](#findcities)
   - [getPostcodes](#getpostcodes)
+  - [getPostcodesByPrefix](#getpostcodesbyprefix)
   - [findPostcode](#findpostcode)
 - [Examples](#examples)
 - [TypeScript Support](#typescript-support)
@@ -314,6 +315,41 @@ Example results:
   "17050",
   "17060",
   "17070",
+];
+```
+
+### getPostcodesByPrefix
+
+Returns an array of all postcodes that start with the given prefix
+
+#### Use Case
+
+Let's say you have a form where the user starts typing a postcode. As they type, you can call `getPostcodesByPrefix` to dynamically show suggestions based on what the user has typed so far.
+
+**Parameters:**
+
+- `prefix` (string): The prefix you wish to search for. This should be a non-null string with a length between 1 and 5.
+
+Example usage:
+
+```js
+const postcodes = getPostcodesByPrefix("170");
+```
+
+Example results:
+
+```js
+[
+ '17000',
+ '17007',
+ '17009',
+ '17010',
+ '17020',
+ '17030',
+ '17040',
+ '17050',
+ '17060',
+ '17070'
 ];
 ```
 

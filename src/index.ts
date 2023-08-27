@@ -194,3 +194,30 @@ export const findPostcode = (
 
   return { found: false };
 };
+
+/**
+ * This function returns an array of postcodes that match the given prefix.
+ * The prefix should be between 1 and 5 characters long.
+ *
+ * @param prefix - The prefix to match against the postcodes
+ * @returns An array of matching postcodes
+ */
+export const getPostcodesByPrefix = (prefix: string | null): string[] => {
+  if (!prefix || prefix.length < 1 || prefix.length > 5) {
+    return [];
+  }
+
+  const matchingPostcodes: string[] = [];
+
+  for (const stateData of allPostcodes) {
+    for (const cityData of stateData.city) {
+      for (const postcode of cityData.postcode) {
+        if (postcode.startsWith(prefix)) {
+          matchingPostcodes.push(postcode);
+        }
+      }
+    }
+  }
+
+  return matchingPostcodes;
+};
