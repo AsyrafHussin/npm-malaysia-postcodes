@@ -2,6 +2,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 2em;
 }
+
 input[type='text'] {
   width: 100%;
   padding: 12px 20px;
@@ -10,6 +11,7 @@ input[type='text'] {
   border: 2px solid #ccc;
   border-radius: 4px;
 }
+
 .custom-dropdown {
   max-height: 150px;
   overflow-y: auto;
@@ -18,13 +20,16 @@ input[type='text'] {
   width: 100%;
   display: none;
 }
+
 .custom-option {
   padding: 8px 12px;
   cursor: pointer;
 }
+
 .custom-option:hover {
   background-color: #eee;
 }
+
 h1 {
   font-size: 24px;
 }
