@@ -1,12 +1,16 @@
 # Malaysia Postcodes
 
-A Comprehensive List of Malaysia Postcodes, Complete with City and State Information in JSON Format
+A Comprehensive NPM Package of Malaysia Postcodes, Complete with City and State Information, available in JSON format.
 
 [![Version](https://img.shields.io/npm/v/malaysia-postcodes.svg)](https://npmjs.org/package/malaysia-postcodes)
 [![Downloads/week](https://img.shields.io/npm/dw/malaysia-postcodes.svg)](https://npmjs.org/package/malaysia-postcodes)
 [![NPM monthly downloads](https://img.shields.io/npm/dm/malaysia-postcodes.svg?style=flat)](https://www.npmjs.com/package/malaysia-postcodes)
 [![NPM total downloads](https://img.shields.io/npm/dt/malaysia-postcodes.svg?style=flat)](https://www.npmjs.com/package/malaysia-postcodes)
 [![License](https://img.shields.io/npm/l/malaysia-postcodes.svg)](https://github.com/AsyrafHussin/malaysia-postcodes/blob/master/package.json)
+
+## Overview
+
+`malaysia-postcodes` is an npm package that provides a comprehensive list of Malaysia postcodes, along with the corresponding city and state information. It is a handy tool for developers and researchers who require postal data for Malaysia in their projects.
 
 ## Table of Contents
 
@@ -33,6 +37,7 @@ A Comprehensive List of Malaysia Postcodes, Complete with City and State Informa
   - [Running the Tests](#running-the-tests)
   - [Watch Mode](#watch-mode)
   - [Test Coverage](#test-coverage)
+- [Data Source](#data-source)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -461,6 +466,10 @@ npm run test:coverage
 ```
 
 Note: The `coverage` directory is not included in the repository as it is generated on-the-fly whenever tests are run with coverage.
+
+## Data Source
+
+This package is built on the data from the [Malaysia Postcodes GitHub repository](https://github.com/AsyrafHussin/malaysia-postcodes). It is closely associated with and relies on the JSON data available in this repository. For the most up-to-date postcode information, refer to the original repository.
 
 ## Contributing
 
