@@ -473,8 +473,8 @@ This package is built on the data from the [Malaysia Postcodes GitHub repository
 
 ## Contributing
 
-If you spot any errors, typos or missing information, please submit a pull request.
+If you find any inaccuracies, typos, or missing data, we welcome contributions! Please feel free to open an issue or submit a pull request.
 
 ## License
 
-ISC. See [LICENSE](LICENSE) for more details.
+This repository is licensed under the ISC License. See the [LICENSE](LICENSE) file for more details.
