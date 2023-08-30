@@ -440,7 +440,7 @@ To run the tests, follow these steps:
 1.Ensure you have all dependencies installed:
 
 ```bash
-npm install
+npm ci
 ```
 
 2.Run the test command:
