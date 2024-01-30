@@ -1,6 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 echo 'Styling and testing your project before committing'
 
 # Check tsconfig standards
