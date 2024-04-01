@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^5.1.5"
+    "vite": "^5.2.7"
   },
   "dependencies": {
     "malaysia-postcodes": "^2.3.0"
