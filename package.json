@@ -1,12 +1,12 @@
 {
   "name": "malaysia-postcodes",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "List of Malaysia Postcodes with City and State (JSON)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "webpack-dev-server --mode development",
-    "build": "webpack --mode production",
+    "build": "webpack --mode production --node-env production",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:ci": "jest --ci",
@@ -39,8 +39,8 @@
     "@types/node": "^20.5.8",
     "@types/terser-webpack-plugin": "^5.2.0",
     "@types/webpack": "^5.28.2",
-    "@typescript-eslint/eslint-plugin": "^7.1.1",
-    "@typescript-eslint/parser": "^7.0.1",
+    "@typescript-eslint/eslint-plugin": "^6.5.0",
+    "@typescript-eslint/parser": "^6.5.0",
     "eslint": "^8.48.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.28.1",
@@ -54,6 +54,7 @@
     "typescript": "^5.2.2",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.2"
+    "webpack-dev-server": "^4.15.1",
+    "ts-node": "^10.9.1"
   }
 }
