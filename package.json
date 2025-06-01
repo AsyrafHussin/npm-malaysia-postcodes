@@ -4,6 +4,11 @@
   "description": "List of Malaysia Postcodes with City and State (JSON)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "dev": "tsx node_modules/webpack-dev-server/bin/webpack-dev-server.js --mode development",
     "build": "tsx node_modules/webpack/bin/webpack.js --mode production --node-env production",
