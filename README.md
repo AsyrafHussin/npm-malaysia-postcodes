@@ -7,6 +7,8 @@ A Comprehensive NPM Package of Malaysia Postcodes, Complete with City and State 
 [![NPM monthly downloads](https://img.shields.io/npm/dm/malaysia-postcodes.svg?style=flat)](https://www.npmjs.com/package/malaysia-postcodes)
 [![NPM total downloads](https://img.shields.io/npm/dt/malaysia-postcodes.svg?style=flat)](https://www.npmjs.com/package/malaysia-postcodes)
 [![License](https://img.shields.io/npm/l/malaysia-postcodes.svg)](https://github.com/AsyrafHussin/npm-malaysia-postcodes/blob/main/package.json)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![GitHub Workflow Status](https://github.com/AsyrafHussin/npm-malaysia-postcodes/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/AsyrafHussin/npm-malaysia-postcodes/actions)
 
 ## Overview
 
@@ -80,7 +82,7 @@ import {
   getCities,
   findCities,
   getPostcodes,
-  getPostcodesByPrefix,
+  ge  getPostcodesByPrefix,
   findPostcode,
 } from "malaysia-postcodes";
 ```
@@ -113,7 +115,9 @@ Alternatively, you can call the functions directly using the `malaysiaPostcodes`
 const postcodesData = malaysiaPostcodes.allPostcodes;
 const states = malaysiaPostcodes.getStates();
 const cities = malaysiaPostcodes.getCities("Kelantan");
-const cityDetails = malaysiaPostcodes.findCities("Pasir Mas");
+const postcodes = malaysiaPostcodes.getPostcodes("Kelantan", "Pasir Mas");
+const matchingPostcodes = malaysiaPostcodes.getPostcodesByPrefix("170");
+codes.findCities("Pasir Mas");
 const postcodes = malaysiaPostcodes.getPostcodes("Kelantan", "Pasir Mas");
 const prefixPostcodes = malaysiaPostcodes.getPostcodesByPrefix("170");
 const location = malaysiaPostcodes.findPostcode("17070");
