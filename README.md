@@ -145,17 +145,17 @@ const {
 Alternatively, you can call the functions directly using the `malaysiaPostcodes` object:
 
 ```js
-const postcodesData = malaysiaPostcodes.allPostcodes;
-const states = malaysiaPostcodes.getStates();
-const cities = malaysiaPostcodes.getCities("Kelantan");
-const cityResults = malaysiaPostcodes.findCities("Pasir Mas");
-const postcodes = malaysiaPostcodes.getPostcodes("Kelantan", "Pasir Mas");
-const prefixPostcodes = malaysiaPostcodes.getPostcodesByPrefix("170");
-const location = malaysiaPostcodes.findPostcode("17070");
-const searchResults = malaysiaPostcodes.searchAll("Penang");
-const randomPostcode = malaysiaPostcodes.getRandomPostcode();
-const randomCity = malaysiaPostcodes.getRandomCity("Selangor");
-const randomState = malaysiaPostcodes.getRandomState();
+const postcodesData = window.malaysiaPostcodes.allPostcodes;
+const states = window.malaysiaPostcodes.getStates();
+const cities = window.malaysiaPostcodes.getCities("Kelantan");
+const cityResults = window.malaysiaPostcodes.findCities("Pasir Mas");
+const postcodes = window.malaysiaPostcodes.getPostcodes("Kelantan", "Pasir Mas");
+const prefixPostcodes = window.malaysiaPostcodes.getPostcodesByPrefix("170");
+const location = window.malaysiaPostcodes.findPostcode("17070");
+const searchResults = window.malaysiaPostcodes.searchAll("Penang");
+const randomPostcode = window.malaysiaPostcodes.getRandomPostcode();
+const randomCity = window.malaysiaPostcodes.getRandomCity("Selangor");
+const randomState = window.malaysiaPostcodes.getRandomState();
 ```
 
 ## Usage
