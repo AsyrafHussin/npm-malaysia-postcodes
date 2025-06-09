@@ -33,6 +33,10 @@ A Comprehensive NPM Package of Malaysia Postcodes, Complete with City and State 
   - [getPostcodes](#getpostcodes)
   - [getPostcodesByPrefix](#getpostcodesbyprefix)
   - [findPostcode](#findpostcode)
+  - [searchAll](#searchall)
+  - [getRandomPostcode](#getrandompostcode)
+  - [getRandomCity](#getrandomcity)
+  - [getRandomState](#getrandomstate)
 - [Examples](#examples)
 - [TypeScript Support](#typescript-support)
 - [Testing](#testing)
@@ -82,8 +86,12 @@ import {
   getCities,
   findCities,
   getPostcodes,
-  ge  getPostcodesByPrefix,
+  getPostcodesByPrefix,
   findPostcode,
+  searchAll,
+  getRandomPostcode,
+  getRandomCity,
+  getRandomState,
 } from "malaysia-postcodes";
 ```
 
@@ -103,7 +111,11 @@ const {
   findCities,
   getPostcodes,
   getPostcodesByPrefix,
-  findPostcode 
+  findPostcode,
+  searchAll,
+  getRandomPostcode,
+  getRandomCity,
+  getRandomState
 } = window.malaysiaPostcodes;
 ```
 
@@ -115,12 +127,14 @@ Alternatively, you can call the functions directly using the `malaysiaPostcodes`
 const postcodesData = malaysiaPostcodes.allPostcodes;
 const states = malaysiaPostcodes.getStates();
 const cities = malaysiaPostcodes.getCities("Kelantan");
-const postcodes = malaysiaPostcodes.getPostcodes("Kelantan", "Pasir Mas");
-const matchingPostcodes = malaysiaPostcodes.getPostcodesByPrefix("170");
-codes.findCities("Pasir Mas");
+const cityResults = malaysiaPostcodes.findCities("Pasir Mas");
 const postcodes = malaysiaPostcodes.getPostcodes("Kelantan", "Pasir Mas");
 const prefixPostcodes = malaysiaPostcodes.getPostcodesByPrefix("170");
 const location = malaysiaPostcodes.findPostcode("17070");
+const searchResults = malaysiaPostcodes.searchAll("Penang");
+const randomPostcode = malaysiaPostcodes.getRandomPostcode();
+const randomCity = malaysiaPostcodes.getRandomCity("Selangor");
+const randomState = malaysiaPostcodes.getRandomState();
 ```
 
 ## Usage
@@ -242,21 +256,24 @@ Example results:
 
 ### findCities
 
-Search for cities based on the provided query string.
+Search for cities based on the provided query string. Supports both single city names and arrays of city names for batch processing.
 
 **Parameters:**
 
-- **query (string):** The city name or part of the city name you wish to search for.
+- **query (string | string[]):** The city name(s) or part of the city name you wish to search for. Can be a single string or an array of strings for batch processing.
 - **exact (boolean, optional):** Determines the type of search. If `true`, the function will search for cities that match the query exactly. If `false`, it will search for cities that contain the query string. Default is `true`.
 
 Example usage:
 
 ```js
-// For exact search
+// For exact search (single city)
 const cityDetailsExact = findCities("Pasir Mas"); 
 
-// For non-exact search
+// For non-exact search (single city)
 const cityDetailsBroad = findCities("Kota", false);
+
+// For batch processing (multiple cities)
+const multipleCities = findCities(["Pasir Mas", "Kuala Lumpur"]);
 ```
 
 Example result for an exact search:
@@ -287,6 +304,26 @@ Example result for a non-exact search:
       "postcodes": ["88000", "88100", "88110", ...]
     },
     ...
+  ]
+}
+```
+
+Example result for batch processing:
+
+```js
+{
+  "found": true,
+  "results": [
+    {
+      "state": "Kelantan",
+      "city": "Pasir Mas",
+      "postcodes": ["17000", "17007", ...]
+    },
+    {
+      "state": "Wp Kuala Lumpur",
+      "city": "Kuala Lumpur",
+      "postcodes": ["50000", "50050", ...]
+    }
   ]
 }
 ```
@@ -368,18 +405,24 @@ Example results:
 
 ### findPostcode
 
-Return state and city data based on postcode
+Return state and city data based on postcode. Supports both single postcodes and arrays of postcodes for batch processing.
 
 **Parameters:**
 
-- `postcode` (string): The postcode you wish to search for.
+- `postcode` (string | string[]): The postcode(s) you wish to search for. Can be a single string or an array of strings for batch processing.
 - `exact` (boolean, optional): Determines the type of search. If `true` (default), the function will search for an exact match of the provided postcode. If `false`, it will search for postcodes that start with the given substring.
 
 Example usage:
 
 ```js
+// Single postcode exact search
 const locationExact = findPostcode("17070");
+
+// Single postcode partial search
 const locationPartial = findPostcode("170", false);
+
+// Batch processing multiple postcodes
+const multipleLocations = findPostcode(["17070", "50100"]);
 ```
 
 Example result for an exact match when postcode is found:
@@ -414,12 +457,281 @@ Example result for a non-exact match:
 }
 ```
 
+Example result for batch processing:
+
+```js
+{
+  "found": true,
+  "results": [
+    {
+        "state": "Kelantan", 
+        "city": "Pasir Mas", 
+        "postcode": "17070"
+    },
+    {
+        "state": "Selangor", 
+        "city": "Shah Alam", 
+        "postcode": "50100"
+    }
+  ]
+}
+```
+
 Example result if postcode is not found:
 
 ```js
 {
   "found": false
 }
+```
+
+### searchAll
+
+Universal search function that searches across states, cities, and postcodes in a single query. Supports partial matching and returns all matching results across different data types.
+
+**Parameters:**
+
+- `query` (string): The search query to match against states, cities, or postcodes. Supports partial matching.
+
+**What it searches:**
+
+- **States**: Searches state names for partial matches
+- **Cities**: Searches city names for partial matches  
+- **Postcodes**: Searches postcode numbers for partial matches
+
+Example usage:
+
+```js
+// Search for a state
+const stateSearch = searchAll("Penang");
+
+// Search for cities containing a term
+const citySearch = searchAll("Kota");
+
+// Search for postcodes with specific digits
+const postcodeSearch = searchAll("170");
+
+// Search for exact postcode
+const exactPostcode = searchAll("50100");
+
+// Search anything
+const universalSearch = searchAll("Kuala");
+```
+
+### Example 1: Searching for a state name
+
+```js
+searchAll("Penang")
+```
+
+Result:
+
+```js
+{
+  "found": true,
+  "states": ["Penang"],
+  "cities": [
+    {
+      "state": "Penang",
+      "city": "Penang Hill", 
+      "postcodes": ["11300"]
+    }
+  ],
+  "postcodes": []
+}
+```
+
+### Example 2: Searching for cities with partial term
+
+```js
+searchAll("Kota")
+```
+
+Result:
+
+```js
+{
+  "found": true,
+  "states": [],
+  "cities": [
+    {
+      "state": "Kelantan",
+      "city": "Kota Bharu",
+      "postcodes": ["15000", "15050", "15100", ...]
+    },
+    {
+      "state": "Sabah", 
+      "city": "Kota Kinabalu",
+      "postcodes": ["88000", "88100", "88110", ...]
+    },
+    {
+      "state": "Johor",
+      "city": "Kota Tinggi", 
+      "postcodes": ["81900", "81907", "81910"]
+    }
+  ],
+  "postcodes": []
+}
+```
+
+### Example 3: Searching for postcodes with partial digits
+
+```js
+searchAll("170")
+```
+
+Result:
+
+```js
+{
+  "found": true,
+  "states": [],
+  "cities": [],
+  "postcodes": [
+    {
+      "state": "Kelantan",
+      "city": "Pasir Mas",
+      "postcode": "17000"
+    },
+    {
+      "state": "Kelantan", 
+      "city": "Pasir Mas",
+      "postcode": "17070"
+    },
+    {
+      "state": "Wp Kuala Lumpur",
+      "city": "Kuala Lumpur", 
+      "postcode": "51700"
+    },
+    {
+      "state": "Selangor",
+      "city": "Shah Alam",
+      "postcode": "40170"
+    }
+  ]
+}
+```
+
+### Example 4: Mixed results (multiple types found)
+
+```js
+searchAll("Kuala")
+```
+
+Result:
+
+```js
+{
+  "found": true,
+  "states": ["Wp Kuala Lumpur"],
+  "cities": [
+    {
+      "state": "Wp Kuala Lumpur",
+      "city": "Kuala Lumpur",
+      "postcodes": ["50000", "50050", "50100", ...]
+    },
+    {
+      "state": "Kedah",
+      "city": "Kuala Kedah", 
+      "postcodes": ["06600", "06607", "06609"]
+    },
+    {
+      "state": "Terengganu",
+      "city": "Kuala Berang",
+      "postcodes": ["21700", "21800", "21810", ...]
+    }
+  ]
+}
+```
+
+### Example 5: No matches found
+
+```js
+searchAll("xyz123")
+```
+
+Result:
+
+```js
+{
+  "found": false,
+  "states": [],
+  "cities": [],
+  "postcodes": []
+}
+```
+
+**Use Cases:**
+
+- **Search bars**: One search covers all data types
+- **Auto-complete**: Get suggestions across states, cities, and postcodes
+- **Data validation**: Check if input exists anywhere in Malaysia
+- **Flexible lookup**: No need to know if user is searching for state, city, or postcode
+
+### getRandomPostcode
+
+Returns a random valid postcode from the dataset. Useful for testing and demo purposes.
+
+Example usage:
+
+```js
+const randomPostcode = getRandomPostcode();
+```
+
+Example result:
+
+```js
+"17070"
+```
+
+### getRandomCity
+
+Returns a random city name from the dataset. Optionally, you can specify a state to get a random city from that specific state.
+
+**Parameters:**
+
+- `stateName` (string, optional): The name of the state to get a random city from. If not provided, returns a random city from any state.
+
+Example usage:
+
+```js
+// Random city from any state
+const randomCity = getRandomCity();
+
+// Random city from a specific state
+const randomSelangorCity = getRandomCity("Selangor");
+```
+
+Example results:
+
+```js
+"Shah Alam"
+"Pasir Mas"
+```
+
+If an invalid state is provided, returns an empty string:
+
+```js
+const invalidResult = getRandomCity("InvalidState");
+// Returns: ""
+```
+
+### getRandomState
+
+Returns a random state name from the dataset. Useful for testing and demo purposes.
+
+Example usage:
+
+```js
+const randomState = getRandomState();
+```
+
+Example results:
+
+```js
+"Selangor"
+"Kelantan"
+"Penang"
 ```
 
 ## Examples

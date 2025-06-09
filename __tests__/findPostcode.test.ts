@@ -98,4 +98,47 @@ describe('findPostcode', () => {
 
     expect(resultWithBoolean).toEqual(resultWithNonBoolean);
   });
+
+  it('should handle array of postcodes with exact match', () => {
+    const postcodes = ['17070', '50100'];
+    const result = findPostcode(postcodes, true);
+
+    expect(result.found).toBe(true);
+    expect(result.results).toBeDefined();
+    expect(result.results!.length).toBe(2);
+    expect(result.results![0].postcode).toBe('17070');
+    expect(result.results![1].postcode).toBe('50100');
+  });
+
+  it('should handle array of postcodes with some invalid entries', () => {
+    const postcodes = ['17070', '99999', '50100'];
+    const result = findPostcode(postcodes, true);
+
+    expect(result.found).toBe(true);
+    expect(result.results).toBeDefined();
+    expect(result.results!.length).toBe(2);
+  });
+
+  it('should return { found: false } for array of all invalid postcodes', () => {
+    const postcodes = ['99999', '88888'];
+    const result = findPostcode(postcodes, true);
+
+    expect(result).toEqual({ found: false });
+  });
+
+  it('should handle empty array', () => {
+    const postcodes: string[] = [];
+    const result = findPostcode(postcodes, true);
+
+    expect(result).toEqual({ found: false });
+  });
+
+  it('should handle array with non-exact search', () => {
+    const postcodes = ['170', '501'];
+    const result = findPostcode(postcodes, false);
+
+    expect(result.found).toBe(true);
+    expect(result.results).toBeDefined();
+    expect(result.results!.length).toBeGreaterThan(0);
+  });
 });

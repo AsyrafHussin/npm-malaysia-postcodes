@@ -36,6 +36,17 @@ export interface PostcodeSearchResult {
   }[];
 }
 
+export interface SearchAllResult {
+  found: boolean;
+  states: string[];
+  cities: IndividualCityResult[];
+  postcodes: {
+    state: string;
+    city: string;
+    postcode: string;
+  }[];
+}
+
 export const allPostcodes: State[] = data.state;
 
 /**
@@ -65,12 +76,12 @@ export const getCities = (selectedState: string | null): string[] => {
 
 /**
  * Finds the states and their postcodes based on a city name or partial city name.
- * @param cityName - The name or partial name of the city to search for.
+ * @param cityName - The name or partial name of the city to search for, or an array of city names.
  * @param isExactMatch - Determines if the search should be exact (true) or "like" pattern (false).
  * @returns An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
  */
 export const findCities = (
-  cityName: string | null,
+  cityName: string | string[] | null,
   isExactMatch: boolean = true
 ): CitySearchResult => {
   if (typeof isExactMatch !== 'boolean') {
@@ -79,6 +90,29 @@ export const findCities = (
 
   if (!cityName) {
     return { found: false };
+  }
+
+  if (Array.isArray(cityName)) {
+    const allResults: IndividualCityResult[] = [];
+
+    for (const city of cityName) {
+      const result = findCities(city, isExactMatch);
+      if (result.found) {
+        if (result.results) {
+          allResults.push(...result.results);
+        } else if (result.state && result.city && result.postcodes) {
+          allResults.push({
+            state: result.state,
+            city: result.city,
+            postcodes: result.postcodes
+          });
+        }
+      }
+    }
+
+    return allResults.length > 0
+      ? { found: true, results: allResults }
+      : { found: false };
   }
 
   const results: IndividualCityResult[] = [];
@@ -143,13 +177,13 @@ export const getPostcodes = (
 };
 
 /**
- * Finds the state and city based on a given postcode.
- * @param {string} postcode - The postcode to search for.
+ * Finds the state and city based on a given postcode or array of postcodes.
+ * @param {string | string[]} postcode - The postcode(s) to search for.
  * @param {boolean} [isExactMatch] - Determines if the search should be exact (true) or "like" pattern (false).
  * @returns {Object} An object with 'found', and if matches are found in the case of non-exact searches, a 'results' property containing an array of matched postcodes.
  */
 export const findPostcode = (
-  postcode: string | null,
+  postcode: string | string[] | null,
   isExactMatch: boolean = true
 ): PostcodeSearchResult => {
   if (typeof isExactMatch !== 'boolean') {
@@ -158,6 +192,29 @@ export const findPostcode = (
 
   if (!postcode) {
     return { found: false };
+  }
+
+  if (Array.isArray(postcode)) {
+    const allMatches: { state: string; city: string; postcode: string }[] = [];
+
+    for (const pc of postcode) {
+      const result = findPostcode(pc, isExactMatch);
+      if (result.found) {
+        if (result.results) {
+          allMatches.push(...result.results);
+        } else if (result.state && result.city && result.postcode) {
+          allMatches.push({
+            state: result.state,
+            city: result.city,
+            postcode: result.postcode
+          });
+        }
+      }
+    }
+
+    return allMatches.length > 0
+      ? { found: true, results: allMatches }
+      : { found: false };
   }
 
   const matches: { state: string; city: string; postcode: string }[] = [];
@@ -220,4 +277,103 @@ export const getPostcodesByPrefix = (prefix: string | null): string[] => {
   }
 
   return matchingPostcodes;
+};
+
+/**
+ * Universal search function that searches across states, cities, and postcodes.
+ * @param query - The search query to match against states, cities, or postcodes.
+ * @returns An object containing matched states, cities, and postcodes.
+ */
+export const searchAll = (query: string | null): SearchAllResult => {
+  if (!query || query.trim().length === 0) {
+    return { found: false, states: [], cities: [], postcodes: [] };
+  }
+
+  const queryLower = query.toLowerCase().trim();
+  const states: string[] = [];
+  const cities: IndividualCityResult[] = [];
+  const postcodes: { state: string; city: string; postcode: string }[] = [];
+
+  allPostcodes.forEach(state => {
+    if (state.name.toLowerCase().includes(queryLower)) {
+      states.push(state.name);
+    }
+  });
+
+  const cityResults = findCities(query, false);
+  if (cityResults.found && cityResults.results) {
+    cities.push(...cityResults.results);
+  }
+
+  const postcodeResults = findPostcode(query, false);
+  if (postcodeResults.found && postcodeResults.results) {
+    postcodes.push(...postcodeResults.results);
+  }
+
+  const hasResults =
+    states.length > 0 || cities.length > 0 || postcodes.length > 0;
+
+  if (!hasResults) {
+    return { found: false, states: [], cities: [], postcodes: [] };
+  }
+
+  const result: SearchAllResult = { found: true, states, cities, postcodes };
+
+  return result;
+};
+
+/**
+ * Returns a random valid postcode from the dataset.
+ * @returns A random postcode string.
+ */
+export const getRandomPostcode = (): string => {
+  const allPostcodesList: string[] = [];
+
+  allPostcodes.forEach(state => {
+    state.city.forEach(city => {
+      allPostcodesList.push(...city.postcode);
+    });
+  });
+
+  const randomIndex = Math.floor(Math.random() * allPostcodesList.length);
+  return allPostcodesList[randomIndex];
+};
+
+/**
+ * Returns a random city name from the dataset.
+ * @param stateName - Optional state name to get random city from specific state.
+ * @returns A random city name string.
+ */
+export const getRandomCity = (stateName?: string | null): string => {
+  let availableCities: string[] = [];
+
+  if (stateName) {
+    const stateObj = allPostcodes.find(
+      state => state.name.toLowerCase() === stateName.toLowerCase()
+    );
+    if (stateObj) {
+      availableCities = stateObj.city.map(city => city.name);
+    }
+  } else {
+    allPostcodes.forEach(state => {
+      availableCities.push(...state.city.map(city => city.name));
+    });
+  }
+
+  if (availableCities.length === 0) {
+    return '';
+  }
+
+  const randomIndex = Math.floor(Math.random() * availableCities.length);
+  return availableCities[randomIndex];
+};
+
+/**
+ * Returns a random state name from the dataset.
+ * @returns A random state name string.
+ */
+export const getRandomState = (): string => {
+  const states = getStates();
+  const randomIndex = Math.floor(Math.random() * states.length);
+  return states[randomIndex];
 };

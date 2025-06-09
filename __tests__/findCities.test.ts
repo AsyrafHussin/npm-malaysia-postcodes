@@ -55,4 +55,47 @@ describe('findCities function', () => {
     expect(result.city).toBe('Pasir Mas');
     expect(result.postcodes).toBeInstanceOf(Array);
   });
+
+  it('should handle array of city names with exact match', () => {
+    const cities = ['Pasir Mas', 'Kuala Lumpur'];
+    const result = findCities(cities, true);
+
+    expect(result.found).toBe(true);
+    expect(result.results).toBeDefined();
+    expect(result.results!.length).toBe(2);
+    expect(result.results![0].city).toBe('Pasir Mas');
+    expect(result.results![1].city).toBe('Kuala Lumpur');
+  });
+
+  it('should handle array of city names with some invalid entries', () => {
+    const cities = ['Pasir Mas', 'NonExistentCity', 'Kuala Lumpur'];
+    const result = findCities(cities, true);
+
+    expect(result.found).toBe(true);
+    expect(result.results).toBeDefined();
+    expect(result.results!.length).toBe(2);
+  });
+
+  it('should return { found: false } for array of all invalid cities', () => {
+    const cities = ['NonExistentCity1', 'NonExistentCity2'];
+    const result = findCities(cities, true);
+
+    expect(result).toEqual({ found: false });
+  });
+
+  it('should handle empty array', () => {
+    const cities: string[] = [];
+    const result = findCities(cities, true);
+
+    expect(result).toEqual({ found: false });
+  });
+
+  it('should handle array with non-exact search', () => {
+    const cities = ['Kota', 'Shah'];
+    const result = findCities(cities, false);
+
+    expect(result.found).toBe(true);
+    expect(result.results).toBeDefined();
+    expect(result.results!.length).toBeGreaterThan(0);
+  });
 });
