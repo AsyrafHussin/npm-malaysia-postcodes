@@ -702,11 +702,10 @@ const randomCity = getRandomCity();
 const randomSelangorCity = getRandomCity("Selangor");
 ```
 
-Example results:
+Example result:
 
 ```js
 "Shah Alam"
-"Pasir Mas"
 ```
 
 If an invalid state is provided, returns an empty string:
@@ -726,12 +725,10 @@ Example usage:
 const randomState = getRandomState();
 ```
 
-Example results:
+Example result:
 
 ```js
 "Selangor"
-"Kelantan"
-"Penang"
 ```
 
 ## Examples
