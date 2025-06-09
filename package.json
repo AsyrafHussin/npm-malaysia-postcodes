@@ -1,6 +1,6 @@
 {
   "name": "malaysia-postcodes",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "description": "List of Malaysia Postcodes with City and State (JSON)",
   "engines": {
     "node": ">=18.0.0"
