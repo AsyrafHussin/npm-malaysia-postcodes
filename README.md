@@ -7,8 +7,6 @@ A Comprehensive NPM Package of Malaysia Postcodes, Complete with City and State 
 [![NPM monthly downloads](https://img.shields.io/npm/dm/malaysia-postcodes.svg?style=flat)](https://www.npmjs.com/package/malaysia-postcodes)
 [![NPM total downloads](https://img.shields.io/npm/dt/malaysia-postcodes.svg?style=flat)](https://www.npmjs.com/package/malaysia-postcodes)
 [![License](https://img.shields.io/npm/l/malaysia-postcodes.svg)](https://github.com/AsyrafHussin/npm-malaysia-postcodes/blob/main/package.json)
-[![Minimum Node Version](https://img.shields.io/node/v/malaysia-postcodes.svg?style=flat-square)](https://nodejs.org/)
-[![GitHub Workflow Status](https://github.com/AsyrafHussin/npm-malaysia-postcodes/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/AsyrafHussin/npm-malaysia-postcodes/actions)
 
 ## Overview
 
