@@ -22,7 +22,7 @@
     "vite": "^6.0.7"
   },
   "dependencies": {
-    "malaysia-postcodes": "^2.5.0"
+    "malaysia-postcodes": "^2.7.1"
   },
   "engines": {
     "node": ">=18.0.0"
