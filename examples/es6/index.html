@@ -1,36 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Malaysia Address Form</title>
+    <title>Malaysia Postcodes - ES6 Example</title>
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <form>
-      <div>
-        <label for="state">State:</label>
-        <select id="state">
-          <option value="" disabled selected>Select State</option>
-        </select>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>🇲🇾 Malaysia Postcodes</h1>
+        <p>ES6 Example with Separated Files</p>
       </div>
 
-      <div>
-        <label for="city">City:</label>
-        <select id="city">
-          <option value="" disabled selected>Select City</option>
-        </select>
+      <div class="content">
+        <!-- Address Selection Section -->
+        <div class="section">
+          <h2>📍 Address Selection (Cascade Dropdowns)</h2>
+          <p>Select state, then city, then postcode in sequence.</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="state-select">State:</label>
+              <select id="state-select">
+                <option value="">-- Select State --</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="city-select">City:</label>
+              <select id="city-select" disabled>
+                <option value="">-- Select City --</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="postcode-select">Postcode:</label>
+              <select id="postcode-select" disabled>
+                <option value="">-- Select Postcode --</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="cascade-result"></div>
+        </div>
+
+        <!-- Autocomplete Search Section -->
+        <div class="section">
+          <h2>🔍 Postcode Search (Autocomplete)</h2>
+          <p>
+            Type to search for postcodes. Start typing at least 2 characters.
+          </p>
+
+          <div class="form-group">
+            <label for="search-input">Search Postcodes:</label>
+            <div class="autocomplete-container">
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Type postcode (e.g., 500, 401, 142)..."
+              />
+              <div
+                id="autocomplete-dropdown"
+                class="autocomplete-dropdown"
+              ></div>
+            </div>
+            <div class="help-text">
+              Searches using <code>getPostcodesByPrefix()</code> function
+            </div>
+          </div>
+
+          <div id="search-result"></div>
+        </div>
       </div>
+    </div>
 
-      <div>
-        <label for="postcode">Postcode:</label>
-        <select id="postcode">
-          <option value="" disabled selected>Select Postcode</option>
-        </select>
-      </div>
-
-      <input type="submit" value="Submit" />
-    </form>
-
-    <script type="module" src="/main.js"></script>
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>

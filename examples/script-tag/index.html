@@ -1,85 +1,86 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Malaysia Address Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Malaysia Postcodes - Script Tag Example</title>
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <form>
-      <div>
-        <label for="state">State:</label>
-        <select id="state">
-          <option value="" disabled selected>Select State</option>
-        </select>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>🇲🇾 Malaysia Postcodes</h1>
+        <p>Script Tag Example with Separated Files</p>
       </div>
 
-      <div>
-        <label for="city">City:</label>
-        <select id="city">
-          <option value="" disabled selected>Select City</option>
-        </select>
+      <!-- Content -->
+      <div class="content">
+        <!-- Address Selection Section -->
+        <div class="section">
+          <h2>📍 Address Selection (Cascade Dropdowns)</h2>
+          <p>Select state, then city, then postcode in sequence.</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="state-select">State:</label>
+              <select id="state-select">
+                <option value="">-- Select State --</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="city-select">City:</label>
+              <select id="city-select" disabled>
+                <option value="">-- Select City --</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="postcode-select">Postcode:</label>
+              <select id="postcode-select" disabled>
+                <option value="">-- Select Postcode --</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="cascade-result"></div>
+        </div>
+
+        <!-- Autocomplete Search Section -->
+        <div class="section">
+          <h2>🔍 Postcode Search (Autocomplete)</h2>
+          <p>
+            Type to search for postcodes. Start typing at least 2 characters.
+          </p>
+
+          <div class="form-group">
+            <label for="search-input">Search Postcodes:</label>
+            <div class="autocomplete-container">
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Type postcode (e.g., 500, 401, 142)..."
+              />
+              <div
+                id="autocomplete-dropdown"
+                class="autocomplete-dropdown"
+              ></div>
+            </div>
+            <div class="help-text">Uses CDN from <code>jsdelivr.net</code></div>
+          </div>
+
+          <div id="search-result"></div>
+        </div>
       </div>
+    </div>
 
-      <div>
-        <label for="postcode">Postcode:</label>
-        <select id="postcode">
-          <option value="" disabled selected>Select Postcode</option>
-        </select>
-      </div>
+    <!-- Load Malaysia Postcodes from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/malaysia-postcodes@latest/dist/malaysia-postcodes.min.js"></script>
 
-      <input type="submit" value="Submit" />
-    </form>
-
-    <script src="https://cdn.jsdelivr.net/npm/malaysia-postcodes@2.3.0/dist/malaysia-postcodes.min.js"></script>
-
-    <script>
-      const stateSelect = document.getElementById("state");
-      const citySelect = document.getElementById("city");
-      const postcodeSelect = document.getElementById("postcode");
-
-      // Load states
-      malaysiaPostcodes.getStates().forEach((state) => {
-        const option = new Option(state, state);
-        stateSelect.appendChild(option);
-      });
-
-      // Update cities when a state is selected
-      stateSelect.addEventListener("change", function () {
-        citySelect.innerHTML = "";
-        const placeholderOption = new Option("Select City", "", true, true);
-        placeholderOption.disabled = true;
-        citySelect.appendChild(placeholderOption);
-
-        const cities = malaysiaPostcodes.getCities(this.value);
-
-        cities.forEach((city) => {
-          const option = new Option(city, city);
-          citySelect.appendChild(option);
-        });
-
-        updatePostcodes();
-      });
-
-      // Update postcodes when a city is selected
-      citySelect.addEventListener("change", updatePostcodes);
-
-      function updatePostcodes() {
-        postcodeSelect.innerHTML = "";
-
-        const placeholderOption = new Option("Select Postcode", "", true, true);
-        placeholderOption.disabled = true;
-        postcodeSelect.appendChild(placeholderOption);
-
-        const postcodes = malaysiaPostcodes.getPostcodes(
-          stateSelect.value,
-          citySelect.value
-        );
-
-        postcodes.forEach((postcode) => {
-          const option = new Option(postcode, postcode);
-          postcodeSelect.appendChild(option);
-        });
-      }
-    </script>
+    <!-- Load our JavaScript files -->
+    <script src="js/address-selection.js"></script>
+    <script src="js/autocomplete-search.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

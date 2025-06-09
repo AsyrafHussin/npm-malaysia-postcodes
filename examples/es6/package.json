@@ -1,17 +1,30 @@
 {
-  "name": "es6",
-  "private": true,
-  "version": "0.0.0",
+  "name": "malaysia-postcodes-es6-example",
+  "version": "1.0.0",
+  "description": "Modern ES6 example using Vite for malaysia-postcodes package",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
+  "keywords": [
+    "malaysia",
+    "postcodes",
+    "es6",
+    "vite",
+    "javascript",
+    "example"
+  ],
+  "author": "Asyraf Hussin <asyrafhussin@gmail.com>",
+  "license": "ISC",
   "devDependencies": {
-    "vite": "^5.1.5"
+    "vite": "^6.0.7"
   },
   "dependencies": {
-    "malaysia-postcodes": "^2.3.0"
+    "malaysia-postcodes": "^2.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
