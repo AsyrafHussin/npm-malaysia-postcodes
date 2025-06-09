@@ -69,17 +69,40 @@ const umdDevConfig: Configuration = {
   optimization: { ...commonOptimization, minimize: false }
 };
 
+// ES Modules build
+const esModuleConfig: Configuration = {
+  ...commonConfig,
+  experiments: {
+    outputModule: true
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'index.js',
+    library: {
+      type: 'module'
+    }
+  },
+  mode: 'production',
+  optimization: commonOptimization
+};
+
+// CommonJS build
 const commonJsConfig: Configuration = {
   ...commonConfig,
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
+    filename: 'index.cjs',
     libraryTarget: 'commonjs2'
   },
   mode: 'production',
   optimization: commonOptimization
 };
 
-const config: Configuration[] = [umdConfig, umdDevConfig, commonJsConfig];
+const config: Configuration[] = [
+  umdConfig,
+  umdDevConfig,
+  esModuleConfig,
+  commonJsConfig
+];
 
 export default config;
