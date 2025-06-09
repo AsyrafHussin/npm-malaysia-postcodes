@@ -518,7 +518,7 @@ const exactPostcode = searchAll("50100");
 const universalSearch = searchAll("Kuala");
 ```
 
-### Example 1: Searching for a state name
+#### Example 1: Searching for a state name
 
 ```js
 searchAll("Penang")
@@ -541,7 +541,7 @@ Result:
 }
 ```
 
-### Example 2: Searching for cities with partial term
+#### Example 2: Searching for cities with partial term
 
 ```js
 searchAll("Kota")
@@ -574,7 +574,7 @@ Result:
 }
 ```
 
-### Example 3: Searching for postcodes with partial digits
+#### Example 3: Searching for postcodes with partial digits
 
 ```js
 searchAll("170")
@@ -612,7 +612,7 @@ Result:
 }
 ```
 
-### Example 4: Mixed results (multiple types found)
+#### Example 4: Mixed results (multiple types found)
 
 ```js
 searchAll("Kuala")
@@ -644,7 +644,7 @@ Result:
 }
 ```
 
-### Example 5: No matches found
+#### Example 5: No matches found
 
 ```js
 searchAll("xyz123")
