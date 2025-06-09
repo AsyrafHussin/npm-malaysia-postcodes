@@ -1,4 +1,7 @@
-const fs = require('fs');
+import { createRequire } from 'module';
+import fs from 'fs';
+
+const require = createRequire(import.meta.url);
 const { version } = require('../package.json');
 
 function updateCDNLinks(filename) {
