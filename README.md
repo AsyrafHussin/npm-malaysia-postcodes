@@ -67,10 +67,10 @@ yarn add malaysia-postcodes
 
 ```html
 <!-- Regular version -->
-<script src="https://cdn.jsdelivr.net/npm/malaysia-postcodes@2.4.0/dist/malaysia-postcodes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/malaysia-postcodes@2.5.0/dist/malaysia-postcodes.js"></script>
 
 <!-- Minified version -->
-<script src="https://cdn.jsdelivr.net/npm/malaysia-postcodes@2.4.0/dist/malaysia-postcodes.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/malaysia-postcodes@2.5.0/dist/malaysia-postcodes.min.js"></script>
 ```
 
 ## Imports
