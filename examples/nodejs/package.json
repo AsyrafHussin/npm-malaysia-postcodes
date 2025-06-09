@@ -9,6 +9,6 @@
     "start:commonjs": "node index.cjs"
   },
   "dependencies": {
-    "malaysia-postcodes": "^2.6.0"
+    "malaysia-postcodes": "2.6.0"
   }
 } 
