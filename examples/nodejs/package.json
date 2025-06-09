@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-example",
+  "version": "1.0.0",
+  "description": "Node.js example for malaysia-postcodes",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "start:commonjs": "node index.cjs"
+  },
+  "dependencies": {
+    "malaysia-postcodes": "^2.6.0"
+  }
+} 

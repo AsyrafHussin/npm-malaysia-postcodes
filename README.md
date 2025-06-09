@@ -756,6 +756,7 @@ Example result:
 
 Here are some practical examples demonstrating how to use the library:
 
+- [Example with Node.js](./examples/nodejs)
 - [Example with ES6 imports](./examples/es6)
 - [Example with React](./examples/react)
 - [Example with React Select](./examples/react-select)
