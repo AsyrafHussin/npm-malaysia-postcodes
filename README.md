@@ -75,9 +75,9 @@ yarn add malaysia-postcodes
 
 ## Imports
 
-### ES6 Imports
+### ES Modules (Recommended)
 
-If you're using a module bundler like Webpack:
+For modern JavaScript environments with ES module support:
 
 ```js
 import {
@@ -93,6 +93,26 @@ import {
   getRandomCity,
   getRandomState,
 } from "malaysia-postcodes";
+```
+
+### CommonJS
+
+For Node.js environments or legacy applications:
+
+```js
+const {
+  allPostcodes,
+  getStates,
+  getCities,
+  findCities,
+  getPostcodes,
+  getPostcodesByPrefix,
+  findPostcode,
+  searchAll,
+  getRandomPostcode,
+  getRandomCity,
+  getRandomState,
+} = require("malaysia-postcodes");
 ```
 
 ### Script Tag
