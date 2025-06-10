@@ -38,7 +38,9 @@
     "update-cdn-versions": "node scripts/update-cdn-versions.js",
     "version:patch": "npm version patch && npm run update-cdn-versions",
     "version:minor": "npm version minor && npm run update-cdn-versions",
-    "version:major": "npm version major && npm run update-cdn-versions"
+    "version:major": "npm version major && npm run update-cdn-versions",
+    "benchmark": "tsx scripts/benchmark.ts",
+    "benchmark:gc": "node --expose-gc -r tsx/cjs scripts/benchmark.ts"
   },
   "repository": {
     "type": "git",
