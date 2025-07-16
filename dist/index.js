@@ -15,151 +15,49 @@ var getStates = () => {
   return allPostcodes.map((state) => state.name);
 };
 var getCities = (selectedState) => {
-  if (!selectedState) {
-    return [];
-  }
-  const stateObj = allPostcodes.find(
-    (state) => state.name.toLowerCase() === selectedState.toLowerCase()
-  );
-  return stateObj ? stateObj.city.map((city) => city.name) : [];
+  return allPostcodes.filter((state) => state.name.toLowerCase() === selectedState?.toLowerCase()).map((stateObj) => stateObj.city).flat().map((city) => city.name);
 };
 var findCities = (cityName, isExactMatch = true) => {
-  if (typeof isExactMatch !== "boolean") {
-    isExactMatch = true;
-  }
-  if (!cityName) {
-    return { found: false };
-  }
-  if (Array.isArray(cityName)) {
-    const allResults = [];
-    for (const city of cityName) {
-      const result = findCities(city, isExactMatch);
-      if (result.found) {
-        if (result.results) {
-          allResults.push(...result.results);
-        } else if (result.state && result.city && result.postcodes) {
-          allResults.push({
-            state: result.state,
-            city: result.city,
-            postcodes: result.postcodes
-          });
-        }
-      }
-    }
-    return allResults.length > 0 ? { found: true, results: allResults } : { found: false };
-  }
-  const results = [];
-  const cityMatcher = (cityName2, targetName) => {
-    const formattedCityName = cityName2.toLowerCase();
-    const formattedTargetName = targetName.toLowerCase();
-    return isExactMatch ? formattedCityName === formattedTargetName : formattedTargetName.includes(formattedCityName);
-  };
-  allPostcodes.forEach((state) => {
-    state.city.forEach((city) => {
-      if (cityMatcher(cityName, city.name)) {
-        results.push({
-          state: state.name,
-          city: city.name,
-          postcodes: city.postcode
-        });
-      }
-    });
-  });
-  if (!results.length) return { found: false };
-  if (isExactMatch) {
-    return results[0] ? { found: true, ...results[0] } : { found: false };
-  }
-  return {
-    found: true,
-    results
-  };
+  if (!cityName) return { found: false };
+  if (isExactMatch !== false) isExactMatch = true;
+  const allCities = _getPopulatedCities();
+  if (Array.isArray(cityName))
+    return _findCitiesByCityNameArr(allCities, cityName, isExactMatch);
+  if (isExactMatch)
+    return _findFirstExactCity(allCities, cityName?.toLowerCase());
+  return _findPartialMatchedCities(allCities, cityName?.toLowerCase());
 };
 var getPostcodes = (state, city) => {
-  if (!state || !city) {
+  if (!_hasMatchedState(state)) {
     return [];
   }
-  const stateObj = allPostcodes.find(
-    (s) => s.name.toLowerCase() === state.toLowerCase()
-  );
-  if (stateObj) {
-    const cityObj = stateObj.city.find(
-      (c) => c.name.toLowerCase() === city.toLowerCase()
-    );
-    return cityObj ? cityObj.postcode : [];
-  }
-  return [];
+  return allPostcodes.map((stateObj) => stateObj.city).flat().filter((cityObj) => cityObj.name.toLowerCase() === city?.toLowerCase()).map((cityObj) => cityObj.postcode).flat();
 };
 var findPostcode = (postcode, isExactMatch = true) => {
-  if (typeof isExactMatch !== "boolean") {
-    isExactMatch = true;
-  }
-  if (!postcode) {
-    return { found: false };
-  }
+  if (!postcode) return { found: false };
+  if (isExactMatch !== false) isExactMatch = true;
+  const allPopulatedPostcodes = _getPopulatedPostcodes();
   if (Array.isArray(postcode)) {
-    const allMatches = [];
-    for (const pc of postcode) {
-      const result = findPostcode(pc, isExactMatch);
-      if (result.found) {
-        if (result.results) {
-          allMatches.push(...result.results);
-        } else if (result.state && result.city && result.postcode) {
-          allMatches.push({
-            state: result.state,
-            city: result.city,
-            postcode: result.postcode
-          });
-        }
-      }
-    }
-    return allMatches.length > 0 ? { found: true, results: allMatches } : { found: false };
+    return _findPostcodeByPostcodeArr(
+      allPopulatedPostcodes,
+      postcode,
+      isExactMatch
+    );
   }
-  const matches = [];
-  for (const state of allPostcodes) {
-    for (const city of state.city) {
-      if (isExactMatch && city.postcode.includes(postcode)) {
-        return {
-          found: true,
-          state: state.name,
-          city: city.name,
-          postcode
-        };
-      } else if (!isExactMatch) {
-        for (const pc of city.postcode) {
-          if (pc.includes(postcode)) {
-            matches.push({
-              state: state.name,
-              city: city.name,
-              postcode: pc
-            });
-          }
-        }
-      }
-    }
-  }
-  if (!isExactMatch && matches.length > 0) {
-    return {
-      found: true,
-      results: matches
-    };
-  }
-  return { found: false };
+  if (isExactMatch)
+    return _findFirstExactPostcode(
+      allPopulatedPostcodes,
+      postcode.toLowerCase()
+    );
+  return _findPartialMatchedPostcode(
+    allPopulatedPostcodes,
+    postcode.toLowerCase()
+  );
 };
 var getPostcodesByPrefix = (prefix) => {
-  if (!prefix || prefix.length < 1 || prefix.length > 5) {
-    return [];
-  }
-  const matchingPostcodes = [];
-  for (const stateData of allPostcodes) {
-    for (const cityData of stateData.city) {
-      for (const postcode of cityData.postcode) {
-        if (postcode.startsWith(prefix)) {
-          matchingPostcodes.push(postcode);
-        }
-      }
-    }
-  }
-  return matchingPostcodes;
+  return _getAllPostcodes().filter(
+    (postcode) => postcode.startsWith(prefix || "undefined")
+  );
 };
 var searchAll = (query) => {
   if (!query || query.trim().length === 0) {
@@ -182,47 +80,144 @@ var searchAll = (query) => {
   if (postcodeResults.found && postcodeResults.results) {
     postcodes.push(...postcodeResults.results);
   }
-  const hasResults = states.length > 0 || cities.length > 0 || postcodes.length > 0;
-  if (!hasResults) {
-    return { found: false, states: [], cities: [], postcodes: [] };
-  }
-  const result = { found: true, states, cities, postcodes };
-  return result;
+  const hasResults = Boolean(
+    states.length || cities.length || postcodes.length
+  );
+  return { found: hasResults, states, cities, postcodes };
 };
 var getRandomPostcode = () => {
-  const allPostcodesList = [];
-  allPostcodes.forEach((state) => {
-    state.city.forEach((city) => {
-      allPostcodesList.push(...city.postcode);
-    });
-  });
-  const randomIndex = Math.floor(Math.random() * allPostcodesList.length);
-  return allPostcodesList[randomIndex];
+  const allPostcodes2 = _getAllPostcodes();
+  const randomIndex = Math.floor(Math.random() * allPostcodes2.length);
+  return allPostcodes2[randomIndex];
 };
 var getRandomCity = (stateName) => {
-  let availableCities = [];
-  if (stateName) {
-    const stateObj = allPostcodes.find(
-      (state) => state.name.toLowerCase() === stateName.toLowerCase()
-    );
-    if (stateObj) {
-      availableCities = stateObj.city.map((city) => city.name);
-    }
-  } else {
-    allPostcodes.forEach((state) => {
-      availableCities.push(...state.city.map((city) => city.name));
-    });
-  }
-  if (availableCities.length === 0) {
+  if (stateName && !_hasMatchedState(stateName)) {
     return "";
   }
+  const availableCities = stateName === void 0 || stateName === null ? _getAllCityObjs() : _getStateObj(stateName)?.city || [];
   const randomIndex = Math.floor(Math.random() * availableCities.length);
-  return availableCities[randomIndex];
+  return availableCities[randomIndex].name;
 };
 var getRandomState = () => {
   const states = getStates();
   const randomIndex = Math.floor(Math.random() * states.length);
   return states[randomIndex];
+};
+var _getStateObj = (state) => {
+  return allPostcodes.find(
+    (stateObj) => stateObj.name.toLowerCase() === state?.toLowerCase()
+  );
+};
+var _hasMatchedState = (state) => {
+  return _getStateObj(state) !== void 0;
+};
+var _getAllCityObjs = () => {
+  return allPostcodes.map((stateObj) => stateObj.city).flat();
+};
+var _getAllPostcodes = () => {
+  return allPostcodes.map((stateObj) => stateObj.city).flat().map((cityObj) => cityObj.postcode).flat();
+};
+var _getPopulatedCities = () => {
+  const res = [];
+  allPostcodes.forEach((state) => {
+    state.city.forEach((city) => {
+      res.push({
+        state: state.name,
+        city: city.name,
+        postcodes: city.postcode
+      });
+    });
+  });
+  return res;
+};
+var _findFirstExactCity = (allCities, cityName) => {
+  const firstCity = allCities.find(
+    ({ city }) => city.toLowerCase() === cityName
+  );
+  const found = Boolean(firstCity);
+  return found ? { found, ...firstCity } : { found: false };
+};
+var _findPartialMatchedCities = (allCities, cityName) => {
+  const results = allCities.filter(
+    ({ city }) => city.toLowerCase().includes(cityName)
+  );
+  const found = Boolean(results.length);
+  return found ? { found, results } : { found: false };
+};
+var _findCitiesByCityNameArr = (allCities, cityNameArr, isExactMatch) => {
+  const results = [];
+  cityNameArr.forEach((cityName) => {
+    cityName = cityName.toLowerCase();
+    if (isExactMatch) {
+      const { found: found2, state, city, postcodes } = _findFirstExactCity(
+        allCities,
+        cityName
+      );
+      if (found2 && state && city && postcodes)
+        results.push({ state, city, postcodes });
+    } else {
+      const { found: found2, results: subResults } = _findPartialMatchedCities(
+        allCities,
+        cityName
+      );
+      if (found2 && subResults) results.push(...subResults);
+    }
+  });
+  const found = Boolean(results.length);
+  return found ? { found, results } : { found: false };
+};
+var _getPopulatedPostcodes = () => {
+  const res = [];
+  allPostcodes.forEach((state) => {
+    state.city.forEach((city) => {
+      city.postcode.forEach((pc) => {
+        res.push({
+          state: state.name,
+          city: city.name,
+          postcode: pc
+        });
+      });
+    });
+  });
+  return res;
+};
+var _findFirstExactPostcode = (allPopulatedPostcodes, targetPostcode) => {
+  const firstPostcode = allPopulatedPostcodes.find(
+    ({ postcode }) => postcode.toLowerCase() === targetPostcode
+  );
+  const found = Boolean(firstPostcode);
+  return found ? { found, ...firstPostcode } : { found: false };
+};
+var _findPartialMatchedPostcode = (allPopulatedPostcodes, targetPostcode) => {
+  const results = allPopulatedPostcodes.filter(
+    ({ postcode }) => postcode.toLowerCase().includes(targetPostcode)
+  );
+  const found = Boolean(results.length);
+  return found ? { found, results } : { found: false };
+};
+var _findPostcodeByPostcodeArr = (allPopulatedPostcodes, postcodeArr, isExactMatch) => {
+  const results = [];
+  postcodeArr.forEach((postcode) => {
+    postcode = postcode.toLowerCase();
+    if (isExactMatch) {
+      const {
+        found: found2,
+        state,
+        city,
+        postcode: pc
+      } = _findFirstExactPostcode(allPopulatedPostcodes, postcode);
+      if (found2 && state && city && pc)
+        results.push({ state, city, postcode: pc });
+    } else {
+      const { found: found2, results: subResults } = _findPartialMatchedPostcode(
+        allPopulatedPostcodes,
+        postcode
+      );
+      if (found2 && subResults) results.push(...subResults);
+    }
+  });
+  const found = Boolean(results.length);
+  return found ? { found, results } : { found: false };
 };
 export {
   allPostcodes,
