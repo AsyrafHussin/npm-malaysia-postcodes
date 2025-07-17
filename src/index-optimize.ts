@@ -64,9 +64,6 @@ class OptimizedDataStructure {
   private allStateNames: string[];
   private allCityNames: string[];
   private allPostcodesList: string[];
-  private stateNameSet: Set<string>;
-  private cityNameSet: Set<string>;
-  private postcodeSet: Set<string>;
 
   // Caching
   private citySearchCache: Map<string, CitySearchResult> = new Map();
@@ -85,9 +82,6 @@ class OptimizedDataStructure {
     this.allStateNames = [];
     this.allCityNames = [];
     this.allPostcodesList = [];
-    this.stateNameSet = new Set();
-    this.cityNameSet = new Set();
-    this.postcodeSet = new Set();
 
     this.buildIndices(states);
   }
@@ -98,7 +92,6 @@ class OptimizedDataStructure {
       const stateLower = state.name.toLowerCase();
       this.stateMap.set(stateLower, state);
       this.allStateNames.push(state.name);
-      this.stateNameSet.add(stateLower);
 
       const citiesInState: string[] = [];
 
@@ -113,7 +106,6 @@ class OptimizedDataStructure {
 
         // Add to cities list
         this.allCityNames.push(city.name);
-        this.cityNameSet.add(cityLower);
         citiesInState.push(city.name);
 
         // Build postcode mappings and trie
@@ -126,7 +118,6 @@ class OptimizedDataStructure {
 
           // Add to all postcodes list
           this.allPostcodesList.push(postcode);
-          this.postcodeSet.add(postcode);
 
           // Build trie for prefix matching
           this.insertIntoTrie(postcode);
@@ -162,6 +153,158 @@ class OptimizedDataStructure {
     }
   }
 
+  private findFirstExactCity = (cityName: string): CitySearchResult => {
+    // Check cache
+    const cacheKey = `${cityName}:${true}`;
+    if (this.citySearchCache.has(cacheKey)) {
+      return this.citySearchCache.get(cacheKey)!;
+    }
+
+    // O(1) exact lookup
+    const cityLower = cityName.toLowerCase();
+    const stateName = this.cityToStateMap.get(cityLower);
+    const postcodes = this.cityToPostcodesMap.get(cityLower);
+
+    const result: CitySearchResult =
+      stateName && postcodes
+        ? { found: true, state: stateName, city: cityName, postcodes }
+        : { found: false };
+
+    this.citySearchCache.set(cacheKey, result);
+    return result;
+  };
+
+  private findPartialMatchedCities = (cityName: string): CitySearchResult => {
+    // Partial matching - still need to iterate but with optimized checks
+    // Check cache
+    const cacheKey = `${cityName}:${false}`;
+    if (this.citySearchCache.has(cacheKey)) {
+      return this.citySearchCache.get(cacheKey)!;
+    }
+
+    // O(N) lookup where N = total city length
+    const cityLower = cityName.toLowerCase();
+    const matchedCityNames = this.allCityNames.filter(city =>
+      city.toLowerCase().includes(cityLower)
+    );
+
+    const results: IndividualCityResult[] = matchedCityNames.map(city => {
+      const matchedLower = city.toLowerCase();
+      return {
+        state: this.cityToStateMap.get(matchedLower) || '',
+        city,
+        postcodes: this.cityToPostcodesMap.get(matchedLower) || []
+      };
+    });
+
+    const found = Boolean(results.length);
+    const result: CitySearchResult = found
+      ? { found: true, results }
+      : { found: false };
+    this.citySearchCache.set(cacheKey, result);
+    return result;
+  };
+
+  private findCitiesByCityNameArr = (
+    cityNameArr: string[],
+    isExactMatch: boolean
+  ): CitySearchResult => {
+    const results: IndividualCityResult[] = [];
+
+    cityNameArr.forEach(cityName => {
+      if (isExactMatch) {
+        const { found, state, city, postcodes } =
+          this.findFirstExactCity(cityName);
+        if (found && state && city && postcodes)
+          results.push({ state, city, postcodes });
+      } else {
+        const { found, results: subResults } =
+          this.findPartialMatchedCities(cityName);
+        if (found && subResults) results.push(...subResults);
+      }
+    });
+
+    const found = Boolean(results.length);
+    return found ? { found, results } : { found: false };
+  };
+
+  private findFirstExactPostcode = (postcode: string): PostcodeSearchResult => {
+    // Check cache
+    const cacheKey = `${postcode}:${true}`;
+    if (this.postcodeSearchCache.has(cacheKey)) {
+      return this.postcodeSearchCache.get(cacheKey)!;
+    }
+
+    // O(1) exact lookup
+    const location = this.postcodeToLocationMap.get(postcode);
+
+    const result: PostcodeSearchResult = location
+      ? { found: true, ...location, postcode }
+      : { found: false };
+
+    this.postcodeSearchCache.set(cacheKey, result);
+    return result;
+  };
+
+  private findPartialMatchedPostcode = (
+    postcode: string
+  ): PostcodeSearchResult => {
+    // Partial matching
+    // Check cache
+    const cacheKey = `${postcode}:${false}`;
+    if (this.postcodeSearchCache.has(cacheKey)) {
+      return this.postcodeSearchCache.get(cacheKey)!;
+    }
+
+    const matchedPostcode = this.allPostcodesList.filter(pc =>
+      pc.includes(postcode)
+    );
+
+    const results = matchedPostcode.map(postcode => {
+      const location = this.postcodeToLocationMap.get(postcode);
+      if (!location) throw new Error('Missing location'); // Could be refactored again
+      return {
+        ...location,
+        postcode
+      };
+    });
+
+    const found = Boolean(results.length);
+    const result: PostcodeSearchResult = found
+      ? { found: true, results }
+      : { found: false };
+
+    this.postcodeSearchCache.set(cacheKey, result);
+    return result;
+  };
+
+  private findPostcodeByPostcodeArr = (
+    postcodeArr: string[],
+    isExactMatch: boolean
+  ): PostcodeSearchResult => {
+    const results: { state: string; city: string; postcode: string }[] = [];
+
+    postcodeArr.forEach(postcode => {
+      if (isExactMatch) {
+        const {
+          found,
+          state,
+          city,
+          postcode: pc
+        } = this.findFirstExactPostcode(postcode);
+        if (found && state && city && pc)
+          results.push({ state, city, postcode: pc });
+      } else {
+        const { found, results: subResults } =
+          this.findPartialMatchedPostcode(postcode);
+        if (found && subResults) results.push(...subResults);
+      }
+    });
+
+    const found = Boolean(results.length);
+    return found ? { found, results } : { found: false };
+  };
+
   getStates(): string[] {
     return this.allStateNames;
   }
@@ -177,93 +320,17 @@ class OptimizedDataStructure {
     cityName: string | string[] | null,
     isExactMatch: boolean = true
   ): CitySearchResult {
-    if (typeof isExactMatch !== 'boolean') {
-      isExactMatch = true;
-    }
+    if (!cityName) return { found: false };
 
-    if (!cityName) {
-      return { found: false };
-    }
+    if (isExactMatch !== false) isExactMatch = true;
 
     if (Array.isArray(cityName)) {
-      const allResults: IndividualCityResult[] = [];
-
-      for (const city of cityName) {
-        const result = this.findCities(city, isExactMatch);
-        if (result.found) {
-          if (result.results) {
-            allResults.push(...result.results);
-          } else if (result.state && result.city && result.postcodes) {
-            allResults.push({
-              state: result.state,
-              city: result.city,
-              postcodes: result.postcodes
-            });
-          }
-        }
-      }
-
-      return allResults.length > 0
-        ? { found: true, results: allResults }
-        : { found: false };
+      return this.findCitiesByCityNameArr(cityName, isExactMatch);
     }
 
-    // Check cache
-    const cacheKey = `${cityName}:${isExactMatch}`;
-    if (this.citySearchCache.has(cacheKey)) {
-      return this.citySearchCache.get(cacheKey)!;
-    }
+    if (isExactMatch) return this.findFirstExactCity(cityName);
 
-    const cityLower = cityName.toLowerCase();
-    const results: IndividualCityResult[] = [];
-
-    if (isExactMatch) {
-      // O(1) exact lookup
-      const stateName = this.cityToStateMap.get(cityLower);
-      const postcodes = this.cityToPostcodesMap.get(cityLower);
-
-      if (stateName && postcodes) {
-        const result = {
-          found: true,
-          state: stateName,
-          city: cityName,
-          postcodes: postcodes
-        };
-        this.citySearchCache.set(cacheKey, result);
-        return result;
-      }
-    } else {
-      // Partial matching - still need to iterate but with optimized checks
-      for (const [cityKey, stateName] of this.cityToStateMap.entries()) {
-        if (cityKey.includes(cityLower)) {
-          const postcodes = this.cityToPostcodesMap.get(cityKey);
-          if (postcodes) {
-            // Get original case city name
-            const originalCityName =
-              this.stateMap
-                .get(this.cityToStateMap.get(cityKey)!.toLowerCase())
-                ?.city.find(c => c.name.toLowerCase() === cityKey)?.name ||
-              cityKey;
-
-            results.push({
-              state: stateName,
-              city: originalCityName,
-              postcodes: postcodes
-            });
-          }
-        }
-      }
-
-      if (results.length > 0) {
-        const result = { found: true, results };
-        this.citySearchCache.set(cacheKey, result);
-        return result;
-      }
-    }
-
-    const result = { found: false };
-    this.citySearchCache.set(cacheKey, result);
-    return result;
+    return this.findPartialMatchedCities(cityName);
   }
 
   getPostcodes(state: string | null, city: string | null): string[] {
@@ -278,7 +345,7 @@ class OptimizedDataStructure {
 
     // Then check if the city belongs to this specific state
     const cityState = this.cityToStateMap.get(cityLower);
-    if (!cityState || cityState.toLowerCase() !== stateLower) return [];
+    if (cityState?.toLowerCase() !== stateLower) return [];
 
     // Return postcodes for the city
     return this.cityToPostcodesMap.get(cityLower) || [];
@@ -288,81 +355,17 @@ class OptimizedDataStructure {
     postcode: string | string[] | null,
     isExactMatch: boolean = true
   ): PostcodeSearchResult {
-    if (typeof isExactMatch !== 'boolean') {
-      isExactMatch = true;
-    }
+    if (!postcode) return { found: false };
 
-    if (!postcode) {
-      return { found: false };
-    }
+    if (isExactMatch !== false) isExactMatch = true;
 
     if (Array.isArray(postcode)) {
-      const allMatches: { state: string; city: string; postcode: string }[] =
-        [];
-
-      for (const pc of postcode) {
-        const result = this.findPostcode(pc, isExactMatch);
-        if (result.found) {
-          if (result.results) {
-            allMatches.push(...result.results);
-          } else if (result.state && result.city && result.postcode) {
-            allMatches.push({
-              state: result.state,
-              city: result.city,
-              postcode: result.postcode
-            });
-          }
-        }
-      }
-
-      return allMatches.length > 0
-        ? { found: true, results: allMatches }
-        : { found: false };
+      return this.findPostcodeByPostcodeArr(postcode, isExactMatch);
     }
 
-    // Check cache
-    const cacheKey = `${postcode}:${isExactMatch}`;
-    if (this.postcodeSearchCache.has(cacheKey)) {
-      return this.postcodeSearchCache.get(cacheKey)!;
-    }
+    if (isExactMatch) return this.findFirstExactPostcode(postcode);
 
-    if (isExactMatch) {
-      // O(1) exact lookup
-      const location = this.postcodeToLocationMap.get(postcode);
-      if (location) {
-        const result = {
-          found: true,
-          state: location.state,
-          city: location.city,
-          postcode: postcode
-        };
-        this.postcodeSearchCache.set(cacheKey, result);
-        return result;
-      }
-    } else {
-      // Partial matching
-      const matches: { state: string; city: string; postcode: string }[] = [];
-
-      for (const [pc, location] of this.postcodeToLocationMap.entries()) {
-        if (pc.includes(postcode)) {
-          matches.push({
-            state: location.state,
-            city: location.city,
-            postcode: pc
-          });
-        }
-      }
-
-      if (matches.length > 0) {
-        const result = { found: true, results: matches };
-        this.postcodeSearchCache.set(cacheKey, result);
-        return result;
-      }
-    }
-
-    const result = { found: false };
-    this.postcodeSearchCache.set(cacheKey, result);
-    return result;
+    return this.findPartialMatchedPostcode(postcode);
   }
 
   getPostcodesByPrefix(prefix: string | null): string[] {
@@ -426,11 +429,10 @@ class OptimizedDataStructure {
       postcodes.push(...postcodeResults.results);
     }
 
-    const hasResults =
-      states.length > 0 || cities.length > 0 || postcodes.length > 0;
-    const result = hasResults
-      ? { found: true, states, cities, postcodes }
-      : { found: false, states: [], cities: [], postcodes: [] };
+    const hasResults = Boolean(
+      states.length || cities.length || postcodes.length
+    );
+    const result = { found: hasResults, states, cities, postcodes };
 
     // Cache the result for future ultra-fast access
     this.manageCacheSize(this.searchAllCache);
@@ -452,7 +454,6 @@ class OptimizedDataStructure {
       const randomIndex = Math.floor(Math.random() * cities.length);
       return cities[randomIndex];
     } else {
-      if (this.allCityNames.length === 0) return '';
       const randomIndex = Math.floor(Math.random() * this.allCityNames.length);
       return this.allCityNames[randomIndex];
     }
