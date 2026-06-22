@@ -47,6 +47,430 @@ export interface SearchAllResult {
   }[];
 }
 
+// Trie Node for prefix matching
+class TrieNode {
+  children: Map<string, TrieNode> = new Map();
+  // Array (not Set) so postcodes shared by multiple cities are preserved
+  // in data order, matching the original implementation.
+  postcodes: string[] = [];
+}
+
+// Preprocessed data structures for O(1) lookups
+class OptimizedDataStructure {
+  private stateMap: Map<string, State>;
+  private stateToCitiesMap: Map<string, string[]>;
+  // Keyed by lowercased city name -> every occurrence across states,
+  // so duplicate city names (e.g. "Ayer Hitam" in Johor & Kedah) survive.
+  private cityIndex: Map<string, IndividualCityResult[]>;
+  // First occurrence per postcode, matching the original early-return.
+  private postcodeExactMap: Map<string, { state: string; city: string }>;
+  // Flat, data-ordered lists used for partial matching (preserve order + dups).
+  private allCitiesFlat: IndividualCityResult[];
+  private allPostcodesFlat: { state: string; city: string; postcode: string }[];
+  private postcodeTrie: TrieNode;
+  private allStateNames: string[];
+  private allCityNames: string[];
+  private allPostcodesList: string[];
+
+  // Caching
+  private citySearchCache: Map<string, CitySearchResult> = new Map();
+  private postcodeSearchCache: Map<string, PostcodeSearchResult> = new Map();
+  private prefixCache: Map<string, string[]> = new Map();
+  private searchAllCache: Map<string, SearchAllResult> = new Map();
+  private readonly MAX_CACHE_SIZE = 10000;
+
+  constructor(states: State[]) {
+    this.stateMap = new Map();
+    this.stateToCitiesMap = new Map();
+    this.cityIndex = new Map();
+    this.postcodeExactMap = new Map();
+    this.allCitiesFlat = [];
+    this.allPostcodesFlat = [];
+    this.postcodeTrie = new TrieNode();
+    this.allStateNames = [];
+    this.allCityNames = [];
+    this.allPostcodesList = [];
+
+    this.buildIndices(states);
+  }
+
+  private buildIndices(states: State[]): void {
+    // Build all lookup structures
+    for (const state of states) {
+      const stateLower = state.name.toLowerCase();
+      this.stateMap.set(stateLower, state);
+      this.allStateNames.push(state.name);
+
+      const citiesInState: string[] = [];
+
+      for (const city of state.city) {
+        const cityLower = city.name.toLowerCase();
+        const entry: IndividualCityResult = {
+          state: state.name,
+          city: city.name,
+          postcodes: city.postcode
+        };
+
+        // Index every occurrence so duplicate city names across states
+        // are not overwritten.
+        const existing = this.cityIndex.get(cityLower);
+        if (existing) {
+          existing.push(entry);
+        } else {
+          this.cityIndex.set(cityLower, [entry]);
+        }
+
+        this.allCitiesFlat.push(entry);
+        this.allCityNames.push(city.name);
+        citiesInState.push(city.name);
+
+        // Build postcode mappings and trie
+        for (const postcode of city.postcode) {
+          // Keep only the first occurrence for exact lookups so the result
+          // matches the original "return first match" behaviour.
+          if (!this.postcodeExactMap.has(postcode)) {
+            this.postcodeExactMap.set(postcode, {
+              state: state.name,
+              city: city.name
+            });
+          }
+
+          this.allPostcodesFlat.push({
+            state: state.name,
+            city: city.name,
+            postcode
+          });
+          this.allPostcodesList.push(postcode);
+
+          // Build trie for prefix matching
+          this.insertIntoTrie(postcode);
+        }
+      }
+
+      this.stateToCitiesMap.set(stateLower, citiesInState);
+    }
+  }
+
+  private insertIntoTrie(postcode: string): void {
+    let current = this.postcodeTrie;
+
+    for (let i = 0; i < postcode.length; i++) {
+      const char = postcode[i];
+
+      if (!current.children.has(char)) {
+        current.children.set(char, new TrieNode());
+      }
+
+      current = current.children.get(char)!;
+      current.postcodes.push(postcode);
+    }
+  }
+
+  private manageCacheSize<T>(cache: Map<string, T>): void {
+    if (cache.size > this.MAX_CACHE_SIZE) {
+      const entries = Array.from(cache.entries());
+      const keepCount = Math.floor(this.MAX_CACHE_SIZE * 0.7);
+      for (let i = 0; i < entries.length - keepCount; i++) {
+        cache.delete(entries[i][0]);
+      }
+    }
+  }
+
+  getStates(): string[] {
+    // Return a copy so callers can't mutate the internal list.
+    return [...this.allStateNames];
+  }
+
+  getCities(selectedState: string | null): string[] {
+    if (!selectedState) return [];
+
+    const cities = this.stateToCitiesMap.get(selectedState.toLowerCase());
+    return cities ? [...cities] : [];
+  }
+
+  findCities(
+    cityName: string | string[] | null,
+    isExactMatch: boolean = true
+  ): CitySearchResult {
+    if (typeof isExactMatch !== 'boolean') {
+      isExactMatch = true;
+    }
+
+    if (!cityName) {
+      return { found: false };
+    }
+
+    if (Array.isArray(cityName)) {
+      const allResults: IndividualCityResult[] = [];
+
+      for (const city of cityName) {
+        const result = this.findCities(city, isExactMatch);
+        if (result.found) {
+          if (result.results) {
+            allResults.push(...result.results);
+          } else if (result.state && result.city && result.postcodes) {
+            allResults.push({
+              state: result.state,
+              city: result.city,
+              postcodes: result.postcodes
+            });
+          }
+        }
+      }
+
+      return allResults.length > 0
+        ? { found: true, results: allResults }
+        : { found: false };
+    }
+
+    // Check cache
+    const cacheKey = `${cityName}:${isExactMatch}`;
+    if (this.citySearchCache.has(cacheKey)) {
+      return this.citySearchCache.get(cacheKey)!;
+    }
+
+    const cityLower = cityName.toLowerCase();
+
+    if (isExactMatch) {
+      // O(1) exact lookup; first occurrence matches the original behaviour.
+      const entries = this.cityIndex.get(cityLower);
+      if (entries && entries.length > 0) {
+        const first = entries[0];
+        const result = {
+          found: true,
+          state: first.state,
+          city: first.city,
+          postcodes: first.postcodes
+        };
+        this.manageCacheSize(this.citySearchCache);
+        this.citySearchCache.set(cacheKey, result);
+        return result;
+      }
+    } else {
+      // Partial matching over a flat, data-ordered list preserves the
+      // original ordering and any duplicate city names across states.
+      const results: IndividualCityResult[] = [];
+      for (const entry of this.allCitiesFlat) {
+        if (entry.city.toLowerCase().includes(cityLower)) {
+          results.push(entry);
+        }
+      }
+
+      if (results.length > 0) {
+        const result = { found: true, results };
+        this.manageCacheSize(this.citySearchCache);
+        this.citySearchCache.set(cacheKey, result);
+        return result;
+      }
+    }
+
+    const result = { found: false };
+    this.manageCacheSize(this.citySearchCache);
+    this.citySearchCache.set(cacheKey, result);
+    return result;
+  }
+
+  getPostcodes(state: string | null, city: string | null): string[] {
+    if (!state || !city) return [];
+
+    const stateLower = state.toLowerCase();
+
+    // First validate that the state exists
+    if (!this.stateMap.has(stateLower)) return [];
+
+    // Find the occurrence of this city that belongs to the given state,
+    // so duplicate city names resolve to the correct state's postcodes.
+    const entries = this.cityIndex.get(city.toLowerCase());
+    if (!entries) return [];
+
+    const match = entries.find(e => e.state.toLowerCase() === stateLower);
+    return match ? match.postcodes : [];
+  }
+
+  findPostcode(
+    postcode: string | string[] | null,
+    isExactMatch: boolean = true
+  ): PostcodeSearchResult {
+    if (typeof isExactMatch !== 'boolean') {
+      isExactMatch = true;
+    }
+
+    if (!postcode) {
+      return { found: false };
+    }
+
+    if (Array.isArray(postcode)) {
+      const allMatches: { state: string; city: string; postcode: string }[] =
+        [];
+
+      for (const pc of postcode) {
+        const result = this.findPostcode(pc, isExactMatch);
+        if (result.found) {
+          if (result.results) {
+            allMatches.push(...result.results);
+          } else if (result.state && result.city && result.postcode) {
+            allMatches.push({
+              state: result.state,
+              city: result.city,
+              postcode: result.postcode
+            });
+          }
+        }
+      }
+
+      return allMatches.length > 0
+        ? { found: true, results: allMatches }
+        : { found: false };
+    }
+
+    // Check cache
+    const cacheKey = `${postcode}:${isExactMatch}`;
+    if (this.postcodeSearchCache.has(cacheKey)) {
+      return this.postcodeSearchCache.get(cacheKey)!;
+    }
+
+    if (isExactMatch) {
+      // O(1) exact lookup (first occurrence).
+      const location = this.postcodeExactMap.get(postcode);
+      if (location) {
+        const result = {
+          found: true,
+          state: location.state,
+          city: location.city,
+          postcode: postcode
+        };
+        this.manageCacheSize(this.postcodeSearchCache);
+        this.postcodeSearchCache.set(cacheKey, result);
+        return result;
+      }
+    } else {
+      // Partial matching over a flat, data-ordered list preserves the
+      // original ordering and any postcodes shared by multiple cities.
+      const matches: { state: string; city: string; postcode: string }[] = [];
+
+      for (const entry of this.allPostcodesFlat) {
+        if (entry.postcode.includes(postcode)) {
+          matches.push(entry);
+        }
+      }
+
+      if (matches.length > 0) {
+        const result = { found: true, results: matches };
+        this.manageCacheSize(this.postcodeSearchCache);
+        this.postcodeSearchCache.set(cacheKey, result);
+        return result;
+      }
+    }
+
+    const result = { found: false };
+    this.manageCacheSize(this.postcodeSearchCache);
+    this.postcodeSearchCache.set(cacheKey, result);
+    return result;
+  }
+
+  getPostcodesByPrefix(prefix: string | null): string[] {
+    if (!prefix || prefix.length < 1 || prefix.length > 5) {
+      return [];
+    }
+
+    // Check cache (return a copy so callers can't mutate the cached array).
+    const cached = this.prefixCache.get(prefix);
+    if (cached) {
+      return [...cached];
+    }
+
+    // Use trie for O(prefix.length) lookup
+    let current = this.postcodeTrie;
+
+    for (const char of prefix) {
+      if (!current.children.has(char)) {
+        this.manageCacheSize(this.prefixCache);
+        this.prefixCache.set(prefix, []);
+        return [];
+      }
+      current = current.children.get(char)!;
+    }
+
+    this.manageCacheSize(this.prefixCache);
+    this.prefixCache.set(prefix, current.postcodes);
+    return [...current.postcodes];
+  }
+
+  searchAll(query: string | null): SearchAllResult {
+    if (!query || query.trim().length === 0) {
+      return { found: false, states: [], cities: [], postcodes: [] };
+    }
+
+    // Check cache first for ultra-fast lookup
+    if (this.searchAllCache.has(query)) {
+      return this.searchAllCache.get(query)!;
+    }
+
+    const queryLower = query.toLowerCase().trim();
+    const states: string[] = [];
+    const cities: IndividualCityResult[] = [];
+    const postcodes: { state: string; city: string; postcode: string }[] = [];
+
+    // Search states - optimized with Set
+    for (const stateName of this.allStateNames) {
+      if (stateName.toLowerCase().includes(queryLower)) {
+        states.push(stateName);
+      }
+    }
+
+    // Search cities
+    const cityResults = this.findCities(query, false);
+    if (cityResults.found && cityResults.results) {
+      cities.push(...cityResults.results);
+    }
+
+    // Search postcodes
+    const postcodeResults = this.findPostcode(query, false);
+    if (postcodeResults.found && postcodeResults.results) {
+      postcodes.push(...postcodeResults.results);
+    }
+
+    const hasResults =
+      states.length > 0 || cities.length > 0 || postcodes.length > 0;
+    const result = hasResults
+      ? { found: true, states, cities, postcodes }
+      : { found: false, states: [], cities: [], postcodes: [] };
+
+    // Cache the result for future ultra-fast access
+    this.manageCacheSize(this.searchAllCache);
+    this.searchAllCache.set(query, result);
+    return result;
+  }
+
+  getRandomPostcode(): string {
+    const randomIndex = Math.floor(
+      Math.random() * this.allPostcodesList.length
+    );
+    return this.allPostcodesList[randomIndex];
+  }
+
+  getRandomCity(stateName?: string | null): string {
+    if (stateName) {
+      const cities = this.getCities(stateName);
+      if (cities.length === 0) return '';
+      const randomIndex = Math.floor(Math.random() * cities.length);
+      return cities[randomIndex];
+    } else {
+      if (this.allCityNames.length === 0) return '';
+      const randomIndex = Math.floor(Math.random() * this.allCityNames.length);
+      return this.allCityNames[randomIndex];
+    }
+  }
+
+  getRandomState(): string {
+    const randomIndex = Math.floor(Math.random() * this.allStateNames.length);
+    return this.allStateNames[randomIndex];
+  }
+}
+
+// Initialize optimized data structure
+const optimizedData = new OptimizedDataStructure(data.state);
+
 export const allPostcodes: State[] = data.state;
 
 /**
@@ -54,7 +478,7 @@ export const allPostcodes: State[] = data.state;
  * @returns {Array} Array containing names of all states.
  */
 export const getStates = (): string[] => {
-  return allPostcodes.map(state => state.name);
+  return optimizedData.getStates();
 };
 
 /**
@@ -63,15 +487,7 @@ export const getStates = (): string[] => {
  * @returns Array containing names of cities for the selected state. Empty array if the state is not found.
  */
 export const getCities = (selectedState: string | null): string[] => {
-  if (!selectedState) {
-    return [];
-  }
-
-  const stateObj = allPostcodes.find(
-    state => state.name.toLowerCase() === selectedState.toLowerCase()
-  );
-
-  return stateObj ? stateObj.city.map(city => city.name) : [];
+  return optimizedData.getCities(selectedState);
 };
 
 /**
@@ -84,70 +500,7 @@ export const findCities = (
   cityName: string | string[] | null,
   isExactMatch: boolean = true
 ): CitySearchResult => {
-  if (typeof isExactMatch !== 'boolean') {
-    isExactMatch = true;
-  }
-
-  if (!cityName) {
-    return { found: false };
-  }
-
-  if (Array.isArray(cityName)) {
-    const allResults: IndividualCityResult[] = [];
-
-    for (const city of cityName) {
-      const result = findCities(city, isExactMatch);
-      if (result.found) {
-        if (result.results) {
-          allResults.push(...result.results);
-        } else if (result.state && result.city && result.postcodes) {
-          allResults.push({
-            state: result.state,
-            city: result.city,
-            postcodes: result.postcodes
-          });
-        }
-      }
-    }
-
-    return allResults.length > 0
-      ? { found: true, results: allResults }
-      : { found: false };
-  }
-
-  const results: IndividualCityResult[] = [];
-
-  const cityMatcher = (cityName: string, targetName: string): boolean => {
-    const formattedCityName = cityName.toLowerCase();
-    const formattedTargetName = targetName.toLowerCase();
-
-    return isExactMatch
-      ? formattedCityName === formattedTargetName
-      : formattedTargetName.includes(formattedCityName);
-  };
-
-  allPostcodes.forEach((state: State) => {
-    state.city.forEach((city: City) => {
-      if (cityMatcher(cityName, city.name)) {
-        results.push({
-          state: state.name,
-          city: city.name,
-          postcodes: city.postcode
-        });
-      }
-    });
-  });
-
-  if (!results.length) return { found: false };
-
-  if (isExactMatch) {
-    return results[0] ? { found: true, ...results[0] } : { found: false };
-  }
-
-  return {
-    found: true,
-    results
-  };
+  return optimizedData.findCities(cityName, isExactMatch);
 };
 
 /**
@@ -160,20 +513,7 @@ export const getPostcodes = (
   state: string | null,
   city: string | null
 ): string[] => {
-  if (!state || !city) {
-    return [];
-  }
-
-  const stateObj = allPostcodes.find(
-    (s: State) => s.name.toLowerCase() === state.toLowerCase()
-  );
-  if (stateObj) {
-    const cityObj = stateObj.city.find(
-      (c: City) => c.name.toLowerCase() === city.toLowerCase()
-    );
-    return cityObj ? cityObj.postcode : [];
-  }
-  return [];
+  return optimizedData.getPostcodes(state, city);
 };
 
 /**
@@ -186,70 +526,7 @@ export const findPostcode = (
   postcode: string | string[] | null,
   isExactMatch: boolean = true
 ): PostcodeSearchResult => {
-  if (typeof isExactMatch !== 'boolean') {
-    isExactMatch = true;
-  }
-
-  if (!postcode) {
-    return { found: false };
-  }
-
-  if (Array.isArray(postcode)) {
-    const allMatches: { state: string; city: string; postcode: string }[] = [];
-
-    for (const pc of postcode) {
-      const result = findPostcode(pc, isExactMatch);
-      if (result.found) {
-        if (result.results) {
-          allMatches.push(...result.results);
-        } else if (result.state && result.city && result.postcode) {
-          allMatches.push({
-            state: result.state,
-            city: result.city,
-            postcode: result.postcode
-          });
-        }
-      }
-    }
-
-    return allMatches.length > 0
-      ? { found: true, results: allMatches }
-      : { found: false };
-  }
-
-  const matches: { state: string; city: string; postcode: string }[] = [];
-
-  for (const state of allPostcodes) {
-    for (const city of state.city) {
-      if (isExactMatch && city.postcode.includes(postcode)) {
-        return {
-          found: true,
-          state: state.name,
-          city: city.name,
-          postcode: postcode
-        };
-      } else if (!isExactMatch) {
-        for (const pc of city.postcode) {
-          if (pc.includes(postcode)) {
-            matches.push({
-              state: state.name,
-              city: city.name,
-              postcode: pc
-            });
-          }
-        }
-      }
-    }
-  }
-
-  if (!isExactMatch && matches.length > 0) {
-    return {
-      found: true,
-      results: matches
-    };
-  }
-
-  return { found: false };
+  return optimizedData.findPostcode(postcode, isExactMatch);
 };
 
 /**
@@ -260,23 +537,7 @@ export const findPostcode = (
  * @returns An array of matching postcodes
  */
 export const getPostcodesByPrefix = (prefix: string | null): string[] => {
-  if (!prefix || prefix.length < 1 || prefix.length > 5) {
-    return [];
-  }
-
-  const matchingPostcodes: string[] = [];
-
-  for (const stateData of allPostcodes) {
-    for (const cityData of stateData.city) {
-      for (const postcode of cityData.postcode) {
-        if (postcode.startsWith(prefix)) {
-          matchingPostcodes.push(postcode);
-        }
-      }
-    }
-  }
-
-  return matchingPostcodes;
+  return optimizedData.getPostcodesByPrefix(prefix);
 };
 
 /**
@@ -285,41 +546,7 @@ export const getPostcodesByPrefix = (prefix: string | null): string[] => {
  * @returns An object containing matched states, cities, and postcodes.
  */
 export const searchAll = (query: string | null): SearchAllResult => {
-  if (!query || query.trim().length === 0) {
-    return { found: false, states: [], cities: [], postcodes: [] };
-  }
-
-  const queryLower = query.toLowerCase().trim();
-  const states: string[] = [];
-  const cities: IndividualCityResult[] = [];
-  const postcodes: { state: string; city: string; postcode: string }[] = [];
-
-  allPostcodes.forEach(state => {
-    if (state.name.toLowerCase().includes(queryLower)) {
-      states.push(state.name);
-    }
-  });
-
-  const cityResults = findCities(query, false);
-  if (cityResults.found && cityResults.results) {
-    cities.push(...cityResults.results);
-  }
-
-  const postcodeResults = findPostcode(query, false);
-  if (postcodeResults.found && postcodeResults.results) {
-    postcodes.push(...postcodeResults.results);
-  }
-
-  const hasResults =
-    states.length > 0 || cities.length > 0 || postcodes.length > 0;
-
-  if (!hasResults) {
-    return { found: false, states: [], cities: [], postcodes: [] };
-  }
-
-  const result: SearchAllResult = { found: true, states, cities, postcodes };
-
-  return result;
+  return optimizedData.searchAll(query);
 };
 
 /**
@@ -327,16 +554,7 @@ export const searchAll = (query: string | null): SearchAllResult => {
  * @returns A random postcode string.
  */
 export const getRandomPostcode = (): string => {
-  const allPostcodesList: string[] = [];
-
-  allPostcodes.forEach(state => {
-    state.city.forEach(city => {
-      allPostcodesList.push(...city.postcode);
-    });
-  });
-
-  const randomIndex = Math.floor(Math.random() * allPostcodesList.length);
-  return allPostcodesList[randomIndex];
+  return optimizedData.getRandomPostcode();
 };
 
 /**
@@ -345,27 +563,7 @@ export const getRandomPostcode = (): string => {
  * @returns A random city name string.
  */
 export const getRandomCity = (stateName?: string | null): string => {
-  let availableCities: string[] = [];
-
-  if (stateName) {
-    const stateObj = allPostcodes.find(
-      state => state.name.toLowerCase() === stateName.toLowerCase()
-    );
-    if (stateObj) {
-      availableCities = stateObj.city.map(city => city.name);
-    }
-  } else {
-    allPostcodes.forEach(state => {
-      availableCities.push(...state.city.map(city => city.name));
-    });
-  }
-
-  if (availableCities.length === 0) {
-    return '';
-  }
-
-  const randomIndex = Math.floor(Math.random() * availableCities.length);
-  return availableCities[randomIndex];
+  return optimizedData.getRandomCity(stateName);
 };
 
 /**
@@ -373,7 +571,5 @@ export const getRandomCity = (stateName?: string | null): string => {
  * @returns A random state name string.
  */
 export const getRandomState = (): string => {
-  const states = getStates();
-  const randomIndex = Math.floor(Math.random() * states.length);
-  return states[randomIndex];
+  return optimizedData.getRandomState();
 };
