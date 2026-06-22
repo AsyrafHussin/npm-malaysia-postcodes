@@ -223,50 +223,43 @@ class OptimizedDataStructure {
         : { found: false };
     }
 
-    // Check cache
-    const cacheKey = `${cityName}:${isExactMatch}`;
-    if (this.citySearchCache.has(cacheKey)) {
-      return this.citySearchCache.get(cacheKey)!;
-    }
-
     const cityLower = cityName.toLowerCase();
 
     if (isExactMatch) {
-      // O(1) exact lookup; first occurrence matches the original behaviour.
+      // Exact lookup is already O(1) via the city index, so there is no
+      // need to cache it. First occurrence matches the original behaviour.
       const entries = this.cityIndex.get(cityLower);
       if (entries && entries.length > 0) {
         const first = entries[0];
-        const result = {
+        return {
           found: true,
           state: first.state,
           city: first.city,
           postcodes: first.postcodes
         };
-        this.manageCacheSize(this.citySearchCache);
-        this.citySearchCache.set(cacheKey, result);
-        return result;
       }
-    } else {
-      // Partial matching over a flat, data-ordered list preserves the
-      // original ordering and any duplicate city names across states.
-      const results: IndividualCityResult[] = [];
-      for (const entry of this.allCitiesFlat) {
-        if (entry.city.toLowerCase().includes(cityLower)) {
-          results.push(entry);
-        }
-      }
+      return { found: false };
+    }
 
-      if (results.length > 0) {
-        const result = { found: true, results };
-        this.manageCacheSize(this.citySearchCache);
-        this.citySearchCache.set(cacheKey, result);
-        return result;
+    // Partial matching scans every city, so cache the result keyed by the
+    // normalised query. A flat, data-ordered list preserves the original
+    // ordering and any duplicate city names across states.
+    const cached = this.citySearchCache.get(cityLower);
+    if (cached) {
+      return cached;
+    }
+
+    const results: IndividualCityResult[] = [];
+    for (const entry of this.allCitiesFlat) {
+      if (entry.city.toLowerCase().includes(cityLower)) {
+        results.push(entry);
       }
     }
 
-    const result = { found: false };
+    const result: CitySearchResult =
+      results.length > 0 ? { found: true, results } : { found: false };
     this.manageCacheSize(this.citySearchCache);
-    this.citySearchCache.set(cacheKey, result);
+    this.citySearchCache.set(cityLower, result);
     return result;
   }
 
@@ -323,48 +316,40 @@ class OptimizedDataStructure {
         : { found: false };
     }
 
-    // Check cache
-    const cacheKey = `${postcode}:${isExactMatch}`;
-    if (this.postcodeSearchCache.has(cacheKey)) {
-      return this.postcodeSearchCache.get(cacheKey)!;
-    }
-
     if (isExactMatch) {
-      // O(1) exact lookup (first occurrence).
+      // Exact lookup is already O(1) via the postcode index (first
+      // occurrence), so there is no need to cache it.
       const location = this.postcodeExactMap.get(postcode);
       if (location) {
-        const result = {
+        return {
           found: true,
           state: location.state,
           city: location.city,
           postcode: postcode
         };
-        this.manageCacheSize(this.postcodeSearchCache);
-        this.postcodeSearchCache.set(cacheKey, result);
-        return result;
       }
-    } else {
-      // Partial matching over a flat, data-ordered list preserves the
-      // original ordering and any postcodes shared by multiple cities.
-      const matches: { state: string; city: string; postcode: string }[] = [];
+      return { found: false };
+    }
 
-      for (const entry of this.allPostcodesFlat) {
-        if (entry.postcode.includes(postcode)) {
-          matches.push(entry);
-        }
-      }
+    // Partial matching scans every postcode, so cache it keyed by the query.
+    // A flat, data-ordered list preserves the original ordering and any
+    // postcodes shared by multiple cities.
+    const cached = this.postcodeSearchCache.get(postcode);
+    if (cached) {
+      return cached;
+    }
 
-      if (matches.length > 0) {
-        const result = { found: true, results: matches };
-        this.manageCacheSize(this.postcodeSearchCache);
-        this.postcodeSearchCache.set(cacheKey, result);
-        return result;
+    const matches: { state: string; city: string; postcode: string }[] = [];
+    for (const entry of this.allPostcodesFlat) {
+      if (entry.postcode.includes(postcode)) {
+        matches.push(entry);
       }
     }
 
-    const result = { found: false };
+    const result: PostcodeSearchResult =
+      matches.length > 0 ? { found: true, results: matches } : { found: false };
     this.manageCacheSize(this.postcodeSearchCache);
-    this.postcodeSearchCache.set(cacheKey, result);
+    this.postcodeSearchCache.set(postcode, result);
     return result;
   }
 
@@ -401,12 +386,13 @@ class OptimizedDataStructure {
       return { found: false, states: [], cities: [], postcodes: [] };
     }
 
-    // Check cache first for ultra-fast lookup
-    if (this.searchAllCache.has(query)) {
-      return this.searchAllCache.get(query)!;
-    }
-
     const queryLower = query.toLowerCase().trim();
+
+    // Check cache first (keyed by the normalised query for a better hit rate).
+    const cachedSearch = this.searchAllCache.get(queryLower);
+    if (cachedSearch) {
+      return cachedSearch;
+    }
     const states: string[] = [];
     const cities: IndividualCityResult[] = [];
     const postcodes: { state: string; city: string; postcode: string }[] = [];
@@ -438,7 +424,7 @@ class OptimizedDataStructure {
 
     // Cache the result for future ultra-fast access
     this.manageCacheSize(this.searchAllCache);
-    this.searchAllCache.set(query, result);
+    this.searchAllCache.set(queryLower, result);
     return result;
   }
 

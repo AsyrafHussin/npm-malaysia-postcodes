@@ -167,42 +167,33 @@ var malaysiaPostcodes = (() => {
         }
         return allResults.length > 0 ? { found: true, results: allResults } : { found: false };
       }
-      const cacheKey = `${cityName}:${isExactMatch}`;
-      if (this.citySearchCache.has(cacheKey)) {
-        return this.citySearchCache.get(cacheKey);
-      }
       const cityLower = cityName.toLowerCase();
       if (isExactMatch) {
         const entries = this.cityIndex.get(cityLower);
         if (entries && entries.length > 0) {
           const first = entries[0];
-          const result2 = {
+          return {
             found: true,
             state: first.state,
             city: first.city,
             postcodes: first.postcodes
           };
-          this.manageCacheSize(this.citySearchCache);
-          this.citySearchCache.set(cacheKey, result2);
-          return result2;
         }
-      } else {
-        const results = [];
-        for (const entry of this.allCitiesFlat) {
-          if (entry.city.toLowerCase().includes(cityLower)) {
-            results.push(entry);
-          }
-        }
-        if (results.length > 0) {
-          const result2 = { found: true, results };
-          this.manageCacheSize(this.citySearchCache);
-          this.citySearchCache.set(cacheKey, result2);
-          return result2;
+        return { found: false };
+      }
+      const cached = this.citySearchCache.get(cityLower);
+      if (cached) {
+        return cached;
+      }
+      const results = [];
+      for (const entry of this.allCitiesFlat) {
+        if (entry.city.toLowerCase().includes(cityLower)) {
+          results.push(entry);
         }
       }
-      const result = { found: false };
+      const result = results.length > 0 ? { found: true, results } : { found: false };
       this.manageCacheSize(this.citySearchCache);
-      this.citySearchCache.set(cacheKey, result);
+      this.citySearchCache.set(cityLower, result);
       return result;
     }
     getPostcodes(state, city) {
@@ -239,40 +230,31 @@ var malaysiaPostcodes = (() => {
         }
         return allMatches.length > 0 ? { found: true, results: allMatches } : { found: false };
       }
-      const cacheKey = `${postcode}:${isExactMatch}`;
-      if (this.postcodeSearchCache.has(cacheKey)) {
-        return this.postcodeSearchCache.get(cacheKey);
-      }
       if (isExactMatch) {
         const location = this.postcodeExactMap.get(postcode);
         if (location) {
-          const result2 = {
+          return {
             found: true,
             state: location.state,
             city: location.city,
             postcode
           };
-          this.manageCacheSize(this.postcodeSearchCache);
-          this.postcodeSearchCache.set(cacheKey, result2);
-          return result2;
         }
-      } else {
-        const matches = [];
-        for (const entry of this.allPostcodesFlat) {
-          if (entry.postcode.includes(postcode)) {
-            matches.push(entry);
-          }
-        }
-        if (matches.length > 0) {
-          const result2 = { found: true, results: matches };
-          this.manageCacheSize(this.postcodeSearchCache);
-          this.postcodeSearchCache.set(cacheKey, result2);
-          return result2;
+        return { found: false };
+      }
+      const cached = this.postcodeSearchCache.get(postcode);
+      if (cached) {
+        return cached;
+      }
+      const matches = [];
+      for (const entry of this.allPostcodesFlat) {
+        if (entry.postcode.includes(postcode)) {
+          matches.push(entry);
         }
       }
-      const result = { found: false };
+      const result = matches.length > 0 ? { found: true, results: matches } : { found: false };
       this.manageCacheSize(this.postcodeSearchCache);
-      this.postcodeSearchCache.set(cacheKey, result);
+      this.postcodeSearchCache.set(postcode, result);
       return result;
     }
     getPostcodesByPrefix(prefix) {
@@ -300,10 +282,11 @@ var malaysiaPostcodes = (() => {
       if (!query || query.trim().length === 0) {
         return { found: false, states: [], cities: [], postcodes: [] };
       }
-      if (this.searchAllCache.has(query)) {
-        return this.searchAllCache.get(query);
-      }
       const queryLower = query.toLowerCase().trim();
+      const cachedSearch = this.searchAllCache.get(queryLower);
+      if (cachedSearch) {
+        return cachedSearch;
+      }
       const states = [];
       const cities = [];
       const postcodes = [];
@@ -323,7 +306,7 @@ var malaysiaPostcodes = (() => {
       const hasResults = states.length > 0 || cities.length > 0 || postcodes.length > 0;
       const result = hasResults ? { found: true, states, cities, postcodes } : { found: false, states: [], cities: [], postcodes: [] };
       this.manageCacheSize(this.searchAllCache);
-      this.searchAllCache.set(query, result);
+      this.searchAllCache.set(queryLower, result);
       return result;
     }
     getRandomPostcode() {
