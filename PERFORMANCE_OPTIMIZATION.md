@@ -91,6 +91,17 @@ This report documents the performance optimizations implemented in `src/index-op
 
 ### Benchmark Results (Latest Performance Test)
 
+> **Methodology note.** The figures below were measured with repeated
+> identical inputs, so they largely reflect warm-cache (cache-hit) behaviour
+> rather than raw algorithmic speed. With unique / non-repeating queries the
+> real gains are more modest — roughly: exact lookups ~50–70x (Map vs scan),
+> prefix search ~10x (trie), pre-computed lists ~10x, and `findPostcode`
+> (exact) is roughly on par with the original (the cache-key overhead slightly
+> outweighs the original early-return for single lookups). The speedups are
+> still real for the heavy search functions, just smaller than the headline
+> numbers suggest. Functional parity with `src/index.ts` is verified by
+> `__tests__/index-optimize.test.ts`.
+
 | Function | Original (ms) | Optimized (ms) | Speedup | Improvement | Test Cases |
 |----------|---------------|----------------|---------|-------------|------------|
 | `getStates` | 1.92 | 0.52 | **3.7x** | 73.1% | 10,000 |
