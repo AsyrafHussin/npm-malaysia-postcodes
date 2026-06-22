@@ -5,9 +5,9 @@ import { readFileSync } from 'fs';
 const packageJson = JSON.parse(readFileSync('./package.json', 'utf8'));
 
 const banner = `/*!
- * 
+ *
  *   malaysia-postcodes v${packageJson.version} (https://github.com/AsyrafHussin/npm-malaysia-postcodes)
- *   Copyright 2020-2025 Asyraf Hussin
+ *   Copyright 2020-${new Date().getFullYear()} Asyraf Hussin
  *   Licensed under ISC (https://github.com/AsyrafHussin/npm-malaysia-postcodes/blob/main/LICENSE)
  *
  */`;
