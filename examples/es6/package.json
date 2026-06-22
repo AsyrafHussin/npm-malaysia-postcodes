@@ -19,12 +19,12 @@
   "author": "Asyraf Hussin <asyrafhussin@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "vite": "^6.4.1"
+    "vite": "^8.0.16"
   },
   "dependencies": {
     "malaysia-postcodes": "^2.7.3"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.19.0"
   }
 }

@@ -6,13 +6,9 @@ import {
   getPostcodesByPrefix,
   getStates
 } from 'malaysia-postcodes';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 function App() {
-  const [states, setStates] = useState<string[]>([]);
-  const [cities, setCities] = useState<string[]>([]);
-  const [postcodes, setPostcodes] = useState<string[]>([]);
-
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedPostcode, setSelectedPostcode] = useState('');
@@ -21,40 +17,37 @@ function App() {
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
 
-  useEffect(() => {
-    const allStates = getStates();
-    setStates(allStates);
-  }, []);
+  // Derive dependent lists during render instead of syncing them with
+  // effects (see https://react.dev/learn/you-might-not-need-an-effect).
+  const states = useMemo(() => getStates(), []);
+  const cities = useMemo(
+    () => (selectedState ? getCities(selectedState) : []),
+    [selectedState]
+  );
+  const postcodes = useMemo(
+    () =>
+      selectedState && selectedCity
+        ? getPostcodes(selectedState, selectedCity)
+        : [],
+    [selectedState, selectedCity]
+  );
 
-  useEffect(() => {
-    if (selectedState) {
-      const stateCities = getCities(selectedState);
-      setCities(stateCities);
-      setSelectedCity('');
-      setSelectedPostcode('');
-      setPostcodes([]);
-    } else {
-      setCities([]);
-      setPostcodes([]);
-    }
-  }, [selectedState]);
+  const handleStateChange = (state: string) => {
+    setSelectedState(state);
+    setSelectedCity('');
+    setSelectedPostcode('');
+  };
 
-  useEffect(() => {
-    if (selectedState && selectedCity) {
-      const cityPostcodes = getPostcodes(selectedState, selectedCity);
-      setPostcodes(cityPostcodes);
-      setSelectedPostcode('');
-    } else {
-      setPostcodes([]);
-    }
-  }, [selectedState, selectedCity]);
+  const handleCityChange = (city: string) => {
+    setSelectedCity(city);
+    setSelectedPostcode('');
+  };
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
 
     if (query.length >= 2) {
-      const results = getPostcodesByPrefix(query);
-      setSearchResults(results.slice(0, 10));
+      setSearchResults(getPostcodesByPrefix(query).slice(0, 10));
       setShowDropdown(true);
     } else {
       setSearchResults([]);
@@ -86,7 +79,7 @@ function App() {
             <label>State:</label>
             <select
               value={selectedState}
-              onChange={e => setSelectedState(e.target.value)}
+              onChange={e => handleStateChange(e.target.value)}
             >
               <option value="">-- Select State --</option>
               {states.map(state => (
@@ -102,7 +95,7 @@ function App() {
             <label>City:</label>
             <select
               value={selectedCity}
-              onChange={e => setSelectedCity(e.target.value)}
+              onChange={e => handleCityChange(e.target.value)}
               disabled={!selectedState}
             >
               <option value="">-- Select City --</option>

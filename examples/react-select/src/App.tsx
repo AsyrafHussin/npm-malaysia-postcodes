@@ -5,13 +5,16 @@ import {
   getPostcodesByPrefix,
   getStates
 } from 'malaysia-postcodes';
-import { useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import './styles.css';
 
 interface Option {
   value: string;
   label: string;
 }
+
+const toOptions = (values: string[]): Option[] =>
+  values.map(value => ({ value, label: value }));
 
 function App() {
   const [selectedState, setSelectedState] = useState('');
@@ -21,53 +24,30 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<Option[]>([]);
 
-  const [stateOptions, setStateOptions] = useState<Option[]>([]);
-  const [cityOptions, setCityOptions] = useState<Option[]>([]);
-  const [postcodeOptions, setPostcodeOptions] = useState<Option[]>([]);
-
-  useEffect(() => {
-    const states = getStates().map(state => ({
-      value: state,
-      label: state
-    }));
-    setStateOptions(states);
-  }, []);
-
-  useEffect(() => {
-    if (selectedState) {
-      const cities = getCities(selectedState).map(city => ({
-        value: city,
-        label: city
-      }));
-      setCityOptions(cities);
-    } else {
-      setCityOptions([]);
-    }
-    setSelectedCity('');
-    setSelectedPostcode('');
-  }, [selectedState]);
-
-  useEffect(() => {
-    if (selectedState && selectedCity) {
-      const postcodes = getPostcodes(selectedState, selectedCity).map(
-        postcode => ({
-          value: postcode,
-          label: postcode
-        })
-      );
-      setPostcodeOptions(postcodes);
-    } else {
-      setPostcodeOptions([]);
-    }
-    setSelectedPostcode('');
-  }, [selectedState, selectedCity]);
+  // Derive dependent option lists during render instead of syncing them
+  // with effects (see https://react.dev/learn/you-might-not-need-an-effect).
+  const stateOptions = useMemo(() => toOptions(getStates()), []);
+  const cityOptions = useMemo(
+    () => (selectedState ? toOptions(getCities(selectedState)) : []),
+    [selectedState]
+  );
+  const postcodeOptions = useMemo(
+    () =>
+      selectedState && selectedCity
+        ? toOptions(getPostcodes(selectedState, selectedCity))
+        : [],
+    [selectedState, selectedCity]
+  );
 
   const handleStateChange = (selectedOption: SingleValue<Option>) => {
     setSelectedState(selectedOption?.value || '');
+    setSelectedCity('');
+    setSelectedPostcode('');
   };
 
   const handleCityChange = (selectedOption: SingleValue<Option>) => {
     setSelectedCity(selectedOption?.value || '');
+    setSelectedPostcode('');
   };
 
   const handlePostcodeChange = (selectedOption: SingleValue<Option>) => {
@@ -89,12 +69,9 @@ function App() {
         inputValue.length <= 5 &&
         /^\d+$/.test(inputValue)
       ) {
-        const results = getPostcodesByPrefix(inputValue);
-        const options = results.slice(0, 10).map(postcode => ({
-          value: postcode,
-          label: postcode
-        }));
-        setSearchResults(options);
+        setSearchResults(
+          toOptions(getPostcodesByPrefix(inputValue).slice(0, 10))
+        );
       } else {
         setSearchResults([]);
       }
@@ -102,13 +79,8 @@ function App() {
   };
 
   const handleSearchSelect = (selectedOption: SingleValue<Option>) => {
-    if (selectedOption) {
-      setSearchTerm(selectedOption.value);
-      setSearchResults([]);
-    } else {
-      setSearchTerm('');
-      setSearchResults([]);
-    }
+    setSearchTerm(selectedOption ? selectedOption.value : '');
+    setSearchResults([]);
   };
 
   const getSelectedOption = (
