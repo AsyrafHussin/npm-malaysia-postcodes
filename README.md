@@ -6,20 +6,28 @@ A Comprehensive NPM Package of Malaysia Postcodes, Complete with City and State 
 [![Downloads/week](https://img.shields.io/npm/dw/malaysia-postcodes.svg)](https://npmjs.org/package/malaysia-postcodes)
 [![NPM monthly downloads](https://img.shields.io/npm/dm/malaysia-postcodes.svg?style=flat)](https://www.npmjs.com/package/malaysia-postcodes)
 [![NPM total downloads](https://img.shields.io/npm/dt/malaysia-postcodes.svg?style=flat)](https://www.npmjs.com/package/malaysia-postcodes)
-[![License](https://img.shields.io/npm/l/malaysia-postcodes.svg)](https://github.com/AsyrafHussin/npm-malaysia-postcodes/blob/main/package.json)
+[![License](https://img.shields.io/npm/l/malaysia-postcodes.svg)](https://github.com/AsyrafHussin/npm-malaysia-postcodes/blob/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Types](https://img.shields.io/npm/types/malaysia-postcodes.svg)](https://www.npmjs.com/package/malaysia-postcodes)
 [![GitHub Workflow Status](https://github.com/AsyrafHussin/npm-malaysia-postcodes/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/AsyrafHussin/npm-malaysia-postcodes/actions)
 
 ## Overview
 
 `malaysia-postcodes` is an npm package that provides a comprehensive list of Malaysia postcodes, along with the corresponding city and state information. It is a handy tool for developers and researchers who require postal data for Malaysia in their projects.
 
+**Features:**
+
+- **Zero runtime dependencies** — lightweight and safe to drop into any project
+- **TypeScript types built-in** — full intellisense, no `@types` package needed
+- **ESM & CommonJS** — works with both `import` and `require`, tree-shakeable
+- **Rich helpers** — look up by state, city, or postcode; prefix and universal search; random data
+
 ## Table of Contents
 
 - [Installation](#installation)
   - [NPM](#npm)
-  - [Yarn](#yarn)
   - [CDN via jsDelivr](#cdn-via-jsdelivr)
+- [Quick Start](#quick-start)
 - [Imports](#imports)
   - [ES Modules (Recommended)](#es-modules-recommended)
   - [CommonJS](#commonjs)
@@ -58,11 +66,7 @@ Install the package from NPM.
 npm i malaysia-postcodes
 ```
 
-### Yarn
-
-```bash
-yarn add malaysia-postcodes
-```
+> Requires Node.js 18 or newer.
 
 ### CDN via jsDelivr
 
@@ -73,6 +77,26 @@ yarn add malaysia-postcodes
 <!-- Minified version -->
 <script src="https://cdn.jsdelivr.net/npm/malaysia-postcodes@2.7.3/dist/malaysia-postcodes.min.js"></script>
 ```
+
+## Quick Start
+
+```js
+import { getStates, getPostcodes, findPostcode } from 'malaysia-postcodes';
+
+// List every state
+getStates();
+// => ["Wp Kuala Lumpur", "Johor", "Kedah", ...]
+
+// Get postcodes for a specific city
+getPostcodes('Selangor', 'Shah Alam');
+// => ["40000", "40100", "40140", ...]
+
+// Look up a postcode
+findPostcode('40170');
+// => { found: true, state: "Selangor", city: "Shah Alam", postcode: "40170" }
+```
+
+See [Usage](#usage) for the full API.
 
 ## Imports
 
@@ -776,13 +800,13 @@ The library is equipped with unit tests to ensure its functionality and reliabil
 
 To run the tests, follow these steps:
 
-1.Ensure you have all dependencies installed:
+1. Ensure you have all dependencies installed:
 
 ```bash
 npm ci
 ```
 
-2.Run the test command:
+2. Run the test command:
 
 ```bash
 npm test
@@ -812,7 +836,10 @@ This package is built on the data from the [Malaysia Postcodes GitHub repository
 
 ## Contributing
 
-If you find any inaccuracies, typos, or missing data, we welcome contributions! Please feel free to open an issue or submit a pull request.
+Contributions are welcome! Where you contribute depends on what you want to change:
+
+- **Postcode data** (inaccuracies, typos, missing or incorrect postcodes and cities) — report or submit it to the upstream data repository, [AsyrafHussin/malaysia-postcodes](https://github.com/AsyrafHussin/malaysia-postcodes). This package syncs its data from there.
+- **Package code, types, or feature requests** — open an issue or pull request in this repository.
 
 ## License
 
