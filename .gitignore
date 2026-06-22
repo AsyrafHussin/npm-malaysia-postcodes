@@ -3,3 +3,7 @@ coverage/
 .eslintcache
 .DS_Store
 .claude/
+
+# Example apps are demos; their lockfiles are not committed so Dependabot
+# does not scan example transitive dependencies.
+examples/**/package-lock.json
