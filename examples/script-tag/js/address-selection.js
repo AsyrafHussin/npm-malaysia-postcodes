@@ -95,9 +95,9 @@ function setupAddressEventListeners() {
     clearAddressResult();
 
     if (selectedCity) {
-      showAddressResult(
-        `Selected: <strong>${selectedState} → ${selectedCity}</strong>. Please select a postcode.`
-      );
+      const selection = document.createElement('strong');
+      selection.textContent = `${selectedState} → ${selectedCity}`;
+      showAddressResult('Selected: ', selection, '. Please select a postcode.');
     }
   });
 
@@ -114,18 +114,39 @@ function setupAddressEventListeners() {
 }
 
 function showCompleteAddress(state, city, postcode) {
-  const message = `
-        <strong>✅ Complete Address Selected:</strong><br>
-        📍 State: <code>${state}</code><br>
-        🏘️ City: <code>${city}</code><br>
-        📮 Postcode: <code>${postcode}</code>
-    `;
-  showAddressResult(message);
+  const title = document.createElement('strong');
+  title.textContent = '✅ Complete Address Selected:';
+
+  const stateCode = document.createElement('code');
+  stateCode.textContent = state;
+  const cityCode = document.createElement('code');
+  cityCode.textContent = city;
+  const postcodeCode = document.createElement('code');
+  postcodeCode.textContent = postcode;
+
+  showAddressResult(
+    title,
+    document.createElement('br'),
+    '📍 State: ',
+    stateCode,
+    document.createElement('br'),
+    '🏘️ City: ',
+    cityCode,
+    document.createElement('br'),
+    '📮 Postcode: ',
+    postcodeCode
+  );
 }
 
-function showAddressResult(message) {
+function showAddressResult(...nodes) {
   const resultDiv = document.getElementById('cascade-result');
-  resultDiv.innerHTML = `<div class="result success">${message}</div>`;
+  resultDiv.innerHTML = '';
+
+  const result = document.createElement('div');
+  result.className = 'result success';
+  result.append(...nodes);
+
+  resultDiv.appendChild(result);
 }
 
 function clearAddressResult() {

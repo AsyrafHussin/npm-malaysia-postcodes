@@ -74,12 +74,24 @@ function selectSuggestion(postcode) {
 
   searchInput.value = postcode;
   hideDropdown();
-  showSearchResult(`Selected postcode: <strong>${postcode}</strong>`);
+  showSearchResult('Selected postcode: ', postcode);
 }
 
-function showSearchResult(message) {
+function showSearchResult(message, highlight) {
   const resultDiv = document.getElementById('search-result');
-  resultDiv.innerHTML = `<div class="result success">${message}</div>`;
+  resultDiv.innerHTML = '';
+
+  const result = document.createElement('div');
+  result.className = 'result success';
+  result.append(message);
+
+  if (highlight) {
+    const strong = document.createElement('strong');
+    strong.textContent = highlight;
+    result.append(strong);
+  }
+
+  resultDiv.appendChild(result);
 }
 
 function clearSearchResult() {
