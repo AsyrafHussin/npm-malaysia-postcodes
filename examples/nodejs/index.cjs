@@ -39,8 +39,8 @@ const location = findPostcode('15000');
 console.log(location, '\n');
 
 // Universal search
-console.log('🔎 Universal search for "Penang":');
-const searchResults = searchAll('Penang');
+console.log('🔎 Universal search for "Pulau Pinang":');
+const searchResults = searchAll('Pulau Pinang');
 console.log('States found:', searchResults.states);
 console.log('Cities found:', searchResults.cities.length, 'cities');
 console.log('Postcodes found:', searchResults.postcodes.length, 'postcodes\n');

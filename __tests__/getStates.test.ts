@@ -24,7 +24,7 @@ describe('getStates', () => {
       'Melaka',
       'Negeri Sembilan',
       'Pahang',
-      'Penang',
+      'Pulau Pinang',
       'Perak',
       'Perlis',
       'Wp Putrajaya',

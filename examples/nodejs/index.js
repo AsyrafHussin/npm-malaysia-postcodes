@@ -49,5 +49,5 @@ console.log('Postcodes found:', searchResults.postcodes.length, 'postcodes\n');
 console.log('🎲 Random data examples:');
 console.log('Random postcode:', getRandomPostcode());
 console.log('Random city:', getRandomCity());
-console.log('Random city in Penang:', getRandomCity('Penang'));
+console.log('Random city in Pulau Pinang:', getRandomCity('Pulau Pinang'));
 console.log('Random state:', getRandomState()); 
