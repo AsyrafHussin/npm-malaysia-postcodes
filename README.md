@@ -152,7 +152,7 @@ const cityResults = window.malaysiaPostcodes.findCities("Pasir Mas");
 const postcodes = window.malaysiaPostcodes.getPostcodes("Kelantan", "Pasir Mas");
 const prefixPostcodes = window.malaysiaPostcodes.getPostcodesByPrefix("170");
 const location = window.malaysiaPostcodes.findPostcode("17070");
-const searchResults = window.malaysiaPostcodes.searchAll("Penang");
+const searchResults = window.malaysiaPostcodes.searchAll("Pulau Pinang");
 const randomPostcode = window.malaysiaPostcodes.getRandomPostcode();
 const randomCity = window.malaysiaPostcodes.getRandomCity("Selangor");
 const randomState = window.malaysiaPostcodes.getRandomState();
@@ -220,7 +220,7 @@ Example results:
   "Melaka",
   "Negeri Sembilan",
   "Pahang",
-  "Penang",
+  "Pulau Pinang",
   "Perak",
   "Perlis",
   "Sabah",
@@ -524,7 +524,7 @@ Example usage:
 
 ```js
 // Search for a state
-const stateSearch = searchAll("Penang");
+const stateSearch = searchAll("Pulau Pinang");
 
 // Search for cities containing a term
 const citySearch = searchAll("Kota");
@@ -542,7 +542,7 @@ const universalSearch = searchAll("Kuala");
 #### Example 1: Searching for a state name
 
 ```js
-searchAll("Penang")
+searchAll("Pulau Pinang")
 ```
 
 Result:
@@ -550,12 +550,12 @@ Result:
 ```js
 {
   "found": true,
-  "states": ["Penang"],
+  "states": ["Pulau Pinang"],
   "cities": [
     {
-      "state": "Penang",
-      "city": "Penang Hill", 
-      "postcodes": ["11300"]
+      "state": "Pulau Pinang",
+      "city": "Pulau Pinang",
+      "postcodes": ["10000"]
     }
   ],
   "postcodes": []

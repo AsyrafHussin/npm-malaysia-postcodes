@@ -59,10 +59,10 @@ describe('searchAll', () => {
   });
 
   it('should return multiple types of results', () => {
-    const result = searchAll('Penang');
+    const result = searchAll('Pulau Pinang');
 
     expect(result.found).toBe(true);
-    expect(result.states).toContain('Penang');
+    expect(result.states).toContain('Pulau Pinang');
   });
 
   it('should return { found: false } for non-existent query', () => {
@@ -84,7 +84,7 @@ describe('searchAll', () => {
   });
 
   it('should always return consistent format with all three arrays', () => {
-    const result = searchAll('Penang');
+    const result = searchAll('Pulau Pinang');
 
     expect(result).toHaveProperty('found');
     expect(result).toHaveProperty('states');
