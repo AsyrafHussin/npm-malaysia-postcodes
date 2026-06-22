@@ -31,7 +31,8 @@ jobs:
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org/
+      # Trusted publishing via OIDC needs npm >= 11.5.1 (newer than the
+      # version bundled with Node 22). No NPM token is required.
+      - run: npm install -g npm@latest
       - run: npm ci
       - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
